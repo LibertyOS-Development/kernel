@@ -1,6 +1,15 @@
 [package]
 name = "kernel"
-version = "0.0.1"
+version = "0.0.3"
 edition = "2018"
 
 [dependencies]
+bootloader = "0.9.8"
+goodnight = "0.1.2"
+volatile = "0.2.6"
+
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"
