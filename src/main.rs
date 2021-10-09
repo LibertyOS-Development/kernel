@@ -4,7 +4,7 @@
 use bootloader::{entry_point, BootInfo};
 use core::panic::PanicInfo;
 mod vgabuffer;
-extern crate goodnight;
+//extern crate goodnight;
 
 
 entry_point!(kernel);
@@ -12,7 +12,7 @@ entry_point!(kernel);
 #[no_mangle]
 fn kernel(bootinfo: &'static BootInfo) -> !
 {
-	vgabuffer::print_whatever();
+//	vgabuffer::print_whatever();
 	loop {}
 }
 

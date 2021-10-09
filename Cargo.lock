@@ -9,17 +9,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b7c452074efc3c0bfb241fb7bc87df04741c7c85e926f6a07c05f8fbd6008240"
 
 [[package]]
-name = "goodnight"
-version = "0.1.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ef747cbad4ad5617af7d44af29bc39e68ea670017e046f7db92763961c5a3c18"
-
-[[package]]
 name = "kernel"
 version = "0.0.3"
 dependencies = [
  "bootloader",
- "goodnight",
  "volatile",
 ]
 
