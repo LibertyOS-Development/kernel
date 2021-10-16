@@ -1,15 +1,25 @@
 [package]
 name = "kernel"
-version = "0.0.3"
+version = "0.1.1"
 edition = "2018"
 
 [dependencies]
 bootloader = "0.9.8"
-#goodnight = "0.1.2"
+#goodnight = "0.1.2" WIP
 volatile = "0.2.6"
+#volmem = "0.1.1" Needs some work.
+x86_64 = "0.14.2"
+#x64
+#rlibc = "0.1.4"
+spin = "0.5.2"
 
 [profile.dev]
 panic = "abort"
 
 [profile.release]
 panic = "abort"
+
+[dependencies.lazy_static]
+version = "1.0"
+features = ["spin_no_std"]
+

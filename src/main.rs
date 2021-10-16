@@ -1,18 +1,14 @@
 #![no_main]
 #![no_std]
 
-use bootloader::{entry_point, BootInfo};
 use core::panic::PanicInfo;
-mod vgabuffer;
+mod vgabuff;
 //extern crate goodnight;
 
 
-entry_point!(kernel);
-
 #[no_mangle]
-fn kernel(bootinfo: &'static BootInfo) -> !
+pub extern "C" fn _start() -> !
 {
-//	vgabuffer::print_whatever();
 	loop {}
 }
 
