@@ -9,11 +9,13 @@ mod vgabuff;
 #[no_mangle]
 pub extern "C" fn _start() -> !
 {
+	println!("WELCOME TO LIBERTYOS");
 	loop {}
 }
 
 #[panic_handler]
-fn panic(_info: &PanicInfo) -> !
+fn panic(info: &PanicInfo) -> !
 {
+	println!("{}", info);
 	loop {}
 }
