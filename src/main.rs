@@ -1,3 +1,5 @@
+#![feature(custom_test_frameworks)]
+#![test_runner(crate::testexec)]
 #![no_main]
 #![no_std]
 
@@ -18,4 +20,14 @@ fn panic(info: &PanicInfo) -> !
 {
 	println!("{}", info);
 	loop {}
+}
+
+#[cfg(test)]
+fn testexec(tests: &[&dyn Fn()])
+{
+	prinln!("[LIBERTYOS] EXECUTING {} TESTS", tests.len());
+	for test in tests
+	{
+		test();
+	}
 }
