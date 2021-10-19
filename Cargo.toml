@@ -1,6 +1,6 @@
 [package]
 name = "kernel"
-version = "0.2.1"
+version = "0.2.2"
 edition = "2018"
 
 [dependencies]
@@ -22,4 +22,8 @@ panic = "abort"
 [dependencies.lazy_static]
 version = "1.0"
 features = ["spin_no_std"]
+
+
+[package.metadata.bootimage]
+test-args = ["-device", "isa-debug-exit,iobase=0xf4,iosize=0x04"]
 
