@@ -1,17 +1,18 @@
 [package]
 name = "kernel"
-version = "0.2.2"
+version = "0.2.3"
 edition = "2018"
 
 [dependencies]
 bootloader = "0.9.8"
-#goodnight = "0.1.2" WIP
+#goodnight = "0.1.2" Needs alloc.
 volatile = "0.2.6"
 #volmem = "0.1.1" Needs some work.
 x86_64 = "0.14.2"
-#x64
-#rlibc = "0.1.4"
+#x64 WIP
 spin = "0.5.2"
+#Recreate this:
+uart_16550 = "0.2.0"
 
 [profile.dev]
 panic = "abort"
@@ -26,4 +27,4 @@ features = ["spin_no_std"]
 
 [package.metadata.bootimage]
 test-args = ["-device", "isa-debug-exit,iobase=0xf4,iosize=0x04"]
-
+test-success-exit-code = 33

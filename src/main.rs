@@ -6,7 +6,7 @@
 
 use core::panic::PanicInfo;
 mod vgabuff;
-
+mod ser;
 
 
 #[no_mangle]
@@ -47,11 +47,12 @@ pub fn exitqemu(exitcode: QEMUExitCode)
 #[cfg(test)]
 fn testexec(tests: &[&dyn Fn()])
 {
-	prinln!("[LIBERTYOS] EXECUTING {} TESTS", tests.len());
+	println!("[LIBERTYOS] EXECUTING {} TESTS", tests.len());
 	for test in tests
 	{
 		test();
 	}
+	exitqemu(QEMUExitCode::Success);
 }
 
 #[test_case]
