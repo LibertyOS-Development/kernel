@@ -13,3 +13,25 @@ lazy_static!
 		Mutex::new(serport)
 	};
 }
+
+#[doc(hidden)]
+pub fn _print(args: ::core::fmt::Arguments)
+{
+	use core::fmt::Write;
+		SER1.lock().write_fmt(args).expect("[ERR] FAILED TO PRINT TO SERIAL");
+}
+
+#[macro_export]
+macro_rules! serprint {
+	($($arg:tt)*) => {
+		$crate::ser::_print(format_args!($($arg)*));		
+	};
+}
+
+#[macro_export]
+macro_rules! serprintln
+{
+	() => ($crate::serprint!("\n"));
+	($fmt:expr) => ($crate::serprint!(concat!($fmt, "\n")));
+	($fmt:expr, $($arg:tt)*) => ($crate::serprint!(concat!($fmt, "\n"), $($arg)*));
+}
