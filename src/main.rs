@@ -48,10 +48,9 @@ pub fn exitqemu(exitcode: QEMUExitCode)
 #[cfg(test)]
 fn testexec(tests: &[&dyn Fn()])
 {
-	println!("[LIBERTYOS] EXECUTING {} TESTS", tests.len());
+	serprintln!("[LIBERTYOS] EXECUTING {} TESTS", tests.len());
 	for test in tests
-	{
-		test();
+	{		test();
 	}
 	exitqemu(QEMUExitCode::Success);
 }
@@ -59,7 +58,7 @@ fn testexec(tests: &[&dyn Fn()])
 #[test_case]
 fn trivassert()
 {
-	print!("[TEST] TRIVIAL ASSERTION... ");
+	serprint!("[TEST] TRIVIAL ASSERTION... ");
 	assert_eq!(1, 1);
-	println!("[TEST] SUCCESS");
+	serprintln!("[TEST] SUCCESS");
 }

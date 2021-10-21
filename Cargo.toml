@@ -1,7 +1,10 @@
 [package]
 name = "kernel"
-version = "0.2.5"
+version = "0.2.6"
 edition = "2018"
+license = "Apache-2.0"
+authors = ["Daniel P. Teberian"]
+repository = "https://github.com/LibertyOS-Development/kernel"
 
 [dependencies]
 bootloader = "0.9.8"
