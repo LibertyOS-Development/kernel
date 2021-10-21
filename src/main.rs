@@ -37,13 +37,14 @@ pub enum QEMUExitCode
 pub fn exitqemu(exitcode: QEMUExitCode)
 {
 	use x86_64::instructions::port::Port; //TODO: Use x64.
-	unsafe //TODO: If possible, find a safe way of implementing this.
+	unsafe
 	{
 		let mut port = Port::new(0xf4);
 		port.write(exitcode as u32);
 	}
 }
 
+//TODO: FIX ISSUES WITH TESTS NOT COMPILING
 #[cfg(test)]
 fn testexec(tests: &[&dyn Fn()])
 {
