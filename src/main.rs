@@ -55,21 +55,45 @@ pub fn exitqemu(exitcode: QEMUExitCode)
 	}
 }
 
+
+pub trait CanTest
+{
+	fn run(&self) -> ();
+}
+
+impl<T> CanTest for T
+where
+	T: Fn(),
+{
+	fn run(&self)
+	{
+		serprint!("{}...\t", core::any::type_name::<T>());
+		self();
+		serprintln!("[SUCCESS]");
+	}
+}
+
+
 //TODO: FIX ISSUES WITH TESTS NOT COMPILING
 #[cfg(test)]
-fn testexec(tests: &[&dyn Fn()])
+fn testexec(tests: &[&dyn CanTest])
 {
 	serprintln!("[LIBERTYOS] EXECUTING {} TESTS", tests.len());
 	for test in tests
-	{		test();
+	{		
+		test.run();
 	}
 	exitqemu(QEMUExitCode::Success);
 }
 
 #[test_case]
-fn trivassert()
+fn test_trivassert()
 {
-	serprint!("[TEST] TRIVIAL ASSERTION... ");
 	assert_eq!(1, 1);
-	serprintln!("[TEST] SUCCESS");
+}
+
+#[test_case]
+fn test_simple_println()
+{
+	println!("[TEST] TEST_SIMPLE_PRINTLN OUTPUT");
 }

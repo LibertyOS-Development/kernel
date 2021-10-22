@@ -1,5 +1,20 @@
 Version History
 
+0.3.0
+ - Removed the [profile.dev] section from Cargo.toml.
+ - Removed the [profile.release] section from Cargo.toml.
+ - Added the CanTest trait to src/main.rs.
+ - Added an implementation of the CanTest trait, to src/main.rs.
+ - Added the test_simple_println test-case.
+ - Renamed the trivassert test case to test_trivassert, so that the test-cases are easily identifiable.
+ - Removed the previous method of executing tests, found in the "for test in tests" section of the testexec function.
+ - Implemented CanTest's run to the testexec function.
+ - Removed the text that was printed when executing the test_trivassert test-case.
+ - Fixed the issues that prevented "cargo test" from compiling successfully. The included tests should work as intended.
+
+0.2.9
+ - Added an key to the [package.metadata.bootimage], so that QEMU exits after five minutes of running the trivassert test case.
+
 0.2.8
  - Configured Cargo.toml, so that when running tests (using QEMU), information is output to serial, rather than to the VGA buffer, in a seperate window.
  - Modified the formatting used in the "test-args" attribute of the [package.metadata.bootimage] section. The changes in question serve no functional purpose, but make the file look nicer. :) 

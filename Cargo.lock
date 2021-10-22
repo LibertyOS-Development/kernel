@@ -22,7 +22,7 @@ checksum = "b7c452074efc3c0bfb241fb7bc87df04741c7c85e926f6a07c05f8fbd6008240"
 
 [[package]]
 name = "kernel"
-version = "0.2.7"
+version = "0.2.8"
 dependencies = [
  "bootloader",
  "lazy_static",

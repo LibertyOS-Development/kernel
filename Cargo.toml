@@ -1,6 +1,6 @@
 [package]
 name = "kernel"
-version = "0.2.8"
+version = "0.3.0"
 edition = "2018"
 license = "Apache-2.0"
 authors = ["Daniel P. Teberian"]
@@ -17,12 +17,6 @@ spin = "0.5.2"
 #Recreate this:
 uart_16550 = "0.2.0"
 
-[profile.dev]
-panic = "abort"
-
-[profile.release]
-panic = "abort"
-
 [dependencies.lazy_static]
 version = "1.0"
 features = ["spin_no_std"]
@@ -34,3 +28,4 @@ test-args = [
 		"-display", "none"
 	    ]
 test-success-exit-code = 33
+test-timeout = 300
