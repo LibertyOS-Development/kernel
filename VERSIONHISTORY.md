@@ -1,5 +1,8 @@
 Version History
 
+0.2.7
+ - Configured bootimage's arguments, in Cargo.toml, so that QEMU prints messages to stdout, in addition to being output to the VGA buffer.
+
 0.2.6
  - Modified the trivassert test case, so that it uses the serprint and serprintln macros
  - Added some details to the Cargo.toml, so that the kernel can be published to crates.io (It has not been published, but should be in the near future)

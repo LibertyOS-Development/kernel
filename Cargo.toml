@@ -1,6 +1,6 @@
 [package]
 name = "kernel"
-version = "0.2.6"
+version = "0.2.7"
 edition = "2018"
 license = "Apache-2.0"
 authors = ["Daniel P. Teberian"]
@@ -29,5 +29,5 @@ features = ["spin_no_std"]
 
 
 [package.metadata.bootimage]
-test-args = ["-device", "isa-debug-exit,iobase=0xf4,iosize=0x04"]
+test-args = ["-device", "isa-debug-exit,iobase=0xf4,iosize=0x04", "-serial", "stdio"]
 test-success-exit-code = 33
