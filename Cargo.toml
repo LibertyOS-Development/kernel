@@ -1,6 +1,6 @@
 [package]
 name = "kernel"
-version = "0.2.7"
+version = "0.2.8"
 edition = "2018"
 license = "Apache-2.0"
 authors = ["Daniel P. Teberian"]
