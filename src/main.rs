@@ -19,10 +19,21 @@ pub extern "C" fn _start() -> !
 	loop {}
 }
 
+#[cfg(not(test))] // PANIC HANDLER FOR RELEASE
 #[panic_handler]
 fn panic(info: &PanicInfo) -> !
 {
 	println!("{}", info);
+	loop {}
+}
+
+#[cfg(test)]
+#[panic_handler] // PANIC HANDLER FOR DEBUG/TESTING
+fn panic(info: &PanicInfo) -> !
+{
+	serprintln!("[PANIC]\n");
+	serprintln!("[ERR]: {}\n", info);
+	exitqemu(QEMUExitCode::Failure);
 	loop {}
 }
 
