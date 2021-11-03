@@ -1,10 +1,11 @@
 [package]
-name = "kernel"
-version = "0.3.0"
+name = "libertyos_kernel"
+version = "0.3.2"
 edition = "2018"
 license = "Apache-2.0"
 authors = ["Daniel P. Teberian"]
 repository = "https://github.com/LibertyOS-Development/kernel"
+description = "The kernel for Liberty."
 
 [dependencies]
 bootloader = "0.9.8"

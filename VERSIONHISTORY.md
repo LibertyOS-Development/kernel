@@ -1,5 +1,19 @@
 Version History
 
+
+0.3.2
+ - Renamed the name of the crate to "libertyos_kernel".
+ - Created a new library to handle tests.
+ - Added the basicboot test.
+ - Removed a TODO note from main.rs, about fixing the issues that prevented the kernel from compiling for testing.
+ - Created a lib.rs file, with some basic code to handle the kernel's ever-expanding code.
+ - Removed some code from main.rs, as lib.rs now handles part of what main.rs used to handle.
+ - Integrated the tests crate into the kernel's code, so that the whole thing compiles. The tests panic, but that should be fixed soon.
+
+0.3.1
+ - Added a rust-toolchain file, so that the nightly version of Rust is used by default.
+ - Commented out a test-case that was preventing the kernel from compiling.
+
 0.3.0
  - Removed the [profile.dev] section from Cargo.toml.
  - Removed the [profile.release] section from Cargo.toml.

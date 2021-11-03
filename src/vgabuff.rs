@@ -170,3 +170,33 @@ pub fn _print(args: fmt::Arguments) {
     WRITER.lock().write_fmt(args).unwrap();
 }
 
+
+// Prints something to the VGA buffer
+#[test_case]
+fn test_println_simple()
+{
+	println!("TEST_PRINTLN_SIMPLE OUTPUT");
+}
+
+// Prints many lines to the VGA buffer
+#[test_case]
+fn test_println_many()
+{
+	for _ in 0..200
+	{
+		println!("TEST_PRINTLN_MANY OUTPUT");
+	}
+}
+
+// Verify that printed lines is actually...printed.
+//#[test_case]
+//fn TEST_PRINTLN_OUTPUT()
+//{
+//	let s = "THIS IS A TEST";
+//	println!("{}", s);
+//	for (i, c) in s.chars().enumerate()
+//	{
+//		let screenchar = WRITER.lock().buff.chars[BUFFH - 2][i].read();
+//		assert_eq!(char::from(screenchar.asciichar), c);
+//	}
+//}

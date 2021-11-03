@@ -5,6 +5,7 @@
 #![no_std]
 
 use core::panic::PanicInfo;
+//use libertyos_kernel::println;
 mod vgabuff;
 mod ser;
 
@@ -12,8 +13,15 @@ mod ser;
 #[no_mangle]
 pub extern "C" fn _start() -> !
 {
-	println!("WELCOME TO LIBERTYOS");
+//	println!("#	 	###");
+//	println!("#		 #");
+//	println!("#		 #");
+//	println!("#		 #");
+//	println!("#		 #");
+//	println!("######	###");
 
+
+	println!("If you can read this text, LibertyOS' kernel has been loaded successfully.");
 	#[cfg(test)]
 	testmain();
 	loop {}
@@ -31,10 +39,7 @@ fn panic(info: &PanicInfo) -> !
 #[panic_handler] // PANIC HANDLER FOR DEBUG/TESTING
 fn panic(info: &PanicInfo) -> !
 {
-	serprintln!("[PANIC]\n");
-	serprintln!("[ERR]: {}\n", info);
-	exitqemu(QEMUExitCode::Failure);
-	loop {}
+	libertyos_kernel::test_panic_handler(info)
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -73,14 +78,12 @@ where
 	}
 }
 
-
-//TODO: FIX ISSUES WITH TESTS NOT COMPILING
 #[cfg(test)]
 fn testexec(tests: &[&dyn CanTest])
 {
 	serprintln!("[LIBERTYOS] EXECUTING {} TESTS", tests.len());
 	for test in tests
-	{		
+	{
 		test.run();
 	}
 	exitqemu(QEMUExitCode::Success);
@@ -90,10 +93,4 @@ fn testexec(tests: &[&dyn CanTest])
 fn test_trivassert()
 {
 	assert_eq!(1, 1);
-}
-
-#[test_case]
-fn test_simple_println()
-{
-	println!("[TEST] TEST_SIMPLE_PRINTLN OUTPUT");
 }
