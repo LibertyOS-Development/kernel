@@ -30,19 +30,12 @@ dependencies = [
 ]
 
 [[package]]
-name = "libc"
-version = "0.2.106"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a60553f9a9e039a333b4e9b20573b9e9b9c0bb3a11e201ccc48ef4283456d673"
-
-[[package]]
 name = "libertyos_kernel"
 version = "0.4.1"
 dependencies = [
  "bootloader",
  "lazy_static",
  "spin",
- "time",
  "uart_16550",
  "volatile 0.2.7",
  "x86_64",
@@ -53,15 +46,6 @@ name = "spin"
 version = "0.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6e63cff320ae2c57904679ba7cb63280a3dc4613885beafb148ee7bf9aa9042d"
-
-[[package]]
-name = "time"
-version = "0.3.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "99beeb0daeac2bd1e86ac2c21caddecb244b39a093594da1a661ec2060c7aedd"
-dependencies = [
- "libc",
-]
 
 [[package]]
 name = "uart_16550"

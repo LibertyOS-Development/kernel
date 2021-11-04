@@ -12,6 +12,11 @@ pub mod ser;
 pub mod vgabuff;
 //pub mod tests;
 
+pub fn init()
+{
+	intr::idtinit();
+}
+
 pub trait CanTest
 {
 	fn exec(&self) -> ();
@@ -51,6 +56,7 @@ pub fn test_panic_handler(info: &PanicInfo) -> !
 #[no_mangle]
 pub extern "C" fn _start() -> !
 {
+	init();
 	testmain();
 	loop {}
 }

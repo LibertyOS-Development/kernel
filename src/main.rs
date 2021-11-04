@@ -5,8 +5,7 @@
 #![no_std]
 
 use core::panic::PanicInfo;
-use time::*;
-//use libertyos_kernel::println;
+//use time::*;
 mod vgabuff;
 mod ser;
 
@@ -14,17 +13,12 @@ mod ser;
 #[no_mangle]
 pub extern "C" fn _start() -> !
 {
-//	println!("#	 	###");
-//	println!("#		 #");
-//	println!("#		 #");
-//	println!("#		 #");
-//	println!("#		 #");
-//	println!("######	###");
+	libertyos_kernel::init();
+	x86_64::instructions::interrupts::int3();
 
-
-	println!("If you can read this text, LibertyOS' kernel has been loaded successfully.");
 	#[cfg(test)]
 	testmain();
+	println!("If you can read this, LibertyOS has prevented a crash.");
 	loop {}
 }
 

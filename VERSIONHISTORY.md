@@ -1,5 +1,19 @@
 Version History
 
+0.4.2
+ - Given the fact that the time crate has not been implemented yet, it was commented out in main.rs, and in Cargo.toml.
+ - Gutted the majority of code for the idtinit function (src/intr.rs).
+ - Imported lazy_static into src/intr.rs.
+ - Implemented an IDT, using lazy_static.
+ - Added a function (init), to src/lib.rs, which uses src/intr.rs to handle interrupts.
+ - Introduced the init function to the _start function of src/main.rs.
+ - Removed several commented out lines, from a failed attempted to draw ASCII art. The lines in question were in the _start function on src/main.rs.
+ - Removed the message that was displayed when the kernel was loaded successfully.
+ - Introduced a breakpoint exception to the _start function of src/main.rs.
+ - Added a message to notify the user of the kernel preventing a crash, due to the newly-added breakpointe exception (see _start, src/main.rs).
+ - Implemented a call to init, in the test _start function of src/lib.rs.
+ - Added a test-case to src/intr.rs (test_breakpnt_exc).
+
 0.4.1
  - Added support for the time crate, but said crate has not been put to any use, as of now.
  - Removed some notes that were cluttering up the Cargo.toml file.

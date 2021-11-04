@@ -1,6 +1,6 @@
 [package]
 name = "libertyos_kernel"
-version = "0.4.1"
+version = "0.4.2"
 edition = "2018"
 license = "Apache-2.0"
 authors = ["Daniel P. Teberian"]
@@ -12,7 +12,7 @@ bootloader = "0.9.8"
 volatile = "0.2.6"
 x86_64 = "0.14.2"
 spin = "0.5.2"
-time = { version = "0.3.4", default-features = false }
+#time = { version = "0.3.4", default-features = false }
 uart_16550 = "0.2.0"
 
 [dependencies.lazy_static]
