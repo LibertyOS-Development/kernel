@@ -1,6 +1,11 @@
 Version History
 
 
+0.3.3
+ - Fixed the issue that would cause the kernel to panic when running the basicboot test.
+ - Added the shouldfail test-case to the shouldpanic component of the tests library.
+ - Removed the test-harness for the shouldpanic test.
+
 0.3.2
  - Renamed the name of the crate to "libertyos_kernel".
  - Created a new library to handle tests.
