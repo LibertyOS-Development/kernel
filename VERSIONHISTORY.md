@@ -1,5 +1,8 @@
 Version History
 
+0.4.1
+ - Added support for the time crate, but said crate has not been put to any use, as of now.
+ - Removed some notes that were cluttering up the Cargo.toml file.
 
 0.4.0
  - Implemented a basic method for handling CPU exceptions (see src/intr.rs).

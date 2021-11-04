@@ -1,6 +1,6 @@
 [package]
 name = "libertyos_kernel"
-version = "0.4.0"
+version = "0.4.1"
 edition = "2018"
 license = "Apache-2.0"
 authors = ["Daniel P. Teberian"]
@@ -9,19 +9,15 @@ description = "The kernel for Liberty."
 
 [dependencies]
 bootloader = "0.9.8"
-#goodnight = "0.1.2" Needs alloc.
 volatile = "0.2.6"
-#volmem = "0.1.1" Needs some work.
 x86_64 = "0.14.2"
-#x64 WIP
 spin = "0.5.2"
-#Recreate this:
+time = { version = "0.3.4", default-features = false }
 uart_16550 = "0.2.0"
 
 [dependencies.lazy_static]
 version = "1.0"
 features = ["spin_no_std"]
-
 
 [package.metadata.bootimage]
 test-args = [

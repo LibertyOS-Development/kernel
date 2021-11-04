@@ -5,6 +5,7 @@
 #![no_std]
 
 use core::panic::PanicInfo;
+use time::*;
 //use libertyos_kernel::println;
 mod vgabuff;
 mod ser;
