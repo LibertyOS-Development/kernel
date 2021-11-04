@@ -1,11 +1,13 @@
 #![no_std]
 #![cfg_attr(test, no_main)]
 #![feature(custom_test_frameworks)]
+#![feature(abi_x86_interrupt)]
 #![test_runner(crate::testexec)]
 #![reexport_test_harness_main = "testmain"]
 
 use core::panic::PanicInfo;
 
+pub mod intr;
 pub mod ser;
 pub mod vgabuff;
 //pub mod tests;

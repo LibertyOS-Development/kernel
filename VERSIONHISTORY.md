@@ -1,6 +1,10 @@
 Version History
 
 
+0.4.0
+ - Implemented a basic method for handling CPU exceptions (see src/intr.rs).
+ - Enabled the "abi_x86_interrupt" feature.
+
 0.3.3
  - Fixed the issue that would cause the kernel to panic when running the basicboot test.
  - Added the shouldfail test-case to the shouldpanic component of the tests library.

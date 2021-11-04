@@ -31,7 +31,7 @@ dependencies = [
 
 [[package]]
 name = "libertyos_kernel"
-version = "0.3.2"
+version = "0.3.3"
 dependencies = [
  "bootloader",
  "lazy_static",
