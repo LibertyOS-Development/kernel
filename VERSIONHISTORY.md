@@ -1,5 +1,16 @@
 Version History
 
+0.5.0 - HANDLING DOUBLE-FAULTS
+ - Removed a line (_start, src/main.rs) that caused an intentional breakpoint exception.
+ - Added notes to major versions of the kernel.
+ - Added a function to handle double-fault exceptions (src/intr.rs).
+ - Added a comment to identify the breakpoint exception handler (src/intr.rs).
+ - Added a comment to identify the double-fault exception handler (src/intr.rs).
+ - Added support for the gdt module (src/lib.rs).
+ - Created the gdt module.
+ - Created a basic task state segment (TSS) (src/gdt.rs).
+ - Removed an unneccesary line that referenced the "tests" module, despite said module not existing (src/lib.rs).
+
 0.4.2
  - Given the fact that the time crate has not been implemented yet, it was commented out in main.rs, and in Cargo.toml.
  - Gutted the majority of code for the idtinit function (src/intr.rs).
@@ -18,7 +29,7 @@ Version History
  - Added support for the time crate, but said crate has not been put to any use, as of now.
  - Removed some notes that were cluttering up the Cargo.toml file.
 
-0.4.0
+0.4.0 - BASIC HANDLING OF CPU EXCEPTIONS
  - Implemented a basic method for handling CPU exceptions (see src/intr.rs).
  - Enabled the "abi_x86_interrupt" feature.
 
@@ -40,7 +51,7 @@ Version History
  - Added a rust-toolchain file, so that the nightly version of Rust is used by default.
  - Commented out a test-case that was preventing the kernel from compiling.
 
-0.3.0
+0.3.0 - BASIC TESTING
  - Removed the [profile.dev] section from Cargo.toml.
  - Removed the [profile.release] section from Cargo.toml.
  - Added the CanTest trait to src/main.rs.

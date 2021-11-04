@@ -14,11 +14,12 @@ mod ser;
 pub extern "C" fn _start() -> !
 {
 	libertyos_kernel::init();
-	x86_64::instructions::interrupts::int3();
 
 	#[cfg(test)]
 	testmain();
-	println!("If you can read this, LibertyOS has prevented a crash.");
+	println!("LIBERTY-OS");
+	println!("KERNEL VERSION 0.5.0");
+	println!("[MSG] NO ERRORS HAVE BEEN DETECTED.");
 	loop {}
 }
 

@@ -7,10 +7,10 @@
 
 use core::panic::PanicInfo;
 
+pub mod gdt;
 pub mod intr;
 pub mod ser;
 pub mod vgabuff;
-//pub mod tests;
 
 pub fn init()
 {

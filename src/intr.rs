@@ -18,9 +18,17 @@ pub fn idtinit()
 	IDT.load();
 }
 
+// Handles breakpoint execptions.
 extern "x86-interrupt" fn breakpnt_handler(stackframe: InterruptStackFrame)
 {
 	println!("[EXC] BREAKPOINT\n{:#?}", stackframe);
+}
+
+
+// Handles double-fault exceptions.
+extern "x86-interrupt" fn doubleflt_handler(stackframe: InterruptStackFrame, _errcode: u64) -> !
+{
+	panic!("[EXC] DOUBLE-FAULT\n{:#?}", stackframe);
 }
 
 
