@@ -1,5 +1,12 @@
 Version History
 
+0.5.1
+ - Added a basic global descriptor table implementation (src/gdt.rs).
+ - Added an init function to handle loading the newly-added GDT (src/gdt.rs).
+ - Added a line of code, to the existing init function, to load the init function of gdt (src/lib.rs).
+ - Updated the version number (Cargo.toml).
+ - Updated the version number (src/main.rs).
+
 0.5.0 - HANDLING DOUBLE-FAULTS
  - Removed a line (_start, src/main.rs) that caused an intentional breakpoint exception.
  - Added notes to major versions of the kernel.

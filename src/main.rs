@@ -18,7 +18,7 @@ pub extern "C" fn _start() -> !
 	#[cfg(test)]
 	testmain();
 	println!("LIBERTY-OS");
-	println!("KERNEL VERSION 0.5.0");
+	println!("KERNEL VERSION 0.5.1");
 	println!("[MSG] NO ERRORS HAVE BEEN DETECTED.");
 	loop {}
 }

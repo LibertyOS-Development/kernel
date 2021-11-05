@@ -1,6 +1,8 @@
 use x86_64::structures::idt::{InterruptDescriptorTable, InterruptStackFrame};
 use lazy_static::lazy_static;
 use crate::println;
+use crate::gdt;
+// convert to one line
 
 
 lazy_static!
@@ -9,6 +11,12 @@ lazy_static!
 	{
 		let mut idt = InterruptDescriptorTable::new();
 		idt.breakpoint.set_handler_fn(breakpnt_handler);
+		unsafe
+		{
+			idt.double_fault
+				.set_handler_fn(doubleflt_handler)
+				.set_stack_index(gdt::DOUBLEFAULT_IST_IDX);
+		}
 		idt
 	};
 }

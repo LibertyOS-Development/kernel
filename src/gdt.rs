@@ -1,4 +1,5 @@
 use x86_64::VirtAddr;
+use x86_64::structures::gdt::{GlobalDescriptorTable, Descriptor, SegmentSelector};
 use x86_64::structures::tss::TaskStateSegment;
 use lazy_static::lazy_static;
 
@@ -17,4 +18,40 @@ lazy_static!
 		};
 		tss
 	};
+}
+
+lazy_static!
+{
+	static ref GDT: (GlobalDescriptorTable, Selectors) = {
+		let mut gdt = GlobalDescriptorTable::new();
+		let codesel = gdt.add_entry(Descriptor::kernel_code_segment());
+		let tsssel = gdt.add_entry(Descriptor::tss_segment(&TSS));
+		(
+			gdt,
+			Selectors
+			{
+				codesel,
+				tsssel,
+			 },
+		)
+	};
+}
+
+struct Selectors
+{
+	codesel: SegmentSelector,
+	tsssel: SegmentSelector,
+}
+
+
+pub fn init()
+{
+	use x86_64::instructions::segmentation::set_cs;
+	use x86_64::instructions::tables::load_tss;
+	GDT.0.load();
+	unsafe
+	{
+		set_cs(GDT.1.codesel);
+		load_tss(GDT.1.tsssel);
+	}
 }

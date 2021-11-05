@@ -14,6 +14,7 @@ pub mod vgabuff;
 
 pub fn init()
 {
+	gdt::init();
 	intr::idtinit();
 }
 

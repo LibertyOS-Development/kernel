@@ -24,7 +24,7 @@ pub fn _print(args: ::core::fmt::Arguments)
 #[macro_export]
 macro_rules! serprint {
 	($($arg:tt)*) => {
-		$crate::ser::_print(format_args!($($arg)*));		
+		$crate::ser::_print(format_args!($($arg)*));
 	};
 }
 
