@@ -1,5 +1,8 @@
 Version History
 
+0.5.2
+ - I really wish I did not need to update the version number, just to add a README, but I needed a README, so I had to put out a pointless update.
+
 0.5.1
  - Added a basic global descriptor table implementation (src/gdt.rs).
  - Added an init function to handle loading the newly-added GDT (src/gdt.rs).
