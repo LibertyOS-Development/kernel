@@ -1,5 +1,10 @@
 Version History
 
+
+
+0.5.3
+ - Added the stackoverflow test.
+
 0.5.2
  - I really wish I did not need to update the version number, just to add a README, but I needed a README, so I had to put out a pointless update.
 
