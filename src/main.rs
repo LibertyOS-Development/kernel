@@ -5,7 +5,9 @@
 #![no_std]
 
 use core::panic::PanicInfo;
+//use embedded_graphics::{image::Image, prelude::*, pixelcolor::Rgb565};
 //use time::*;
+//use tinybmp::Bmp;
 mod vgabuff;
 mod ser;
 
@@ -18,9 +20,13 @@ pub extern "C" fn _start() -> !
 	#[cfg(test)]
 	testmain();
 	println!("LIBERTY-OS");
-	println!("KERNEL VERSION 0.5.1");
+	println!("KERNEL VERSION 0.6.0");
 	println!("[MSG] NO ERRORS HAVE BEEN DETECTED.");
 	loop {}
+
+//	let libertyoslogo = include_bytes!("graphics/images/bmp/Logo-Light.bmp");
+//	let logo = Bmp::<Rgb565>::from_slice(libertyoslogo).unwrap();
+//	Image::new(&logo, Point::new(10, 20)).draw(&mut vgabuff::Buffer)?;
 }
 
 #[cfg(not(test))] // PANIC HANDLER FOR RELEASE

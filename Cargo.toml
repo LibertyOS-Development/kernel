@@ -9,10 +9,12 @@ description = "The kernel for Liberty."
 
 [dependencies]
 bootloader = "0.9.8"
+embedded-graphics = "0.7.1"
 volatile = "0.2.6"
 x86_64 = "0.14.2"
 spin = "0.5.2"
 #time = { version = "0.3.4", default-features = false }
+tinybmp = "0.3.1"
 uart_16550 = "0.2.0"
 
 [dependencies.lazy_static]
