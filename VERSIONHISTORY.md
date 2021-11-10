@@ -1,7 +1,7 @@
 Version History
 
 
-0.6.0
+0.5.4
  - Updated the version number (src/main.rs).
  - Added embedded-graphics to Cargo.toml.
  - Added tinybmp to Cargo.toml.

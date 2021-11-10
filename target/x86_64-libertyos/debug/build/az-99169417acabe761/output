@@ -1,0 +1,6 @@
+$ mkdir -p "/Projects/Projects/Programming/Repositories/LibertyOS-Development/kernel2/target/x86_64-libertyos/debug/build/az-99169417acabe761/out/try_track_caller"
+$ cd "/Projects/Projects/Programming/Repositories/LibertyOS-Development/kernel2/target/x86_64-libertyos/debug/build/az-99169417acabe761/out/try_track_caller"
+$ printf '%s' "// try_tra"... > "/Projects/Projects/Programming/Repositories/LibertyOS-Development/kernel2/target/x86_64-libertyos/debug/build/az-99169417acabe761/out/try_track_caller/try_track_caller.rs"
+$ "rustc" "try_track_caller.rs" "--emit=dep-info,metadata" >& /dev/null
+cargo:rustc-cfg=track_caller
+$ rm -r "/Projects/Projects/Programming/Repositories/LibertyOS-Development/kernel2/target/x86_64-libertyos/debug/build/az-99169417acabe761/out/try_track_caller"
