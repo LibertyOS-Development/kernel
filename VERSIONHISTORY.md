@@ -1,5 +1,20 @@
 Version History
 
+0.6.0 - HARDWARE INTERRUPTS
+ - Added support for pic8259 (Cargo.toml).
+ - Made a new .gitignore file.
+ - Added /target/ (.gitignore).
+ - Added Cargo.lock (.gitignore).
+ - Imported the spin crate (src/intr.rs).
+ - Importerd the pic8259 crate (src/intr.rs).
+ - Updated the kernel version that is displayed (src/main.rs).
+ - Added code to init (src/lib.rs), to initialize PICS (src/intr.rs).
+ - Enabled hardware interrupts (src/lib.rs).
+ - Removed the line about no errors being detected, as I have just learned that said message is displayed, even if errors occur (src/main.rs).
+ - Rewrote the test_println_output test (src/vgabuff.rs).
+ - Added some code to avoid deadlocks (src/vgabuff.rs).
+ NOTE: The tests have been hanging on the test_println_many test-case, but this should be addressed in the next update.
+ NOTE: The welcome messages may be printed more than once. This is going to be addressed in the next version.
 
 0.5.4
  - Updated the version number (src/main.rs).

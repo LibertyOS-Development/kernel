@@ -166,8 +166,11 @@ macro_rules! println {
 /// Prints the given formatted string to the VGA text buffer through the global `WRITER` instance.
 #[doc(hidden)]
 pub fn _print(args: fmt::Arguments) {
-    use core::fmt::Write;
-    WRITER.lock().write_fmt(args).unwrap();
+	use core::fmt::Write;
+	WRITER.lock().write_fmt(args).unwrap();
+
+	use x86_64::instructions::interrupts;
+	interrupts::without_interrupts(|| { WRITER.lock().write_fmt(args).unwrap(); });
 }
 
 
@@ -188,15 +191,20 @@ fn test_println_many()
 	}
 }
 
-// Verify that printed lines is actually...printed.
-//#[test_case]
-//fn TEST_PRINTLN_OUTPUT()
-//{
-//	let s = "THIS IS A TEST";
-//	println!("{}", s);
-//	for (i, c) in s.chars().enumerate()
-//	{
-//		let screenchar = WRITER.lock().buff.chars[BUFFH - 2][i].read();
-//		assert_eq!(char::from(screenchar.asciichar), c);
-//	}
-//}
+fn test_println_output()
+{
+	use core::fmt::Write;
+	use x86_64::instructions::interrupts;
+
+	let s = "[MSG] TEST";
+	interrupts::without_interrupts(||
+	{
+		let mut writer = WRITER.lock();
+		writeln!(writer, "\n{}", s).expect("[ERR] WRITELN FAILURE");
+		for (i, c) in s.chars().enumerate()
+		{
+			let screenchar = writer.buffer.chars[BUFFER_HEIGHT - 2][i].read();
+			assert_eq!(char::from(screenchar.ascii_character), c);
+		}
+	});
+}

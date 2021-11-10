@@ -16,6 +16,11 @@ pub fn init()
 {
 	gdt::init();
 	intr::idtinit();
+	unsafe
+	{
+		intr::PICS.lock().initialize()
+	};
+	x86_64::instructions::interrupts::enable();
 }
 
 pub trait CanTest

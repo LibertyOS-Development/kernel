@@ -20,9 +20,12 @@ pub extern "C" fn _start() -> !
 	#[cfg(test)]
 	testmain();
 	println!("LIBERTY-OS");
-	println!("KERNEL VERSION 0.5.4");
-	println!("[MSG] NO ERRORS HAVE BEEN DETECTED.");
-	loop {}
+	println!("KERNEL VERSION 0.6.0");
+	loop
+	{
+		use libertyos_kernel::print;
+		print!("-");
+	}
 
 //	let libertyoslogo = include_bytes!("graphics/images/bmp/Logo-Light.bmp");
 //	let logo = Bmp::<Rgb565>::from_slice(libertyoslogo).unwrap();

@@ -81,11 +81,12 @@ dependencies = [
 
 [[package]]
 name = "libertyos_kernel"
-version = "0.5.3"
+version = "0.5.4"
 dependencies = [
  "bootloader",
  "embedded-graphics",
  "lazy_static",
+ "pic8259",
  "spin",
  "tinybmp",
  "uart_16550",
@@ -122,6 +123,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9a64b1ec5cda2586e284722486d802acf1f7dbdc623e2bfc57e65ca1cd099290"
 dependencies = [
  "autocfg",
+]
+
+[[package]]
+name = "pic8259"
+version = "0.10.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "24ec21f514e2e16e94649f1d041ca4a7069b512c037ac156360652a775e6229d"
+dependencies = [
+ "x86_64",
 ]
 
 [[package]]
