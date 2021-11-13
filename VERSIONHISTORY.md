@@ -15,6 +15,7 @@
  - Implemented keyboard_interrupt_handler (src/intr.rs).
  - Condensed the code of timer_interrupt_handler (src/intr.rs).
  - Added "Keyboard" to IntrIdx (src/intr.rs).
+ - Added support for the number keys. I know that it would be very difficult to write in just numbers (although, you could still use binary), but the fact that the kernel can now detect keystrokes is awesome.
 
 0.6.0 - HARDWARE INTERRUPTS
  - Added support for pic8259 (Cargo.toml).
