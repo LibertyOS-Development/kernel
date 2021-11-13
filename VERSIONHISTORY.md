@@ -1,4 +1,20 @@
-Version History
+\Version History
+
+0.7.0 - KEYBOARD SUPPORT, MINOR OPTIMIZATIONS
+ - Commented out a test-case that causes the testing to hang (test_println_many, src/vgabuff.rs).
+ - Added a copy of the current license to the root directory of the repository.
+ - Created the hltloop function (src/lib.rs).
+ - Removed commented-out imports (src/main.rs).
+ - Removed some commented-out lines from a failed attempt to print the LibertyOS logo upon startup (src/main.rs).
+ - Replaced loop with libertyos_kernel::hltloop (_start, src/main.rs).
+ - Replaced loop with libertyos_kernel::hltloop (panic, src/main.rs).
+ - Replaced loop with the hltloop function (_start, src/lib.rs).
+ - Replaced loop with the hltloop function (test_panic_handler, src/lib.rs).
+ - Condensed several imports into a single line of code (src/intr.rs).
+ - Removed a comment that reminded me to condense the imports (see above) (src/intr.rs).
+ - Implemented keyboard_interrupt_handler (src/intr.rs).
+ - Condensed the code of timer_interrupt_handler (src/intr.rs).
+ - Added "Keyboard" to IntrIdx (src/intr.rs).
 
 0.6.0 - HARDWARE INTERRUPTS
  - Added support for pic8259 (Cargo.toml).

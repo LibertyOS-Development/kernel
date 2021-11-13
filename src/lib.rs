@@ -23,6 +23,14 @@ pub fn init()
 	x86_64::instructions::interrupts::enable();
 }
 
+pub fn hltloop() -> !
+{
+	loop
+	{
+		x86_64::instructions::hlt();
+	}
+}
+
 pub trait CanTest
 {
 	fn exec(&self) -> ();
@@ -55,7 +63,7 @@ pub fn test_panic_handler(info: &PanicInfo) -> !
 	serprintln!("[FAILURE]\n");
 	serprintln!("[ERR]: {}\n", info);
 	exitqemu(QEMUExitCode::Failure);
-	loop {}
+	hltloop();
 }
 
 #[cfg(test)]
@@ -64,7 +72,7 @@ pub extern "C" fn _start() -> !
 {
 	init();
 	testmain();
-	loop {}
+	hltloop();
 }
 
 #[cfg(test)]

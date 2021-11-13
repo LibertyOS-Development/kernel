@@ -5,9 +5,6 @@
 #![no_std]
 
 use core::panic::PanicInfo;
-//use embedded_graphics::{image::Image, prelude::*, pixelcolor::Rgb565};
-//use time::*;
-//use tinybmp::Bmp;
 mod vgabuff;
 mod ser;
 
@@ -20,16 +17,8 @@ pub extern "C" fn _start() -> !
 	#[cfg(test)]
 	testmain();
 	println!("LIBERTY-OS");
-	println!("KERNEL VERSION 0.6.0");
-	loop
-	{
-		use libertyos_kernel::print;
-		print!("-");
-	}
-
-//	let libertyoslogo = include_bytes!("graphics/images/bmp/Logo-Light.bmp");
-//	let logo = Bmp::<Rgb565>::from_slice(libertyoslogo).unwrap();
-//	Image::new(&logo, Point::new(10, 20)).draw(&mut vgabuff::Buffer)?;
+	println!("KERNEL VERSION 0.7.0");
+	libertyos_kernel::hltloop();
 }
 
 #[cfg(not(test))] // PANIC HANDLER FOR RELEASE
@@ -37,7 +26,7 @@ pub extern "C" fn _start() -> !
 fn panic(info: &PanicInfo) -> !
 {
 	println!("{}", info);
-	loop {}
+	libertyos_kernel::hltloop();
 }
 
 #[cfg(test)]
