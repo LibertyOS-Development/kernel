@@ -1,5 +1,10 @@
 \Version History
 
+0.7.2
+ - LibertyOS's kernel now has full support for the 104-key US keyboard.
+ - Added some code to the keyboard_interrupt_handler (src/intr.rs).
+ - Added the pc_keyboard crate (Cargo.toml).
+
 0.7.1
  - Updated the version number (Cargo.toml).
  - Updated the kernel version (src/main.rs).

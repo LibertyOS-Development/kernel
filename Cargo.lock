@@ -81,11 +81,12 @@ dependencies = [
 
 [[package]]
 name = "libertyos_kernel"
-version = "0.7.1"
+version = "0.7.2"
 dependencies = [
  "bootloader",
  "embedded-graphics",
  "lazy_static",
+ "pc-keyboard",
  "pic8259",
  "spin",
  "tinybmp",
@@ -124,6 +125,12 @@ checksum = "9a64b1ec5cda2586e284722486d802acf1f7dbdc623e2bfc57e65ca1cd099290"
 dependencies = [
  "autocfg",
 ]
+
+[[package]]
+name = "pc-keyboard"
+version = "0.5.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5c6f2d937e3b8d63449b01401e2bae4041bc9dd1129c2e3e0d239407cf6635ac"
 
 [[package]]
 name = "pic8259"
