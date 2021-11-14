@@ -9,7 +9,7 @@ lazy_static! {
     /// Used by the `print!` and `println!` macros.
     pub static ref WRITER: Mutex<Writer> = Mutex::new(Writer {
         column_position: 0,
-        color_code: ColorCode::new(Color::Yellow, Color::Black),
+        color_code: ColorCode::new(Color::Red, Color::Black),
         buffer: unsafe { &mut *(0xb8000 as *mut Buffer) },
     });
 }
@@ -167,7 +167,6 @@ macro_rules! println {
 #[doc(hidden)]
 pub fn _print(args: fmt::Arguments) {
 	use core::fmt::Write;
-	WRITER.lock().write_fmt(args).unwrap();
 
 	use x86_64::instructions::interrupts;
 	interrupts::without_interrupts(|| { WRITER.lock().write_fmt(args).unwrap(); });

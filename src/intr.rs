@@ -87,6 +87,12 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stackframe: InterruptStack
 			0x09 => Some('8'),
 			0x0a => Some('9'),
 			0x0b => Some('0'),
+			0x10 => Some('Q'),
+			0x11 => Some('W'),
+			0x12 => Some('E'),
+			0x13 => Some('R'),
+			0x14 => Some('T'),
+			0x15 => Some('Y'),
 			_ => None,
 		};
 	if let Some(key) = key
@@ -103,7 +109,7 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stackframe: InterruptStack
 
 extern "x86-interrupt" fn timer_interrupt_handler(_stackframe: InterruptStackFrame)
 {
-	print!(".");
+//	print!(".");
 	unsafe
 	{
 		PICS.lock().notify_end_of_interrupt(IntrIdx::Timer.asu8());

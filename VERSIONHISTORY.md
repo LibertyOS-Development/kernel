@@ -1,5 +1,12 @@
 \Version History
 
+0.7.1
+ - Updated the version number (Cargo.toml).
+ - Updated the kernel version (src/main.rs).
+ - Removed a line in _print that caused everything printed to the VGA-buffer to be duplicated (src/vgabuff.rs).
+ - Changed the color of the text to red (src/vgabuff.rs).
+ - Added a blank line, after the kernel version, to give the user some room to type (src/main.rs).
+
 0.7.0 - KEYBOARD SUPPORT, MINOR OPTIMIZATIONS
  - Commented out a test-case that causes the testing to hang (test_println_many, src/vgabuff.rs).
  - Added a copy of the current license to the root directory of the repository.
