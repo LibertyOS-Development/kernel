@@ -1,4 +1,10 @@
-\Version History
+Version History
+
+0.8.0 - PAGE-FAULT HANDLING
+ - Removed a random slash mark that I mistakenly added to the beggining of the VERSIONHISTORY file.
+ - Updated the version number (Cargo.toml).
+ - Updated the kernel version (src/main.rs).
+ - Implemented a basic handler for page-faults (src/intr.rs).
 
 0.7.2
  - LibertyOS's kernel now has full support for the 104-key US keyboard.

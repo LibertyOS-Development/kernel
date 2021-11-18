@@ -97,6 +97,19 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stackframe: InterruptStack
 	}
 }
 
+use x86_64::structures::idt::PageFaultErrorCode;
+use crate::hltloop;
+
+extern "x86-interrupt" fn page_fault_handler(stackframe: InterruptStackFrame, errcode: PageFaultErrorCode)
+{
+	use x86_64::registers::control::Cr2;
+	println!("[EXC] PAGE FAULT");
+	println!("[ERR] ACCESSED ADDR: {:?}", Cr2::read());
+	println!("[ERR] ERRCODE: {:?}", errcode);
+	println!("{:#?}", stackframe);
+	hltloop();
+}
+
 
 extern "x86-interrupt" fn timer_interrupt_handler(_stackframe: InterruptStackFrame)
 {

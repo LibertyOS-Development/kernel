@@ -10,6 +10,7 @@ This is the official repository of the LibertyOS kernel. LibertyOS is an operati
 - Built-in support for running LOS with QEMU
 - Displaying text
 - Colored text
+- Support for the 104-key US keyboard
 
 #### WIP FEATURES
 - Basic memory allocation

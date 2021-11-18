@@ -17,7 +17,7 @@ pub extern "C" fn _start() -> !
 	#[cfg(test)]
 	testmain();
 	println!("LIBERTY-OS");
-	println!("KERNEL VERSION 0.7.1");
+	println!("KERNEL VERSION 0.8.0");
 	println!("");
 	libertyos_kernel::hltloop();
 }
