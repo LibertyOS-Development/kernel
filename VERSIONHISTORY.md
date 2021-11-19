@@ -1,5 +1,24 @@
 Version History
 
+0.9.0 - PAGING
+ - Enabled the "map_physical_memory" feature of the bootloader crate (Cargo.toml).
+ - Updated the version number (Cargo.toml).
+ - Updated the kernel version (src/main.rs).
+ - Imported the bootloader crate (src/main.rs).
+ - Added the bootinfo argument to the _start function (src/main.rs).
+ - Added the entry_point macro (src/main.rs).
+ - Changed the _start function to kernmain (src/main.rs).
+ - Imported the bootloader crate (src/lib.rs).
+ - Implemented an entry-point for cargo test (test_kernmain, src/lib.rs).
+ - Used the entry_point macro to use the newly-created test_kernmain (src/lib.rs).
+ - Created the mem module (src/mem.rs).
+ - Imported the mem module (src/lib.rs).
+ - Imported the x86_64 crate (src/mem.rs).
+ - Created the active_lvl4tab function (src/mem.rs).
+ - Imported libertyos_kernel::mem::active_lvl4_tab into the kernmain function (src/main.rs).
+ - Fixed a missing component of kernmain that invokes the test_main function (src/main.rs).
+ - Created the translate_address function (src/mem.rs).
+
 0.8.0 - PAGE-FAULT HANDLING
  - Removed a random slash mark that I mistakenly added to the beggining of the VERSIONHISTORY file.
  - Updated the version number (Cargo.toml).

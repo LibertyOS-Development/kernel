@@ -4,21 +4,58 @@
 #![no_main]
 #![no_std]
 
+use bootloader::{BootInfo, entry_point};
 use core::panic::PanicInfo;
 mod vgabuff;
 mod ser;
 
+entry_point!(kernmain);
 
 #[no_mangle]
-pub extern "C" fn _start() -> !
+fn kernmain(bootinfo: &'static BootInfo) -> !
 {
+	use libertyos_kernel::mem::active_lvl4_tab;
+	use x86_64::structures::paging::PageTable;
+	use x86_64::VirtAddr;
 	libertyos_kernel::init();
 
 	#[cfg(test)]
 	testmain();
 	println!("LIBERTY-OS");
-	println!("KERNEL VERSION 0.8.0");
+	println!("KERNEL VERSION 0.9.0");
 	println!("");
+
+	let physmem_offset = VirtAddr::new(bootinfo.physical_memory_offset);
+	let l4tab = unsafe
+	{
+		active_lvl4_tab(physmem_offset)
+	};
+	for (i, entry) in l4tab.iter().enumerate()
+	{
+		if !entry.is_unused()
+		{
+			println!("[MSG] LVL4 ENTRY {}: {:?}", i, entry);
+
+			let phys = entry.frame().unwrap().start_address();
+			let virt = phys.as_u64() + bootinfo.physical_memory_offset;
+			let ptr = VirtAddr::new(virt).as_mut_ptr();
+			let l3tab: &PageTable = unsafe
+			{
+				&*ptr
+			};
+
+			for (i, entry) in l3tab.iter().enumerate()
+			{
+				if !entry.is_unused()
+				{
+					println!("[MSG] LVL3 ENTRY {}: {:?}", i, entry);
+				}
+			}
+		}
+	}
+	#[cfg(test)]
+	test_main();
+
 	libertyos_kernel::hltloop();
 }
 

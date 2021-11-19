@@ -81,7 +81,7 @@ dependencies = [
 
 [[package]]
 name = "libertyos_kernel"
-version = "0.7.2"
+version = "0.9.0"
 dependencies = [
  "bootloader",
  "embedded-graphics",

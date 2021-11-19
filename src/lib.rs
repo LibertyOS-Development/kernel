@@ -9,6 +9,7 @@ use core::panic::PanicInfo;
 
 pub mod gdt;
 pub mod intr;
+pub mod mem;
 pub mod ser;
 pub mod vgabuff;
 
@@ -63,6 +64,20 @@ pub fn test_panic_handler(info: &PanicInfo) -> !
 	serprintln!("[FAILURE]\n");
 	serprintln!("[ERR]: {}\n", info);
 	exitqemu(QEMUExitCode::Failure);
+	hltloop();
+}
+
+#[cfg(test)]
+use bootloader::{BootInfo, entry_point};
+
+#[cfg(test)]
+entry_point!(test_kernmain);
+
+#[cfg(test)]
+fn test_kernmain(_bootinfo: &'static BootInfo) -> !
+{
+	init();
+	test_main();
 	hltloop();
 }
 
