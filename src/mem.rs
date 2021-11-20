@@ -1,4 +1,4 @@
-\use x86_64::{structures::paging::PageTable, PhysAddr, VirtAddr};
+use x86_64::{structures::paging::PageTable, PhysAddr, VirtAddr};
 
 
 pub unsafe fn translate_address(addr: VirtAddr, physmem_offset: VirtAddr) -> Option<PhysAddr>
@@ -14,10 +14,10 @@ fn translate_addr_inner(addr: VirtAddr, physmem_offset: VirtAddr) -> Option<Phys
 	let (level_4_table_frame, _) = Cr3::read();
 
 	let tabidx = [
-		addr.p4idx(),
-		addr.p3idx(),
-		addr.p2idx(),
-		addr.p1idx(),
+		addr.p4_index(),
+		addr.p3_index(),
+		addr.p2_index(),
+		addr.p1_index(),
 	];
 	let mut frame = level_4_table_frame;
 
