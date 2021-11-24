@@ -12,6 +12,10 @@ echo "Installing rustup..."
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 echo "Installing libraries for x86_64-unknown-linux-gnu..."
 rustup target add x86_64-unknown-linux-gnu
+echo "Installing the llvm-tools-preview component..."
+rustup component add llvm-tools-preview
+echo "Installing the bootimage crate..."
+cargo install bootimage
 echo "Setting the default Rust toolchain to the nightly build..."
 rustup default nightly
 echo "Your system should now be correctly configured to build and run LibertyOS."
