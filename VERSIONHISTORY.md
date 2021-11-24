@@ -1,5 +1,13 @@
 Version History
 
+0.9.1
+ - Added some basic instructions to compile the kernel and run it with QEMU (README.md).
+ - Created a script to automate the process of configuring the system to build and run LibertyOS (bootstrap.sh).
+ - Updated the version number (Cargo.toml).
+ - Updated the kernel version (src/main.rs).
+ - Created a file to keep track of people who are working on this project (doc/Contributors).
+ - Removed file (triplet)
+
 0.9.0 - PAGING
  - Enabled the "map_physical_memory" feature of the bootloader crate (Cargo.toml).
  - Updated the version number (Cargo.toml).
