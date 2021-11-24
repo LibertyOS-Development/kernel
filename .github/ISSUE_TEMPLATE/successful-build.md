@@ -8,8 +8,8 @@ assignees: danielteberian
 
 ---
 
-# ARCH:
-# OPERATING SYSTEM:
-# SHELL:
-# DATE/TIME OF BUILD:
-# NOTES:
+### ARCH:
+### OPERATING SYSTEM:
+### SHELL:
+### DATE/TIME OF BUILD:
+### NOTES:
