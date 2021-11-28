@@ -1,5 +1,10 @@
 Version History
 
+0.9.3
+ - Due to the previous update modifying the project structure of the kernel, the logo file was no longer included in the README. This issue has been addressed (addressing said issue is the sole point of this version).
+ - Updated the version number (Cargo.toml).
+ - Updated the kernel version (src/main.rs).
+
 0.9.2
  - Created a basic file for handling ctypes (src/ctypes.rs).
  - Created the libraries directory (src/libraries).
