@@ -1,5 +1,15 @@
 Version History
 
+0.9.4
+ - Updated the README's list of WIP features (README.md).
+ - Updated the README's list of implemented features (README.md).
+ - Updated the kernel version (src/main.rs).
+ - Updated the version number (Cargo.toml).
+ - Added the AsSlice trait (src/lib.rs).
+ - Added the AsMutSlice trait (src/lib.rs).
+ - Added the StableDeref trait (src/lib.rs).
+ - Added (and commented out) additional functionality for the StableDeref trait. Until a global allocator is introduced to the kernel, the code in question shall remain commented out (src/lib.rs).
+
 0.9.3
  - Due to the previous update modifying the project structure of the kernel, the logo file was no longer included in the README. This issue has been addressed (addressing said issue is the sole point of this version).
  - Updated the version number (Cargo.toml).

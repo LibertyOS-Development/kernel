@@ -5,6 +5,11 @@
 #![test_runner(crate::testexec)]
 #![reexport_test_harness_main = "testmain"]
 
+
+//extern crate alloc;
+extern crate core;
+
+use core::ops::Deref;
 use core::panic::PanicInfo;
 
 pub mod gdt;
@@ -66,6 +71,120 @@ pub fn test_panic_handler(info: &PanicInfo) -> !
 	exitqemu(QEMUExitCode::Failure);
 	hltloop();
 }
+
+// This section provides the kernel wth the StableDeref trait.
+
+pub unsafe trait StableDeref: Deref {}
+pub unsafe trait CloneStableDeref: StableDeref + Clone {}
+
+//use alloc::borrow::Cow;
+//use alloc::boxed::Box;
+//use alloc::rc::Rc;
+//use alloc::string::String;
+//use alloc::sync::Arc;
+//use alloc::vec::Vec;
+
+use core::cell::{Ref, RefMut};
+
+//unsafe impl<T: ?Sized> StableDeref for Box<T> {}
+//unsafe impl<T> StableDeref for Vec<T> {}
+//unsafe impl StableDeref for String {}
+//unsafe impl<'a> StableDeref for Cow<'a, str> {}
+//unsafe impl<'a, T: Clone> StableDeref for Cow<'a, [T]> {}
+//unsafe impl<T: ?Sized> StableDeref for Rc<T> {}
+//unsafe impl<T: ?Sized> CloneStableDeref for Rc<T> {}
+//unsafe impl<T: ?Sized> StableDeref for Arc<T> {}
+//unsafe impl<T: ?Sized> CloneStableDeref for Arc<T> {}
+unsafe impl<'a, T: ?Sized> StableDeref for Ref<'a, T> {}
+unsafe impl<'a, T: ?Sized> StableDeref for RefMut<'a, T> {}
+unsafe impl<'a, T: ?Sized> StableDeref for &'a T {}
+unsafe impl<'a, T: ?Sized> CloneStableDeref for &'a T {}
+unsafe impl<'a, T: ?Sized> StableDeref for &'a mut T {}
+
+// This section of lib.rs provides the kernel with the AsSlice and AsMutSlice
+// traits of the standard library, minus the standard library.
+
+pub trait AsSlice
+{
+	type Elem;
+	fn as_slice(&self) -> &[Self::Elem];
+}
+
+pub trait AsMutSlice: AsSlice
+{
+	fn asmutslice(&mut self) -> &mut [Self::Elem];
+}
+
+impl<'a, S> AsSlice for &'a S
+where
+	S: ?Sized + AsSlice,
+{
+	type Elem = S::Elem;
+	fn as_slice(&self) -> &[S::Elem]
+	{
+		(**self).as_slice()
+	}
+}
+
+impl<'a, S> AsSlice for &'a mut S
+where
+	S: ?Sized + AsSlice,
+{
+	type Elem = S::Elem;
+	fn as_slice(&self) -> &[S::Elem]
+	{
+		(**self).as_slice()
+	}
+}
+
+impl<'a, S> AsMutSlice for &'a mut S
+where
+	S: ?Sized + AsMutSlice,
+{
+	fn asmutslice(&mut self) -> &mut [S::Elem]
+	{
+		(**self).asmutslice()
+	}
+}
+
+impl<T> AsSlice for [T]
+{
+	type Elem = T;
+	fn as_slice(&self) -> &[T]
+	{
+		self
+	}
+}
+
+impl<T> AsMutSlice for [T]
+{
+	fn asmutslice(&mut self) -> &mut [T]
+	{
+		self
+	}
+}
+
+impl<T, const N: usize> AsSlice for [T; N]
+{
+	type Elem = T;
+	fn as_slice(&self) -> &[T]
+	{
+		self
+	}
+}
+
+impl<T, const N: usize> AsMutSlice for [T; N]
+{
+	fn asmutslice(&mut self) -> &mut [T]
+	{
+		self
+	}
+}
+
+
+
+// TESTING
+
 
 #[cfg(test)]
 use bootloader::{BootInfo, entry_point};

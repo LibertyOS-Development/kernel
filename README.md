@@ -14,6 +14,7 @@ This is the official repository of the LibertyOS kernel. LibertyOS is an operati
 
 #### CURRENTLY IMPLEMENTED FEATURES
 - Support for x86_64
+- Support for the core crate
 - A small array of tests
 - Error handlers
 - Built-in support for running LOS with QEMU
@@ -22,8 +23,8 @@ This is the official repository of the LibertyOS kernel. LibertyOS is an operati
 - Support for the 104-key US keyboard
 
 #### WIP FEATURES
+- Support for the alloc crate
 - Basic memory allocation
-- Integrating the alloc crate
 - Basic documentation
 
 #### PLANNED FEATURES

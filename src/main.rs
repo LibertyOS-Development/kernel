@@ -22,7 +22,7 @@ fn kernmain(bootinfo: &'static BootInfo) -> !
 	#[cfg(test)]
 	testmain();
 	println!("LIBERTY-OS");
-	println!("KERNEL VERSION 0.9.3");
+	println!("KERNEL VERSION 0.9.4");
 	println!("");
 
 	let physmem_offset = VirtAddr::new(bootinfo.physical_memory_offset);
