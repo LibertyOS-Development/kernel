@@ -1,6 +1,6 @@
 [package]
 name = "libertyos_kernel"
-version = "0.9.1"
+version = "0.9.2"
 edition = "2018"
 license = "Apache-2.0"
 authors = ["Daniel P. Teberian"]
@@ -10,6 +10,7 @@ description = "The kernel for Liberty."
 [dependencies]
 bootloader = { version = "0.9.8", features = ["map_physical_memory"]}
 embedded-graphics = "0.7.1"
+log = "0.4.14"
 volatile = "0.2.6"
 pc-keyboard = "0.5.0"
 pic8259 = "0.10.1"

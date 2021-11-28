@@ -1,5 +1,21 @@
 Version History
 
+0.9.2
+ - Created a basic file for handling ctypes (src/ctypes.rs).
+ - Created the libraries directory (src/libraries).
+ - Created the utilities directory (src/libraries/utilities).
+ - Created a blank mod.rs file (src/libraries/mod.rs).
+ - Moved the graphics directory into the libraries directory (src/libraries).
+ - Created the runtime directory (src/libraries/runtime).
+ - Created a Dockerfile (Dockerfile). This does not work yet.
+ - Created a .dockerignore file (.dockerignore).
+ - Added a line that installs the bootimage crate (bootstrap.sh).
+ - Changed test_main() to testmain() (src/main.rs).
+ - Changed test_main() to testmain() (src/lib.rs).
+ - Updated the version number (Cargo.toml).
+ - Updated the kernel version (src/main.rs).
+ - Complete overhaul of the vgabuff module (src/vgabuff.rs). This includes better formatting, documentation, etc.
+
 0.9.1
  - Added some basic instructions to compile the kernel and run it with QEMU (README.md).
  - Created a script to automate the process of configuring the system to build and run LibertyOS (bootstrap.sh).

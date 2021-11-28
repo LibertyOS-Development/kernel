@@ -77,7 +77,7 @@ entry_point!(test_kernmain);
 fn test_kernmain(_bootinfo: &'static BootInfo) -> !
 {
 	init();
-	test_main();
+	testmain();
 	hltloop();
 }
 
