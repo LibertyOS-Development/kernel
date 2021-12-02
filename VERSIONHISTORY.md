@@ -1,5 +1,14 @@
 Version History
 
+0.9.5
+ - Updated the kernel version (src/main.rs).
+ - Updated the version number (Cargo.toml).
+ - Created the boot directory (src/libraries).
+ - Wrote the initial version of the bootinfo module of boot (src/libraries/boot/src/bootinfo.rs).
+ - Created the asm directory (src/libraries/boot/src/asm).
+ - Wrote the initial version of e820.s (src/libraries/boot/src/asm/e820.s).
+ - Wrote a good amount of the code for the initial version of stg1.s (src/libraries/boot/src/asm/stg1.s)
+
 0.9.4
  - Updated the README's list of WIP features (README.md).
  - Updated the README's list of implemented features (README.md).
