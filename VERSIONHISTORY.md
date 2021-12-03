@@ -1,5 +1,14 @@
 Version History
 
+0.9.6
+ - Upon some reflection, the decision to integrate the bootloader into the kernel was a mistake. The bootloader is not necessary for the kernel to function, so it does not make sense to include it in the kernel directory, as doing so would only slow down the kernel/compile time.
+ - Removed the boot directory (src/libraries/boot)
+ - Updated the kernel version (src/main.rs).
+ - Updated the version number (Cargo.toml).
+ - The new version of the vgabuff module is not working as it should, so I have replaced it with a version that was written by @phil-opp (src/vgabuff.rs).
+ - Created the rewrite directory (rewrite).
+ - While the issues with the aforementioned vgabuff module are being worked out, the rewritten version has been moved to the rewrite directory (rewrite).
+
 0.9.5
  - Updated the kernel version (src/main.rs).
  - Updated the version number (Cargo.toml).

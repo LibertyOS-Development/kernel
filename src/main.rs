@@ -22,7 +22,7 @@ fn kernmain(bootinfo: &'static BootInfo) -> !
 	#[cfg(test)]
 	testmain();
 	println!("LIBERTY-OS");
-	println!("KERNEL VERSION 0.9.5");
+	println!("KERNEL VERSION 0.9.6");
 	println!("");
 
 	let physmem_offset = VirtAddr::new(bootinfo.physical_memory_offset);
@@ -30,8 +30,11 @@ fn kernmain(bootinfo: &'static BootInfo) -> !
 	{
 		active_lvl4_tab(physmem_offset)
 	};
+
 	for (i, entry) in l4tab.iter().enumerate()
 	{
+		use x86_64::structures::paging::PageTable;
+
 		if !entry.is_unused()
 		{
 			println!("[MSG] LVL4 ENTRY {}: {:?}", i, entry);
