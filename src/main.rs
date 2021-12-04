@@ -1,3 +1,6 @@
+#![warn(dead_code)]
+#![warn(deprecated)]
+#![warn(unused_features)]
 #![feature(custom_test_frameworks)]
 #![test_runner(crate::testexec)]
 #![reexport_test_harness_main = "testmain"]
@@ -19,21 +22,37 @@ fn kernmain(bootinfo: &'static BootInfo) -> !
 	use x86_64::VirtAddr;
 	libertyos_kernel::init();
 
-	#[cfg(test)]
-	testmain();
 	println!("LIBERTY-OS");
-	println!("KERNEL VERSION 0.9.6");
+	println!("KERNEL VERSION 0.9.7");
 	println!("");
 
 	let physmem_offset = VirtAddr::new(bootinfo.physical_memory_offset);
+	let addresses =
+		[
+			0xb8000,
+			0x201008,
+			0x0100_0020_1a10,
+			bootinfo.physical_memory_offset,
+		];
+	for &address in &addresses
+	{
+		let virt = VirtAddr::new(address);
+		let phys = unsafe { libertyos_kernel::mem::translate_address(virt, physmem_offset) };
+		println!("{:?} -> {:?}", virt, phys);
+	}
+
+	#[cfg(test)]
+	testmain();
+
 	let l4tab = unsafe
 	{
 		active_lvl4_tab(physmem_offset)
 	};
 
+	// TODO: Add messages for stages 1 and 2
 	for (i, entry) in l4tab.iter().enumerate()
 	{
-		use x86_64::structures::paging::PageTable;
+//		use x86_64::structures::paging::PageTable;
 
 		if !entry.is_unused()
 		{

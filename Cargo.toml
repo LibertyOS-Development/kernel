@@ -1,6 +1,6 @@
 [package]
 name = "libertyos_kernel"
-version = "0.9.6"
+version = "0.9.7"
 edition = "2018"
 license = "Apache-2.0"
 authors = ["Daniel P. Teberian"]
@@ -31,7 +31,6 @@ test-args = [
 	    ]
 test-success-exit-code = 33
 test-timeout = 300
-
 
 
 [[test]]

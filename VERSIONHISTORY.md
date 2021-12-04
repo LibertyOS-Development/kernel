@@ -1,5 +1,16 @@
 Version History
 
+0.9.7
+ - Added a TODO message about adding messages for stages 1 and 2 (src/main.rs).
+ - Removed a redundant import of x86_64::structures::paging::PageTable (src/main.rs).
+ - Added some code to translate the addresses of page-tables to a more readable format (src/main.rs).
+ - Moved the startup messages to be above the messages about page-tables and addresses and whatnot (src/main.rs).
+ - Added the #![warn(dead_code)] line (src/main.rs).
+ - Added the #![warn(deprecated)] line (src/main.rs).
+ - Added the #![warn(unused_features)] line (src/main.rs).
+ - Updated the kernel version (src/main.rs).
+ - Updated the version number (Cargo.toml).
+
 0.9.6
  - Upon some reflection, the decision to integrate the bootloader into the kernel was a mistake. The bootloader is not necessary for the kernel to function, so it does not make sense to include it in the kernel directory, as doing so would only slow down the kernel/compile time.
  - Removed the boot directory (src/libraries/boot)
