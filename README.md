@@ -42,3 +42,7 @@ This is the official repository of the LibertyOS kernel. LibertyOS is an operati
 - Full support for ASCII
 - System time
 - Basic customization
+
+#### CURRENTLY EXPECTED BEHAVIOUR
+Kernel should launch and display  
+```panicked at `[ERR] HUGE PAGES ARE UNSUPPORTED`, src/mem.rs:37:43```
