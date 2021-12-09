@@ -190,7 +190,7 @@ impl<T, const N: usize> AsMutSlice for [T; N]
 use bootloader::{BootInfo, entry_point};
 
 #[cfg(test)]
-entry_point!(test_kernmain);
+//entry_point!(test_kernmain);
 
 #[cfg(test)]
 fn test_kernmain(_bootinfo: &'static BootInfo) -> !

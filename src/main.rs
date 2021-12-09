@@ -1,87 +1,57 @@
-#![warn(dead_code)]
-#![warn(deprecated)]
-#![warn(unused_features)]
-#![feature(custom_test_frameworks)]
-#![test_runner(crate::testexec)]
-#![reexport_test_harness_main = "testmain"]
-#![no_main]
 #![no_std]
+#![no_main]
+#![feature(custom_test_frameworks)]
+#![test_runner(libertyos_kernel::testexec)]
+#![reexport_test_harness_main = "testexec"]
+#![allow(dead_code)]
+#![allow(deprecated)]
+#![allow(unused_features)]
+
 
 use bootloader::{BootInfo, entry_point};
 use core::panic::PanicInfo;
-mod vgabuff;
-mod ser;
+use libertyos_kernel::println;
 
-entry_point!(kernmain);
+entry_point!(kernel_main);
 
-#[no_mangle]
-fn kernmain(bootinfo: &'static BootInfo) -> !
+
+fn kernel_main(bootinfo: &'static BootInfo) -> !
 {
-	use libertyos_kernel::mem::active_lvl4_tab;
-	use x86_64::structures::paging::PageTable;
-	use x86_64::VirtAddr;
-	libertyos_kernel::init();
+	use libertyos_kernel::mem::{self, BootInfoFrameAllocator};
+	use x86_64::{structures::paging::Page, VirtAddr};
 
 	println!("LIBERTY-OS");
-	println!("KERNEL VERSION 0.9.7");
-	println!("");
+	println!("KERNEL VERSION 0.10.0");
+	libertyos_kernel::init();
 
 	let physmem_offset = VirtAddr::new(bootinfo.physical_memory_offset);
-	let addresses =
-		[
-			0xb8000,
-			0x201008,
-			0x0100_0020_1a10,
-			bootinfo.physical_memory_offset,
-		];
-	for &address in &addresses
+	let mut mapper = unsafe
 	{
-		let virt = VirtAddr::new(address);
-		let phys = unsafe { libertyos_kernel::mem::translate_address(virt, physmem_offset) };
-		println!("{:?} -> {:?}", virt, phys);
-	}
-
-	#[cfg(test)]
-	testmain();
-
-	let l4tab = unsafe
+		mem::init(physmem_offset)
+	};
+	let mut framealloc = unsafe
 	{
-		active_lvl4_tab(physmem_offset)
+		BootInfoFrameAllocator::init(&bootinfo.memory_map)
 	};
 
-	// TODO: Add messages for stages 1 and 2
-	for (i, entry) in l4tab.iter().enumerate()
+	let page = Page::containing_address(VirtAddr::new(0xdeadbeaf000));
+	libertyos_kernel::mem::new_example_mapping(page, &mut mapper, &mut framealloc);
+
+	let page_ptr: *mut u64 = page.start_address().as_mut_ptr();
+	unsafe
 	{
-//		use x86_64::structures::paging::PageTable;
+		page_ptr.offset(400).write_volatile(0x_f021_f077_f065_f04e)
+	};
 
-		if !entry.is_unused()
-		{
-			println!("[MSG] LVL4 ENTRY {}: {:?}", i, entry);
-
-			let phys = entry.frame().unwrap().start_address();
-			let virt = phys.as_u64() + bootinfo.physical_memory_offset;
-			let ptr = VirtAddr::new(virt).as_mut_ptr();
-			let l3tab: &PageTable = unsafe
-			{
-				&*ptr
-			};
-
-			for (i, entry) in l3tab.iter().enumerate()
-			{
-				if !entry.is_unused()
-				{
-					println!("[MSG] LVL3 ENTRY {}: {:?}", i, entry);
-				}
-			}
-		}
-	}
 	#[cfg(test)]
-	testmain();
+	testexec();
 
 	libertyos_kernel::hltloop();
 }
 
-#[cfg(not(test))] // PANIC HANDLER FOR RELEASE
+
+// This is used in the event of a panic.
+#[cfg(not(test))]
 #[panic_handler]
 fn panic(info: &PanicInfo) -> !
 {
@@ -89,62 +59,22 @@ fn panic(info: &PanicInfo) -> !
 	libertyos_kernel::hltloop();
 }
 
+
+/*
+	TESTING
+*/
+
+// This is used in the event of a panic, when running tests.
 #[cfg(test)]
-#[panic_handler] // PANIC HANDLER FOR DEBUG/TESTING
+#[panic_handler]
 fn panic(info: &PanicInfo) -> !
 {
 	libertyos_kernel::test_panic_handler(info)
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[repr(u32)]
-pub enum QEMUExitCode
-{
-	Success = 0x10,
-	Failure = 0x11,
-}
 
-pub fn exitqemu(exitcode: QEMUExitCode)
-{
-	use x86_64::instructions::port::Port; //TODO: Use x64.
-	unsafe
-	{
-		let mut port = Port::new(0xf4);
-		port.write(exitcode as u32);
-	}
-}
-
-
-pub trait CanTest
-{
-	fn run(&self) -> ();
-}
-
-impl<T> CanTest for T
-where
-	T: Fn(),
-{
-	fn run(&self)
-	{
-		serprint!("{}...\t", core::any::type_name::<T>());
-		self();
-		serprintln!("[SUCCESS]");
-	}
-}
-
-#[cfg(test)]
-fn testexec(tests: &[&dyn CanTest])
-{
-	serprintln!("[LIBERTYOS] EXECUTING {} TESTS", tests.len());
-	for test in tests
-	{
-		test.run();
-	}
-	exitqemu(QEMUExitCode::Success);
-}
-
-#[test_case]
-fn test_trivassert()
+// TEST CASE #1: TRIVASSERT
+fn trivassert()
 {
 	assert_eq!(1, 1);
 }

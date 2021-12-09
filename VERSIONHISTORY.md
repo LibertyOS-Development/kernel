@@ -1,5 +1,25 @@
 Version History
 
+0.10.0
+ - Commented out a line that established the entry_point for the kernel [entry_point!], which was already defined by src/main.rs. This conflict resulted in an error when running the "cargo test" command (src/lib.rs).
+ - Completely rewrote main.rs. I have yet to write documentation in the form of comments, but the actual code is formatted in a way for documentation to be easily integrated at a later date (src/main.rs).
+ - Completely rewrote the mem module. As opposed to main.rs, the mem module does have some basic documentation, but better documentation is still needed (src/mem.rs).
+ - Changed the #![warn(dead_code)] line to #![allow(dead_code)] (src/main.rs).
+ - Changed the #![warn(deprecated)] line to #![allow(deprecated)] (src/main.rs).
+ - Changed the #![warn(unused_features)] line #![allow(unused_features)] (src/main.rs).
+ - Added the #![allow(dead_code)] line (src/gdt.rs).
+ - Added the #![allow(deprecated)] line (src/gdt.rs).
+ - Added the #![allow(unused_features)] line (src/gdt.rs).
+ - Added the #![allow(dead_code)] line (src/intr.rs).
+ - Added the #![allow(deprecated)] line (src/intr.rs).
+ - Added the #![allow(unused_features)] line (src/intr.rs).
+ - Added the #![allow(dead_code)] line (src/mem.rs).
+ - Added the #![allow(deprecated)] line (src/mem.rs).
+ - Added the #![allow(unused_features)] line (src/mem.rs).
+ - Imported x86_64::structures::paging::OffsetPageTable (src/mem.rs).
+ - Updated the kernel verison (src/main.rs).
+ - Updated the version number (Cargo.toml).
+
 0.9.7
  - Added a TODO message about adding messages for stages 1 and 2 (src/main.rs).
  - Removed a redundant import of x86_64::structures::paging::PageTable (src/main.rs).
