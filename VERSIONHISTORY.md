@@ -1,5 +1,28 @@
 Version History
 
+0.11.0
+ - Imported the alloc crate (src/lib.rs).
+ - Created the allocator module (src/allocator.rs).
+ - Imported the allocator module (src/lib.rs).
+ - Added the #![allow(dead_code)] line to the intr module (src/intr.rs).
+ - Added the #![allow(deprecated)] line to the gdt module (src/gdt.rs).
+ - Added the #![feature(alloc_error_handler)] line to src/lib.rs (src/lib.rs).
+ - Added a basic alloc error handler (src/lib.rs).
+ - Imported the alloc crate (src/main.rs).
+ - Imported alloc::boxed::Box (src/main.rs).
+ - Added code to the kernel_main function (src/main.rs).
+ - Imported various portions of the x86_64 crate (src/allocator.rs).
+ - Created the init_heap function (src/allocator.rs).
+ - Imported the allocator module into kernel_main (src/main.rs).
+ - Added some code to make use of the newly created heap (kernel_main, src/main.rs).
+ - Added the #![allow(unused_variables)] line (src/main.rs).
+ - Updated the kernel version (src/main.rs).
+ - Updated the version number (Cargo.toml).
+ - Added linked_list_allocator as a dependency (Cargo.toml).
+ - Imported the linked_list_allocator crate (src/allocator.rs).
+ - Implemented portions of linked_list_allocator in the kernel (src/allocator.rs).
+ -
+
 0.10.0
  - Commented out a line that established the entry_point for the kernel [entry_point!], which was already defined by src/main.rs. This conflict resulted in an error when running the "cargo test" command (src/lib.rs).
  - Completely rewrote main.rs. I have yet to write documentation in the form of comments, but the actual code is formatted in a way for documentation to be easily integrated at a later date (src/main.rs).

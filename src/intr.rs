@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use x86_64::structures::idt::{InterruptDescriptorTable, InterruptStackFrame};
 use lazy_static::lazy_static;
 use crate::{gdt, print, println};
