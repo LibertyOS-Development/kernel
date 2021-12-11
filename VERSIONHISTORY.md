@@ -1,5 +1,11 @@
 Version History
 
+0.11.1
+ - Created the io module (src/libraries/io).
+ - Began writing the error handling module for the io module (src/libraries/io/err.rs).
+ - Updated the kernel version (src/main.rs).
+ - Updated the version number (Cargo.toml).
+
 0.11.0
  - Imported the alloc crate (src/lib.rs).
  - Created the allocator module (src/allocator.rs).
