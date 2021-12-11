@@ -21,7 +21,9 @@ Version History
  - Added linked_list_allocator as a dependency (Cargo.toml).
  - Imported the linked_list_allocator crate (src/allocator.rs).
  - Implemented portions of linked_list_allocator in the kernel (src/allocator.rs).
- -
+ - Added bitflags as a dependency (Cargo.toml).
+ - Imported the ctypes module (src/lib.rs).
+ - Uncommented portions of lib.rs that were commented out. The portions in question were for some functionality that required the alloc crate (src/lib.rs).
 
 0.10.0
  - Commented out a line that established the entry_point for the kernel [entry_point!], which was already defined by src/main.rs. This conflict resulted in an error when running the "cargo test" command (src/lib.rs).

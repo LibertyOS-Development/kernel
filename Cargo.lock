@@ -89,6 +89,7 @@ dependencies = [
 name = "libertyos_kernel"
 version = "0.10.0"
 dependencies = [
+ "bitflags",
  "bootloader",
  "embedded-graphics",
  "lazy_static",

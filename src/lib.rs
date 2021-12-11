@@ -14,6 +14,7 @@ use core::ops::Deref;
 use core::panic::PanicInfo;
 
 pub mod allocator;
+pub mod ctypes;
 pub mod gdt;
 pub mod intr;
 pub mod mem;
@@ -86,24 +87,24 @@ pub fn test_panic_handler(info: &PanicInfo) -> !
 pub unsafe trait StableDeref: Deref {}
 pub unsafe trait CloneStableDeref: StableDeref + Clone {}
 
-//use alloc::borrow::Cow;
-//use alloc::boxed::Box;
-//use alloc::rc::Rc;
-//use alloc::string::String;
-//use alloc::sync::Arc;
-//use alloc::vec::Vec;
+use alloc::borrow::Cow;
+use alloc::boxed::Box;
+use alloc::rc::Rc;
+use alloc::string::String;
+use alloc::sync::Arc;
+use alloc::vec::Vec;
 
 use core::cell::{Ref, RefMut};
 
-//unsafe impl<T: ?Sized> StableDeref for Box<T> {}
-//unsafe impl<T> StableDeref for Vec<T> {}
-//unsafe impl StableDeref for String {}
-//unsafe impl<'a> StableDeref for Cow<'a, str> {}
-//unsafe impl<'a, T: Clone> StableDeref for Cow<'a, [T]> {}
-//unsafe impl<T: ?Sized> StableDeref for Rc<T> {}
-//unsafe impl<T: ?Sized> CloneStableDeref for Rc<T> {}
-//unsafe impl<T: ?Sized> StableDeref for Arc<T> {}
-//unsafe impl<T: ?Sized> CloneStableDeref for Arc<T> {}
+unsafe impl<T: ?Sized> StableDeref for Box<T> {}
+unsafe impl<T> StableDeref for Vec<T> {}
+unsafe impl StableDeref for String {}
+unsafe impl<'a> StableDeref for Cow<'a, str> {}
+unsafe impl<'a, T: Clone> StableDeref for Cow<'a, [T]> {}
+unsafe impl<T: ?Sized> StableDeref for Rc<T> {}
+unsafe impl<T: ?Sized> CloneStableDeref for Rc<T> {}
+unsafe impl<T: ?Sized> StableDeref for Arc<T> {}
+unsafe impl<T: ?Sized> CloneStableDeref for Arc<T> {}
 unsafe impl<'a, T: ?Sized> StableDeref for Ref<'a, T> {}
 unsafe impl<'a, T: ?Sized> StableDeref for RefMut<'a, T> {}
 unsafe impl<'a, T: ?Sized> StableDeref for &'a T {}
