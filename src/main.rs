@@ -42,10 +42,10 @@ fn kernel_main(bootinfo: &'static BootInfo) -> !
 	libertyos_kernel::mem::new_example_mapping(page, &mut mapper, &mut framealloc);
 
 	let page_ptr: *mut u64 = page.start_address().as_mut_ptr();
-	unsafe
-	{
-		page_ptr.offset(400).write_volatile(0x_f021_f077_f065_f04e)
-	};
+//	unsafe
+//	{
+//		page_ptr.offset(400).write_volatile(0x_f021_f077_f065_f04e)
+//	};
 
 	allocator::init_heap(&mut mapper, &mut framealloc)
 		.expect("[ERROR] FAILED TO INITIALIZE HEAP");

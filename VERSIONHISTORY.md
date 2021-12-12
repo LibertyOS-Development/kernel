@@ -5,6 +5,15 @@ Version History
  - Began writing the error handling module for the io module (src/libraries/io/err.rs).
  - Updated the kernel version (src/main.rs).
  - Updated the version number (Cargo.toml).
+ - Commented out an unsafe function that would print "New!" to the screen (src/main.rs).
+ - Updated the list of features (README.md).
+ - Updated the portion of the README that describes the expected behavior of the kernel (README.md).
+ - Added the readme section to the manifest (Cargo.toml).
+ - Alphabetized the sections of the manifest (Cargo.toml).
+ - Added the keywords section to the manifest (Cargo.toml).
+ - Added the categories section to the manifest (Cargo.toml).
+ - Slightly modified the description in the manifest (Cargo.toml).
+ - Created a new test, but the test does not compile. This test should be fixed in the next update (tests/heapalloc.rs).
 
 0.11.0
  - Imported the alloc crate (src/lib.rs).

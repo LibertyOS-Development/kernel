@@ -15,6 +15,7 @@ This is the official repository of the LibertyOS kernel. LibertyOS is an operati
 #### CURRENTLY IMPLEMENTED FEATURES
 - Support for x86_64
 - Support for the core crate
+- Support for the alloc crate
 - A small array of tests
 - Error handlers
 - Built-in support for running LOS with QEMU
@@ -23,13 +24,11 @@ This is the official repository of the LibertyOS kernel. LibertyOS is an operati
 - Support for the 104-key US keyboard
 
 #### WIP FEATURES
-- Support for the alloc crate
-- Basic memory allocation
+- A basic filesystem
 - Basic documentation
 
 #### PLANNED FEATURES
 - A simple shell
-- Custom filesystem
 - Support for ARM-based targets
 - Support for glibc/musl (or, perhaps, rewriting certain parts of them)
 - Support for FAT, FAT32, EXFAT filesystems
@@ -44,5 +43,4 @@ This is the official repository of the LibertyOS kernel. LibertyOS is an operati
 - Basic customization
 
 #### CURRENTLY EXPECTED BEHAVIOUR
-Kernel should launch and display  
-```panicked at `[ERR] HUGE PAGES ARE UNSUPPORTED`, src/mem.rs:37:43```
+Upon startup, the kernel should output several lines, including the version number, and some additional information. If you encounter an error, please note the error and report it to us.
