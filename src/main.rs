@@ -7,6 +7,8 @@
 #![allow(dead_code)]
 #![allow(deprecated)]
 #![allow(unused_features)]
+#![allow(unused_imports)]
+#![allow(unused_mut)]
 #![allow(unused_variables)]
 
 extern crate alloc;

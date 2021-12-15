@@ -10,6 +10,9 @@ Version History
  - Created the ps2mouse directory (src/libraries/ps2mouse).
  - Added ps2mouse as a dependency (Cargo.toml).
  - Commented out the newly-added dependency [ps2mouse] as some bugs are being fixed (Cargo.toml).
+ - Added the #![allow(unused_imports)] line (src/main.rs).
+ - Merged a pull request that improved performance of a created vector. This change was identified by Reddit user /u/NateReinarWoodwind, and the pull-request was made by GitHub user @mycielski. Thank you both for your contributions! (src/main.rs).
+ - Added the #![allow(unused_mut)] line (src/main.rs).
 
 0.11.1
  - Created the io module (src/libraries/io).
