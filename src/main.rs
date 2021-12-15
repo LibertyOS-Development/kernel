@@ -55,11 +55,8 @@ fn kernel_main(bootinfo: &'static BootInfo) -> !
 	let heap_value = Box::new(41);
 	println!("[INFO] HEAP_VALUE AT {:p}", heap_value);
 
-	let mut vec = Vec::new();
-	for i in 0..500
-	{
-		vec.push(i);
-	}
+	let mut vec = (0..500).collect::<Vec<i32>>();
+	
 	println!("[INFO] VEC AT {:p}", vec.as_slice());
 
 	let refcounted = Rc::new(vec![1, 2, 3]);
