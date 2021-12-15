@@ -14,6 +14,8 @@ use core::ops::Deref;
 use core::panic::PanicInfo;
 
 pub mod allocator;
+pub mod byteparse;
+pub mod bytesize;
 pub mod ctypes;
 pub mod gdt;
 pub mod intr;

@@ -1,5 +1,14 @@
 Version History
 
+0.11.3
+ - Added the bytesize module (src/bytesize.rs).
+ - Added a header to the bytesize module, to explain what the module does (src/bytesize.rs).
+ - Imported the bytesize module (src/lib.rs).
+ - Updated the kernel version (src/main.rs).
+ - Updated the version number (Cargo.toml).
+ - Created the byteparse module (src/byteparse.rs).
+ - Imported the byteparse module (src/lib.rs).
+
 0.11.2
  - Added uefi as a dependency (Cargo.toml).
  - Added the #![feature(abi_efiapit)] line (src/main.rs).

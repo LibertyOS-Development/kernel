@@ -29,7 +29,7 @@ fn kernel_main(bootinfo: &'static BootInfo) -> !
 	use x86_64::{structures::paging::Page, VirtAddr};
 
 	println!("LIBERTY-OS");
-	println!("KERNEL VERSION 0.11.2");
+	println!("KERNEL VERSION 0.11.3");
 	libertyos_kernel::init();
 
 	let physmem_offset = VirtAddr::new(bootinfo.physical_memory_offset);
