@@ -1,5 +1,16 @@
 Version History
 
+0.11.2
+ - Added uefi as a dependency (Cargo.toml).
+ - Added the #![feature(abi_efiapit)] line (src/main.rs).
+ - Imported uefi::prelude::* (src/main.rs).
+ - Imported uefi::ResultExt (src/main.rs).
+ - Updated the kernel version (src/main.rs).
+ - Updated the version number (Cargo.toml).
+ - Created the ps2mouse directory (src/libraries/ps2mouse).
+ - Added ps2mouse as a dependency (Cargo.toml).
+ - Commented out the newly-added dependency [ps2mouse] as some bugs are being fixed (Cargo.toml).
+
 0.11.1
  - Created the io module (src/libraries/io).
  - Began writing the error handling module for the io module (src/libraries/io/err.rs).

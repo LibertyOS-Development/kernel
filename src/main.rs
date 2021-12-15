@@ -1,5 +1,6 @@
 #![no_std]
 #![no_main]
+#![feature(abi_efiapi)]
 #![feature(custom_test_frameworks)]
 #![test_runner(libertyos_kernel::testexec)]
 #![reexport_test_harness_main = "testexec"]
@@ -14,9 +15,10 @@ use alloc::{boxed::Box, vec, vec::Vec, rc::Rc};
 use bootloader::{BootInfo, entry_point};
 use core::panic::PanicInfo;
 use libertyos_kernel::println;
+use uefi::prelude::*;
+use uefi::ResultExt;
 
 entry_point!(kernel_main);
-
 
 fn kernel_main(bootinfo: &'static BootInfo) -> !
 {
@@ -25,7 +27,7 @@ fn kernel_main(bootinfo: &'static BootInfo) -> !
 	use x86_64::{structures::paging::Page, VirtAddr};
 
 	println!("LIBERTY-OS");
-	println!("KERNEL VERSION 0.11.1");
+	println!("KERNEL VERSION 0.11.2");
 	libertyos_kernel::init();
 
 	let physmem_offset = VirtAddr::new(bootinfo.physical_memory_offset);
