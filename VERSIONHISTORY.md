@@ -1,5 +1,12 @@
 Version History
 
+0.11.4
+ - Added fat32 as a dependency (Cargo.toml).
+ - Wrote a basic implemention for BlockDevice (src/lib.rs).
+ - Uncommented the time dependency (Cargo.toml).
+ - Updated kernel version (src/main.rs).
+ - Updated version number (Cargo.toml).
+
 0.11.3
  - Added the bytesize module (src/bytesize.rs).
  - Added a header to the bytesize module, to explain what the module does (src/bytesize.rs).

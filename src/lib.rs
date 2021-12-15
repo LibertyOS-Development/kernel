@@ -49,6 +49,14 @@ pub fn hltloop() -> !
 	}
 }
 
+// This implementation is used for the FAT filesystem.
+pub trait BlockDevice
+{
+	type Error;
+	fn read(&self, buf: &mut [u8], address: usize, numblk: usize) -> Result<(), Self::Error>;
+	fn write(&self, buf: &[u8], address: usize, numblk: usize) -> Result<(), Self::Error>;
+}
+
 pub trait CanTest
 {
 	fn exec(&self) -> ();
