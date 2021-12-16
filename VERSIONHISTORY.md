@@ -1,5 +1,27 @@
 Version History
 
+0.12.0
+ - Added the vga crate as a dependency (Cargo.toml).
+ - Imported various portions of vga (src/main.rs).
+ - Created a basic TUI to be displayed on start-up (src/main.rs).
+ - Removed several lines that would display information about the heap/memory management (src/main.rs).
+ - Removed the iconic welcome message. Although the message will be missed, the replacement will likely make people happier (src/main.rs).
+ - Created a simple window, with the title/version number of the kernel. Unfortunately, the text is not centered properly, but that issue will be fixed soon (src/main.rs).
+ - Imported the embedded-graphics crate (src/main.rs).
+ - Imported the tiny-bmp crate (src/main.rs).
+ - Created a basic implementation of a graphics-mode (src/main.rs).
+ - Created a basic implementation of the new text-mode (src/main.rs)
+ - Loaded the "Logo-Dark.bmp" file into a variable, which has not been used yet (src/main.rs).
+ - Updated the kernel version (src/main.rs).
+ - Updated the version number (Cargo.toml).
+
+0.11.5
+ - Removed several commented out lines from the kernel_main function (src/main.rs).
+ - Removed imports of uefi (src/main.rs).
+ - Removed uefi as a dependency. The crate in question, despite being very useful, has certain components that conflict with the kernel (Cargo.toml).
+ - Updated the kernel version (src/main.rs).
+ - Updated the version number (Cargo.toml).
+
 0.11.4
  - Added fat32 as a dependency (Cargo.toml).
  - Wrote a basic implemention for BlockDevice (src/lib.rs).

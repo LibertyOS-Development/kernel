@@ -16,9 +16,10 @@ extern crate alloc;
 use alloc::{boxed::Box, vec, vec::Vec, rc::Rc};
 use bootloader::{BootInfo, entry_point};
 use core::panic::PanicInfo;
+use embedded_graphics::{image::Image, prelude::*};
 use libertyos_kernel::println;
-use uefi::prelude::*;
-use uefi::ResultExt;
+use tinybmp::DynamicBmp;
+use vga::{ colors::{ Color16, TextModeColor }, writers::{ Graphics640x480x16, GraphicsWriter, ScreenCharacter, TextWriter, Text80x25} };
 
 entry_point!(kernel_main);
 
@@ -27,9 +28,6 @@ fn kernel_main(bootinfo: &'static BootInfo) -> !
 	use libertyos_kernel::mem::{self, BootInfoFrameAllocator};
 	use libertyos_kernel::allocator;
 	use x86_64::{structures::paging::Page, VirtAddr};
-
-	println!("LIBERTY-OS");
-	println!("KERNEL VERSION 0.11.4");
 	libertyos_kernel::init();
 
 	let physmem_offset = VirtAddr::new(bootinfo.physical_memory_offset);
@@ -46,26 +44,38 @@ fn kernel_main(bootinfo: &'static BootInfo) -> !
 	libertyos_kernel::mem::new_example_mapping(page, &mut mapper, &mut framealloc);
 
 	let page_ptr: *mut u64 = page.start_address().as_mut_ptr();
-//	unsafe
-//	{
-//		page_ptr.offset(400).write_volatile(0x_f021_f077_f065_f04e)
-//	};
 
 	allocator::init_heap(&mut mapper, &mut framealloc)
 		.expect("[ERROR] FAILED TO INITIALIZE HEAP");
 
 	let heap_value = Box::new(41);
-	println!("[INFO] HEAP_VALUE AT {:p}", heap_value);
-
 	let mut vec = (0..500).collect::<Vec<i32>>();
-	
-	println!("[INFO] VEC AT {:p}", vec.as_slice());
-
 	let refcounted = Rc::new(vec![1, 2, 3]);
 	let clonedref = refcounted.clone();
-	println!("[INFO] CURRENT REFERENCE COUNT: {}", Rc::strong_count(&clonedref));
 	core::mem::drop(refcounted);
-	println!("[INFO] CURRENT REFERENCE COUNT: {}", Rc::strong_count(&clonedref));
+
+	let bmpdat = include_bytes!("libraries/graphics/images/bmp/Logo-Dark.bmp");
+
+	// This controls LibertyOS' text mode.
+	let textmode = Text80x25::new();
+	let tmcolor = TextModeColor::new(Color16::Yellow, Color16::Black);
+//	let screenchar = ScreenCharacter::new("", tmcolor);
+
+
+	// This creates LibertyOS' TUI.
+	let graphicsmode = Graphics640x480x16::new();
+	graphicsmode.set_mode();
+	graphicsmode.clear_screen(Color16::Black);
+	graphicsmode.draw_line((80, 60), (80, 420), Color16::White);
+	graphicsmode.draw_line((80, 60), (540, 60), Color16::White);
+	graphicsmode.draw_line((80, 420), (540, 420), Color16::White);
+	graphicsmode.draw_line((540, 420), (540, 60), Color16::White);
+	graphicsmode.draw_line((80, 90), (540, 90), Color16::White);
+
+	for (offset, character) in "LibertyOS v0.12.0".chars().enumerate()
+	{
+		graphicsmode.draw_character(270 + offset * 8, 72, character, Color16::Red)
+	}
 
 	#[cfg(test)]
 	testexec();
