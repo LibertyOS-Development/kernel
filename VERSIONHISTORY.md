@@ -1,5 +1,9 @@
 Version History
 
+0.12.1
+ - Updated the kernel version (src/main.rs).
+ - Updated the version number (Cargo.toml).
+
 0.12.0
  - Added the vga crate as a dependency (Cargo.toml).
  - Imported various portions of vga (src/main.rs).
