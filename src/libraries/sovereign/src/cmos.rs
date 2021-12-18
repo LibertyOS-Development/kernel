@@ -73,4 +73,132 @@ impl CMOS
 		let mut rtc;
 		loop
 		{
-			self.
+			self.waitfor_update_end();
+			rtc = self.uncheck_rtc();
+			self.waitfor_update_end();
+			if rtc == self.uncheck_rtc()
+			{
+				break;
+			}
+		}
+
+		let b = self.readreg(Register::B);
+		if b & 0x04 == 0
+		{
+			rtc.sec = (rtc.sec & 0x0F) + ((rtc.sec / 16) * 10);
+			rtc.min = (rtc.min & 0x0F) + ((rtc.min / 16) * 10);
+			rtc.hr = ((rtc.hr & 0x0F) + (((rtc.hr & 0x70) / 16) * 10)) | (rtc.hr & 0x80);
+			rtc.d = (rtc.d & 0x0F) + ((rtc.mon / 16) * 10);
+			rtc.yr = (rtc.yr & 0x0F) + ((rtc.yr / 16) * 10);
+		}
+		if (b & 0x02 == 0) && (rtc.hr & 0x80 == 0)
+		{
+			rtc.hr = ((rtc.hr & 0x7F) + 12) % 24;
+		}
+
+		rtc.yr += 2000;
+		rtc
+	}
+
+	pub fn enable_pdintr(&mut self)
+	{
+		self.enableintr(Intr::Pd);
+	}
+
+	pub fn enable_alarmintr(&mut self)
+	{
+		self.enableintr(Intr::Alarm);
+	}
+
+	pub fn enable_updateintr(&mut self)
+	{
+		self.enableintr(Intr::Update);
+	}
+
+	pub fn pdintr_rate_set(&mut self, rate: u8)
+	{
+		intr::nointr(||
+		{
+			self.disablenmi();
+			unsafe
+			{
+				self.addr.write(Register::A as u8);
+				let prev = self.data.read();
+				self.addr.write(Register::A as u8);
+				self.data.write((prev & 0xF0) | rate);
+			}
+			self.enablenmi();
+			self.notif_intrend();
+		});
+	}
+
+	fn enableintr(&mut self, intr: Intr)
+	{
+		intr::nointr(||
+		{
+			self.disablenmi();
+			unsafe
+			{
+				self.addr.write(Register::B as u8);
+				let prev = self.data.read();
+				self.addr.write(Register::B as u8);
+				self.data.write(prev | intr as u8);
+			}
+			self.enablenmi();
+			self.notif_intrend();
+		});
+	}
+
+	pub fn notif_intrend(&mut self)
+	{
+		unsafe
+		{
+			self.addr.write(Register::C as u8);
+			self.data.read();
+		}
+	}
+
+	fn waitfor_update_end(&mut self)
+	{
+		while self.updating()
+		{
+			spin_loop();
+		}
+	}
+
+	fn updating(&mut self) -> bool
+	{
+		unsafe
+		{
+			self.addr.write(Register::A as u8);
+			self.data.read().getbit(7)
+		}
+	}
+
+	fn readreg(&mut self, reg: Register) -> u8
+	{
+		unsafe
+		{
+			self.addr.write(reg as u8);
+			self.data.read()
+		}
+	}
+
+	fn enablenmi(&mut self)
+	{
+		unsafe
+		{
+			let prev = self.addr.read();
+			self.addr.write(prev & 0x7F);
+		}
+	}
+
+	fn disablenmi(&mut self)
+	{
+		unsafe
+		{
+			let prev = self.addr.read();
+			self.addr.write(prev | 0x80);
+		}
+	}
+}
