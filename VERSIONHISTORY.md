@@ -1,5 +1,13 @@
 Version History
 
+0.12.2
+ - Began development on Sovereign, the standard library of LibertyOS.
+ - Created subdirectory (src/libraries/sovereign).
+ - Created the syscall subdirectory (src/libraries/sovereign/syscall).
+ - Created the cmos module of Sovereign (src/libraries/sovereign/cmos.rs).
+ - Updated the kernel version (src/main.rs).
+ - Updated the version number (Cargo.toml).
+
 0.12.1
  - Rewrote the heapalloc test-cases (tests/heapalloc.rs).
  - Fixed the errors that would prevent "cargo test" from working.
