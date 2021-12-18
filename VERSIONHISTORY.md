@@ -9,6 +9,7 @@ Version History
  - Added the #![allow(dead_code)] line (src/lib.rs).
  - Added the #![allow(unused_imports)] line (src/lib.rs).
  - Added the sovereign crate as a dependency. Sovereign is compiled from the included libraries directory, rather than from crates.io (Cargo.toml).
+ - Removed the unused, virtually useless runtime directory (src/libraries/runtime).
  - Updated the kernel version (src/main.rs).
  - Updated the version number (Cargo.toml).
 
