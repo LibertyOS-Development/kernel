@@ -8,9 +8,10 @@ keywords = ["no-std", "liberty", "libertyos", "os", "kernel"]
 name = "libertyos_kernel"
 readme = "README.md"
 repository = "https://github.com/LibertyOS-Development/kernel"
-version = "0.12.2"
+version = "0.12.3"
 
 [dependencies]
+bit_field = "0.10.0"
 bitflags = "1.3.2"
 bootloader = { version = "0.9.8", features = ["map_physical_memory"]}
 embedded-graphics = "0.7.1"
@@ -22,6 +23,7 @@ pc-keyboard = "0.5.0"
 pic8259 = "0.10.1"
 #ps2mouse = { path = "src/libraries/ps2mouse" }
 x86_64 = "0.14.2"
+sovereign = { path = "src/libraries/sovereign" }
 spin = "0.5.2"
 time = { version = "0.3.4", default-features = false }
 tinybmp = "0.3.1"

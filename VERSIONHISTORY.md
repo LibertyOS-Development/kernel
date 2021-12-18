@@ -1,10 +1,22 @@
 Version History
 
+0.12.3
+ - Created the font module of Sovereign (src/libraries/sovereign/src/font.rs).
+ - Fixed the update notes from 0.12.2. The path to certain modules/files were incorrect (VERSIONHISTORY.md).
+ - Removed the main.rs file that was created when Sovereign was created (src/libraries/sovereign/src/main.rs).
+ - Added some basic information to Sovereign's manifest, so that the crate could be published (src/libraries/sovereign/Cargo.toml).
+ - Imported the sovereign into the kernel's lib.rs (src/lib.rs).
+ - Added the #![allow(dead_code)] line (src/lib.rs).
+ - Added the #![allow(unused_imports)] line (src/lib.rs).
+ - Added the sovereign crate as a dependency. Sovereign is compiled from the included libraries directory, rather than from crates.io (Cargo.toml).
+ - Updated the kernel version (src/main.rs).
+ - Updated the version number (Cargo.toml).
+
 0.12.2
  - Began development on Sovereign, the standard library of LibertyOS.
  - Created subdirectory (src/libraries/sovereign).
- - Created the syscall subdirectory (src/libraries/sovereign/syscall).
- - Created the cmos module of Sovereign (src/libraries/sovereign/cmos.rs).
+ - Created the syscall subdirectory (src/libraries/sovereign/src/syscall).
+ - Created the cmos module of Sovereign (src/libraries/sovereign/src/cmos.rs).
  - Updated the kernel version (src/main.rs).
  - Updated the version number (Cargo.toml).
 

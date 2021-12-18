@@ -1,5 +1,7 @@
 #![no_std]
 #![cfg_attr(test, no_main)]
+#![allow(dead_code)]
+#![allow(unused_imports)]
 #![feature(alloc_error_handler)]
 #![feature(custom_test_frameworks)]
 #![feature(abi_x86_interrupt)]
@@ -12,6 +14,7 @@ extern crate core;
 
 use core::ops::Deref;
 use core::panic::PanicInfo;
+use sovereign::*;
 
 pub mod allocator;
 pub mod byteparse;
