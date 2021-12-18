@@ -1,6 +1,11 @@
 Version History
 
 0.12.1
+ - Rewrote the heapalloc test-cases (tests/heapalloc.rs).
+ - Fixed the errors that would prevent "cargo test" from working.
+ - Modified the x coordinate of the LibertyOS text from 270 to 250 (src/main.rs).
+ - Removed some random file from the src directory (src/issue).
+ - Added a nicer message to be displayed on startup (src/main.rs).
  - Updated the kernel version (src/main.rs).
  - Updated the version number (Cargo.toml).
 

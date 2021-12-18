@@ -1,1 +1,0 @@
-Cargo is not automatically added to path, so the bootstrap script is unable to install the bootimage crate, which prevents the testing from compiling. Also, llvm-tools-preview is needed.

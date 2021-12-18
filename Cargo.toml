@@ -27,7 +27,6 @@ time = { version = "0.3.4", default-features = false }
 tinybmp = "0.3.1"
 uart_16550 = "0.2.0"
 vga = "0.2.7"
-vga_figures = "0.2.0"
 
 [dependencies.lazy_static]
 version = "1.0"

@@ -54,7 +54,7 @@ fn kernel_main(bootinfo: &'static BootInfo) -> !
 	let clonedref = refcounted.clone();
 	core::mem::drop(refcounted);
 
-	let bmpdat = include_bytes!("libraries/graphics/images/bmp/Logo-Dark.bmp");
+	let bmpdat = include_bytes!("../resources/images/bmp/Logo-Dark.bmp");
 
 	// This controls LibertyOS' text mode.
 	let textmode = Text80x25::new();
@@ -74,7 +74,12 @@ fn kernel_main(bootinfo: &'static BootInfo) -> !
 
 	for (offset, character) in "LibertyOS v0.12.1".chars().enumerate()
 	{
-		graphicsmode.draw_character(270 + offset * 8, 72, character, Color16::Red)
+		graphicsmode.draw_character(250 + offset * 8, 72, character, Color16::Red)
+	}
+
+	for (offset, character) in "Welcome to LibertyOS.".chars().enumerate()
+	{
+		graphicsmode.draw_character(100 + offset * 8, 100, character, Color16::Yellow)
 	}
 
 	#[cfg(test)]

@@ -1,8 +1,8 @@
-#![no_main]
 #![no_std]
+#![no_main]
 #![feature(custom_test_frameworks)]
 #![test_runner(libertyos_kernel::testexec)]
-#![reexport_test_harness_main = "test_main"]
+#![reexport_test_harness_main = "testexec"]
 
 extern crate alloc;
 
@@ -13,31 +13,32 @@ use libertyos_kernel::allocator::HEAP_SIZE;
 
 entry_point!(main);
 
-fn main(bootinfo: &'static BootInfo) -> !
+fn main(boot_info: &'static BootInfo) -> !
 {
 	use libertyos_kernel::allocator;
 	use libertyos_kernel::mem::{self, BootInfoFrameAllocator};
 	use x86_64::VirtAddr;
 
 	libertyos_kernel::init();
-	let physical_memory_offset = VirtAddr::new(bootinfo.physical_memory_offset);
-	let mut mapper
+	let physical_memory_offset = VirtAddr::new(boot_info.physical_memory_offset);
+	let mut mapper = unsafe
 	{
-		mem::init(physmem_offset)
+		mem::init(physical_memory_offset)
 	};
-	let mut framealloc = unsafe
-	{
-		BootInfoFrameAllocator::init(&bootinfo.memory_map)
-	};
-	allocator::init_heap(&mut mapper, &mut framealloc)
-		.expect("[ERR] FAILED TO INITIALIZE HEAP");
 
-	test_main();
+	let mut frame_allocator = unsafe
+	{
+		BootInfoFrameAllocator::init(&boot_info.memory_map)
+	};
+	allocator::init_heap(&mut mapper, &mut frame_allocator).expect("[ERR] FAILED TO INITIALIZE HEAP");
+
+	testexec();
 	loop {}
 }
 
+
 #[test_case]
-fn simplealloc()
+fn simple_alloc()
 {
 	let heapval1 = Box::new(41);
 	let heapval2 = Box::new(13);
@@ -63,10 +64,12 @@ fn manyboxes()
 	for i in 0..HEAP_SIZE
 	{
 		let x = Box::new(i);
-	assert_eq!(*x, i);
+		assert_eq!(*x, i);
 	}
 }
 
+
+// This is the panic handler.
 #[panic_handler]
 fn panic(info: &PanicInfo) -> !
 {
