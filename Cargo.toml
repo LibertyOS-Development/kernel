@@ -23,7 +23,7 @@ pc-keyboard = "0.5.0"
 pic8259 = "0.10.1"
 #ps2mouse = { path = "src/libraries/ps2mouse" }
 x86_64 = "0.14.2"
-sovereign = { path = "src/libraries/sovereign" }
+sovereign = { path = "src/libraries/sovereign", version = "0.1.0" }
 spin = "0.5.2"
 time = { version = "0.3.4", default-features = false }
 tinybmp = "0.3.1"
