@@ -18,7 +18,6 @@ use core::panic::PanicInfo;
 pub mod allocator;
 pub mod byteparse;
 pub mod bytesize;
-pub mod cmos;
 pub mod ctypes;
 pub mod font;
 pub mod gdt;
