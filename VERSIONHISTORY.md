@@ -1,5 +1,19 @@
 Version History
 
+0.12.4
+ - Upon reflection, making a standard library was not the best idea. Rather than putting certain portions of the kernel's functionality into a dedicated crate, I decided to move Sovereign's code into the kernel.
+ - Removed the sovereign subdirectory (src/libraries/sovereign).
+ - Removed the import of the sovereign crate (src/lib.rs).
+ - Removed sovereign as a dependency (Cargo.toml).
+ - Removed a module that served no purpose, and was not included in the kernel (src/kbd.rs).
+ - Imported the font module (src/lib.rs).
+ - Removed the pci module, which was brought over from Sovereign (src/pci.rs).
+ - Finished the rgx module (src/rgx.rs).
+ - Imported the rgx module (src/lib.rs).
+ - Removed the cmos module, which was brought over from Sovereign.
+ - Updated the kernel version (src/main.rs).
+ - Updated the version number (Cargo.toml).
+
 0.12.3
  - Created the font module of Sovereign (src/libraries/sovereign/src/font.rs).
  - Fixed the update notes from 0.12.2. The path to certain modules/files were incorrect (VERSIONHISTORY.md).

@@ -1,8 +1,0 @@
-[package]
-description = "The standard library for LibertyOS."
-name = "sovereign"
-version = "0.1.0"
-edition = "2021"
-authors = [ "Daniel P. Teberian" ]
-categories = [ "no-std" ]
-license = "Apache-2.0"

@@ -14,15 +14,17 @@ extern crate core;
 
 use core::ops::Deref;
 use core::panic::PanicInfo;
-use sovereign::*;
 
 pub mod allocator;
 pub mod byteparse;
 pub mod bytesize;
+pub mod cmos;
 pub mod ctypes;
+pub mod font;
 pub mod gdt;
 pub mod intr;
 pub mod mem;
+pub mod rgx;
 pub mod ser;
 pub mod vgabuff;
 
