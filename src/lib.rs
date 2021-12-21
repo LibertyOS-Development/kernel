@@ -18,16 +18,19 @@ use core::panic::PanicInfo;
 pub mod allocator;
 pub mod byteparse;
 pub mod bytesize;
+pub mod clock;
 pub mod cmos;
 pub mod ctypes;
 pub mod font;
 pub mod fs;
 pub mod gdt;
 pub mod intr;
+pub mod macros;
 pub mod mem;
 pub mod pic;
 pub mod rgx;
 pub mod ser;
+pub mod time;
 pub mod vgabuff;
 
 // This is set to be 2MB.
@@ -209,7 +212,6 @@ impl<T, const N: usize> AsMutSlice for [T; N]
 		self
 	}
 }
-
 
 
 // TESTING

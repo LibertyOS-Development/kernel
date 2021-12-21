@@ -129,7 +129,7 @@ checksum = "1b03d17f364a3a042d5e5d46b053bbbf82c92c9430c592dd4c064dc6ee997125"
 
 [[package]]
 name = "libertyos_kernel"
-version = "0.12.7"
+version = "0.12.8"
 dependencies = [
  "bit_field",
  "bitflags",
@@ -141,6 +141,7 @@ dependencies = [
  "log",
  "pc-keyboard",
  "pic8259",
+ "raw-cpuid",
  "spin",
  "time",
  "tinybmp",
@@ -221,6 +222,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "24ec21f514e2e16e94649f1d041ca4a7069b512c037ac156360652a775e6229d"
 dependencies = [
  "x86_64",
+]
+
+[[package]]
+name = "raw-cpuid"
+version = "10.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "929f54e29691d4e6a9cc558479de70db7aa3d98cd6fe7ab86d7507aa2886b9d2"
+dependencies = [
+ "bitflags",
 ]
 
 [[package]]

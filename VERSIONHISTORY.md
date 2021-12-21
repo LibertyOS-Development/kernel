@@ -1,5 +1,14 @@
 Version History
 
+0.12.8
+ - Began work on the time module (src/time.rs).
+ - Imported the time module (src/lib.rs).
+ - Added raw_cpuid as a dependency (Cargo.toml).
+ - Created the clock module (src/clock.rs).
+ - Imported the clock module (src/lib.rs).
+ - Updated the kernel version (src/main.rs).
+ - Updated the version number (Cargo.toml).
+
 0.12.7
  - Added the KSIZE const (src/lib.rs).
  - Removed ps2mouse as a dependency, as the previous update should have done (Cargo.toml).
