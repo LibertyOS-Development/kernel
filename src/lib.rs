@@ -18,15 +18,20 @@ use core::panic::PanicInfo;
 pub mod allocator;
 pub mod byteparse;
 pub mod bytesize;
+pub mod cmos;
 pub mod ctypes;
 pub mod font;
+pub mod fs;
 pub mod gdt;
 pub mod intr;
 pub mod mem;
+pub mod pic;
 pub mod rgx;
 pub mod ser;
 pub mod vgabuff;
 
+// This is set to be 2MB.
+const KSIZE: usize = 2 << 20;
 
 #[alloc_error_handler]
 fn alloc_error_handler(layout: alloc::alloc::Layout) -> !

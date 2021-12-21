@@ -1,5 +1,36 @@
 Version History
 
+0.12.7
+ - Added the KSIZE const (src/lib.rs).
+ - Removed ps2mouse as a dependency, as the previous update should have done (Cargo.toml).
+ - The previous update [0.12.6] recorded the removal of ps2mouse as a dependency. This change was not made until this version, so I have removed the line in the notes for 0.12.6 that described the change in question (VERSIONHISTORY.md).
+ - Moved the fs subdirectory into the src directory (src/fs).
+ - Imported the fs module (src/lib.rs).
+ - Started writing the sblk module of the fs module (src/fs/sblk.rs).
+ - Started writing the ata module of fs module (src/fs/ata.rs).
+ - Wrote the bmapblk module of the fs module (src/fs/bmapblk.rs).
+ - Created a mod.rs file for the fs module (src/fs/mod.rs).
+ - Created the cmos module (src/cmos.rs).
+ - Imported the cmos module (src/lib.rs).
+ - Removed the libraries directory. There was supposed to be a dedicated directory for all of LOS' libraries, but upon further reflection, it was decided that organizing the repository in that way would be counterproductive. Any useful code that was previously in the libraries directory has been moved (src/libraries).
+ - Updated the kernel version (src/main.rs).
+ - Updated the version number (Cargo.toml).
+
+0.12.6
+ - Removed the io subdirectory (src/libraries/io).
+ - Removed the utilities subdirectory (src/libraries/utilities).
+ - Removed the ps2mouse subdirectory (src/libraries/ps2mouse).
+ - Created the fs subdirectory (src/libraries/fs).
+ - Created the bmapblk module (src/libraries/fs/bmapblk.rs).
+ - Updated the kernel version (src/main.rs).
+ - Updated the version number (Cargo.toml).
+
+0.12.5
+ - Created the pic module (src/pic.rs).
+ - Imported the pic module (src/lib.rs).
+ - Updated the kernel version (src/main.rs).
+ - Updated the version number (Cargo.toml).
+
 0.12.4
  - Upon reflection, making a standard library was not the best idea. Rather than putting certain portions of the kernel's functionality into a dedicated crate, I decided to move Sovereign's code into the kernel.
  - Removed the sovereign subdirectory (src/libraries/sovereign).
