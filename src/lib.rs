@@ -1,3 +1,4 @@
+
 #![no_std]
 #![cfg_attr(test, no_main)]
 #![allow(dead_code)]
@@ -16,6 +17,7 @@ use core::ops::Deref;
 use core::panic::PanicInfo;
 
 pub mod allocator;
+pub mod ata;
 pub mod byteparse;
 pub mod bytesize;
 pub mod clock;

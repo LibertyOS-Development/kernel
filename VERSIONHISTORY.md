@@ -1,5 +1,14 @@
 Version History
 
+0.12.9
+ - Finished writing the time module (src/time.rs).
+ - Moved the ata module from the fs directory, to the src directory (src/fs/ata.rs -> src/ata.rs).
+ - Imported the ata module (src/lib.rs).
+ - Continued writing the code for the ata module. The kernel compiles with the ata module, but said module is incomplete (src/ata.rs).
+ - Removed the time crate as a dependency. The newly-created time module should be enough for the kernel, so the time crate is no longer neccesary (Cargo.toml).
+ - Updated the kernel version (src/main.rs).
+ - Updated the version number (Cargo.toml).
+
 0.12.8
  - Began work on the time module (src/time.rs).
  - Imported the time module (src/lib.rs).

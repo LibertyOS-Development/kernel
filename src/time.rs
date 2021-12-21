@@ -1,5 +1,6 @@
 // time.rs
 
+use crate::cmos::CMOS;
 use core::hint::spin_loop;
 use core::sync::atomic::{AtomicUsize, AtomicU64, Ordering};
 use x86_64::instructions::{interrupts, port::Port};
@@ -46,6 +47,51 @@ fn rdtsc() -> u64
 	}
 }
 
-//pub fn sleep(sec: f64)
-//{
-//	let start = 
+pub fn sleep(nsec: u64)
+{
+	let start = rdtsc();
+	let delta = nsec * CLOCK_PER_NS.load(Ordering::Relaxed);
+	while rdtsc() - start < delta
+	{
+		spin_loop();
+	}
+}
+
+pub fn nwait(nsec: u64)
+{
+	let start = rdtsc();
+	let delta = nsec * CLOCK_PER_NS.load(Ordering::Relaxed);
+	while rdtsc() - start < delta
+	{
+		spin_loop();
+	}
+}
+
+pub fn set_pitfreq_div(divider: u16, channel: u8)
+{
+	interrupts::without_interrupts(||
+	{
+		let bytes = divider.to_le_bytes();
+		let mut cmd: Port<u8> = Port::new(0x43);
+		let mut data: Port<u8> = Port::new(0x40 + channel as u16);
+		let opmode = 6;
+		let accmode = 3;
+		unsafe
+		{
+			cmd.write((channel << 6) | (accmode << 4) | opmode);
+			data.write(bytes[0]);
+			data.write(bytes[1]);
+		}
+	});
+}
+
+pub fn pit_intrhandler()
+{
+	PIT_TICK.fetch_add(1, Ordering::Relaxed);
+}
+
+pub fn rtc_intrhandler()
+{
+	LAST_RTCUPDATE.store(tick(), Ordering::Relaxed);
+	CMOS::new().notify_intrend();
+}
