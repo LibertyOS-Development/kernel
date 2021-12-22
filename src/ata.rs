@@ -291,3 +291,8 @@ impl Bus
 		self.busyloop();
 	}
 }
+
+lazy_static!
+{
+	pub static ref BUSES: Mutex<Vec<Bus>> = Mutex::new(Vec::new());
+}

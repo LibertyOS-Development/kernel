@@ -23,6 +23,7 @@ pub mod bytesize;
 pub mod clock;
 pub mod cmos;
 pub mod ctypes;
+pub mod external;
 pub mod font;
 pub mod fs;
 pub mod gdt;
@@ -36,7 +37,7 @@ pub mod time;
 pub mod vgabuff;
 
 // This is set to be 2MB.
-const KSIZE: usize = 2 << 20;
+pub const KSIZE: usize = 2 << 20;
 
 #[alloc_error_handler]
 fn alloc_error_handler(layout: alloc::alloc::Layout) -> !

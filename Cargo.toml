@@ -8,7 +8,7 @@ keywords = ["no-std", "liberty", "libertyos", "os", "kernel"]
 name = "libertyos_kernel"
 readme = "README.md"
 repository = "https://github.com/LibertyOS-Development/kernel"
-version = "0.12.9"
+version = "0.13.0"
 
 [dependencies]
 bit_field = "0.10.0"

@@ -3,6 +3,8 @@ use core::ptr::null_mut;
 use linked_list_allocator::LockedHeap;
 use x86_64::{structures::paging::{mapper::MapToError, FrameAllocator, Mapper, Page, PageTableFlags, Size4KiB}, VirtAddr};
 
+pub mod bump;
+
 pub const HEAP_START: usize = 0x_4444_4444_0000;
 pub const HEAP_SIZE: usize = 100 * 1024;
 
@@ -51,4 +53,33 @@ unsafe fn dealloc(&self, _ptr: *mut u8, _layout: Layout)
 {
 	panic!("[ERR] DEALLOC SHOULD NOT BE CALLED")
 	}
+}
+
+
+// This is a wrapper around spin::Mutex, in order to allow trait implementations.
+pub struct Locked<A>
+{
+	inner: spin::Mutex<A>,
+}
+
+impl<A> Locked<A>
+{
+	pub const fn new(inner: A) -> Self
+	{
+		Locked
+		{
+			inner: spin::Mutex::new(inner),
+		}
+	}
+
+	pub fn lock(&self) -> spin::MutexGuard<A>
+	{
+		self.inner.lock()
+	}
+}
+
+// This aligns the specified "address", upwards, to "align". In order to use this function, "align" must have a value that is a power of two (2).
+fn alignup(address: usize, align: usize) -> usize
+{
+	(address + align - 1) & !(align - 1)
 }

@@ -1,5 +1,44 @@
 Version History
 
+0.13.0
+ - Created the external directory (src/external).
+ - Created a mod.rs file for the external module (src/external/mod.rs).
+ - Created the external::cpmem module (src/external/cpmem.rs).
+ - Added basic documentation for the external::cpmem module (src/external/cpmem.rs).
+ - Imported the external module (src/lib.rs).
+ - Imported the cpmem module (src/external/mod.rs).
+ - Created the external::movemem module (src/external/movemem.rs).
+ - Added basic documentation for the external::movemem module (src/external/movemem.rs).
+ - Imported the movemem module (src/external/mod.rs).
+ - Modified the KSIZE constant, so that it is public (src/lib.rs).
+ - Created the external::setmem module (src/external/setmem.rs).
+ - Added basic documentation for the external::setmem module (src/external/setmem.rs).
+ - Imported the setmem module (src/external/mod.rs).
+ - Created the external::compmem module (src/external/compmem.rs).
+ - Added basic documentation for the compmem module (src/external/compmem.rs).
+ - Imported the compmem module (src/external/mod.rs).
+ - Added the BUSES reference to the ata module (src/ata.rs).
+ - Added a header to the macros module (src/macros.rs).
+ - Moved the print! macro from the vgabuff module to the macros module (src/vgabuff.rs -> src/macros.rs).
+ - Added documentation for the print! macro (src/macros.rs).
+ - Removed the print! macro from the vgabuff module (src/vgabuff.rs).
+ - Moved the println! macro from the vgabuff module to the macros module (src/vgabuff.rs -> src/macros.rs).
+ - Added documentation for the println! macro (src/macros.rs).
+ - Removed the println! macro from the vgabuff module (src/vgabuff.rs).
+ - Created the allocator directory (src/allocator.rs).
+ - Removed the allocator module (src/allocator.rs).
+ - Reimplemented the functionality of the recently-removed allocator module into the new allocator module's mod.rs file (src/allocator/mod.rs).
+ - Created the "Locked" struct for the allocator module (src/allocator/mod.rs).
+ - Created the implementation for the "Locked" struct. This implementation includes the "new" and "lock" functions (src/allocator/mod.rs).
+ - Created the "alignup" function (src/allocator/mod.rs).
+ - Added basic documentation for the "Locked" struct (src/allocator/mod.rs).
+ - Added basic documentation for the "alignup" function (src/allocator/mod.rs).
+ - Created the allocator::bump module (src/allocator/bump.rs).
+ - Imported the bump module (src/allocator/mod.rs).
+ - Added basic documentation for the allocator::bump module (src/allocator.bump.rs).
+ - Updated the kernel version (src/main.rs).
+ - Updated the version number (Cargo.toml).
+
 0.12.9
  - Finished writing the time module (src/time.rs).
  - Moved the ata module from the fs directory, to the src directory (src/fs/ata.rs -> src/ata.rs).
