@@ -17,12 +17,13 @@ use core::ops::Deref;
 use core::panic::PanicInfo;
 
 pub mod allocator;
-pub mod ata;
+//pub mod ata;
 pub mod byteparse;
 pub mod bytesize;
 pub mod clock;
 pub mod cmos;
 pub mod ctypes;
+pub mod dev;
 pub mod external;
 pub mod font;
 pub mod fs;

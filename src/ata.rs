@@ -296,3 +296,93 @@ lazy_static!
 {
 	pub static ref BUSES: Mutex<Vec<Bus>> = Mutex::new(Vec::new());
 }
+
+
+pub fn initialize()
+{
+	{
+		let mut buses = BUSES.lock();
+		buses.push(Bus::new(0, 0x1F0, 0x3F6, 14));
+		buses.push(Bus::new(1, 0x170, 0x376, 15));
+	}
+
+	for drive in list()
+	{
+		serprint!("[INFO] ATA {}:{} {}\n", drive.bus, drive.disk, drive);
+	}
+}
+
+#[derive(Clone)]
+pub struct Drive
+{
+	pub bus: u8,
+	pub disk: u8,
+	blk: u32,
+	model: String,
+	serial: String,
+}
+
+impl Drive
+{
+	pub fn identify(bus: u8, disk: u8) -> Option<Self>
+	{
+		let mut buses = BUSES.lock();
+		if let Some(buf) = buses[bus as usize].diskidentify(disk)
+		{
+			let mut serial = String::new();
+			for i in 10..20
+			{
+				for &b in &buf[i].to_be_bytes()
+				{
+					serial.push(b as char);
+				}
+			}
+			serial = serial.trim().into();
+			let mut model = String::new();
+			for i in 27..47
+			{
+				for &b in &buf[i].to_be_bytes()
+				{
+					model.push(b as char);
+				}
+			}
+			model = model.trim().into();
+			let blk = (buf[61] as u32) << 16 | (buf[60] as u32);
+			Some(Self
+			{
+				bus,
+				disk,
+				model,
+				serial,
+				blk,
+			})
+		}
+		else
+		{
+			None
+		}
+	}
+
+	pub const fn blksize(&self) -> u32
+	{
+		BLKSIZE as u32
+	}
+
+	pub fn blkcount(&self) -> u32
+	{
+		self.blk
+	}
+
+	fn humsize(&self) -> (u32, String)
+	{
+		let bytes = self.blksize() * self.blkcount();
+		if bytes >> 20 < 1000
+		{
+			(bytes >> 20, String::from("MB"))
+		}
+		else
+		{
+			(bytes >> 30, String::from("GB"))
+		}
+	}
+}

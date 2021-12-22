@@ -3,6 +3,12 @@
 version = 3
 
 [[package]]
+name = "arrayvec"
+version = "0.7.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8da52d66c7071e2e3fa2a1e5c6d088fec47b593032b254f5e980de8ea54454d6"
+
+[[package]]
 name = "autocfg"
 version = "1.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -123,8 +129,9 @@ dependencies = [
 
 [[package]]
 name = "libertyos_kernel"
-version = "0.13.0"
+version = "0.13.1"
 dependencies = [
+ "arrayvec",
  "bit_field",
  "bitflags",
  "bootloader",
@@ -133,6 +140,7 @@ dependencies = [
  "lazy_static",
  "linked_list_allocator",
  "log",
+ "memoffset",
  "pc-keyboard",
  "pic8259",
  "raw-cpuid",
@@ -141,6 +149,7 @@ dependencies = [
  "uart_16550",
  "vga",
  "volatile 0.2.7",
+ "x86",
  "x86_64",
 ]
 
@@ -176,6 +185,15 @@ name = "memchr"
 version = "2.3.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0ee1c47aaa256ecabcaea351eae4a9b01ef39ed810004e298d2511ed284b1525"
+
+[[package]]
+name = "memoffset"
+version = "0.6.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5aa361d4faea93603064a027415f07bd8e1d5c88c9fbf68bf56a285428fd79ce"
+dependencies = [
+ "autocfg",
+]
 
 [[package]]
 name = "micromath"
@@ -298,6 +316,17 @@ name = "volatile"
 version = "0.4.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e4c2dbd44eb8b53973357e6e207e370f0c1059990df850aca1eca8947cf464f0"
+
+[[package]]
+name = "x86"
+version = "0.43.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1e85eb056bbe47f56d75dc0ccc5fe9c12211ed141292f4d7485d2a7c3dedda09"
+dependencies = [
+ "bit_field",
+ "bitflags",
+ "raw-cpuid",
+]
 
 [[package]]
 name = "x86_64"

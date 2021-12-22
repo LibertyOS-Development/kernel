@@ -1,5 +1,20 @@
 Version History
 
+0.13.1
+ - Created the dev directory (src/dev).
+ - Created the drivers directory (src/dev/drivers).
+ - Created a mod.rs file for the dev directory (src/dev/mod.rs).
+ - Created a mod.rs file for the drivers directory (src/dev/drivers/mod.rs).
+ - Added basic documentation (src/dev/mod.rs).
+ - Added basic documentation (src/dev/drivers/mod.rs).
+ - Imported the dev module (src/lib.rs).
+ - Added the x86 crate as a dependency (Cargo.toml).
+ - Added the memoffset crate as a dependency (Cargo.toml).
+ - Added the arrayvec crate as a dependency (Cargo.toml).
+ - Commented out the ata module, as it is being developed still, and prevents the kernel from compiling (src/lib.rs).
+ - Updated the kernel version (src/main.rs).
+ - Updated the version number (Cargo.toml).
+
 0.13.0
  - Created the external directory (src/external).
  - Created a mod.rs file for the external module (src/external/mod.rs).
