@@ -1,5 +1,11 @@
 Version History
 
+0.13.2
+ - Created the graphics module (src/graphics).
+ - Created mod.rs (src/graphics/mod.rs).
+ - Added basic documentation (src/graphics/mod.rs).
+ - 
+
 0.13.1
  - Created the dev directory (src/dev).
  - Created the drivers directory (src/dev/drivers).
