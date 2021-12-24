@@ -5,3 +5,4 @@ README.md
 Dockerfile*
 docker-compose*
 Cargo.lock
+target/
