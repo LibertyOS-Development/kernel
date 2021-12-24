@@ -1,21 +1,21 @@
 // pic.rs
 
-use pic8259::ChainedPics;
+use crate::dev::drivers::pic8259::ChainPIC;
 use spin::Mutex;
 
 pub const PO1: u8 = 32;
 pub const PO2: u8 = PO1 + 8;
 
-pub static PICS: Mutex<ChainedPics> = Mutex::new(unsafe
+pub static PICS: Mutex<ChainPIC> = Mutex::new(unsafe
 {
-	ChainedPics::new(PO1, PO2)
+	ChainPIC::new(PO1, PO2)
 });
 
 pub fn init()
 {
 	unsafe
 	{
-		PICS.lock().initialize();
+		PICS.lock().init();
 	}
 	x86_64::instructions::interrupts::enable();
 }

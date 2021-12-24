@@ -142,7 +142,6 @@ dependencies = [
  "log",
  "memoffset",
  "pc-keyboard",
- "pic8259",
  "raw-cpuid",
  "spin",
  "tinybmp",
@@ -225,15 +224,6 @@ name = "pc-keyboard"
 version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5c6f2d937e3b8d63449b01401e2bae4041bc9dd1129c2e3e0d239407cf6635ac"
-
-[[package]]
-name = "pic8259"
-version = "0.10.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "24ec21f514e2e16e94649f1d041ca4a7069b512c037ac156360652a775e6229d"
-dependencies = [
- "x86_64",
-]
 
 [[package]]
 name = "raw-cpuid"

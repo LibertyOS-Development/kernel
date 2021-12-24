@@ -52,7 +52,7 @@ pub fn init()
 	intr::idtinit();
 	unsafe
 	{
-		intr::PICS.lock().initialize()
+		intr::PICS.lock().init()
 	};
 	x86_64::instructions::interrupts::enable();
 }

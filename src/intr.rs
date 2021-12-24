@@ -3,13 +3,13 @@
 use x86_64::structures::idt::{InterruptDescriptorTable, InterruptStackFrame};
 use lazy_static::lazy_static;
 use crate::{gdt, print, println};
-use pic8259::ChainedPics;
+use crate::dev::drivers::pic8259::ChainPIC;
 use spin;
 
 pub const PIC_1_OFFSET: u8 = 32;
 pub const PIC_2_OFFSET: u8 = PIC_1_OFFSET + 8;
 
-pub static PICS: spin::Mutex<ChainedPics> = spin::Mutex::new(unsafe { ChainedPics::new(PIC_1_OFFSET, PIC_2_OFFSET) });
+pub static PICS: spin::Mutex<ChainPIC> = spin::Mutex::new(unsafe { ChainPIC::new(PIC_1_OFFSET, PIC_2_OFFSET) });
 
 lazy_static!
 {
@@ -95,7 +95,7 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stackframe: InterruptStack
 		}
 	}
 	unsafe {
-	PICS.lock().notify_end_of_interrupt(IntrIdx::Keyboard.asu8());
+	PICS.lock().notify_intrend(IntrIdx::Keyboard.asu8());
 	}
 }
 
@@ -118,7 +118,7 @@ extern "x86-interrupt" fn timer_interrupt_handler(_stackframe: InterruptStackFra
 //	print!(".");
 	unsafe
 	{
-		PICS.lock().notify_end_of_interrupt(IntrIdx::Timer.asu8());
+		PICS.lock().notify_intrend(IntrIdx::Timer.asu8());
 	}
 }
 

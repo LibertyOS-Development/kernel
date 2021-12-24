@@ -7,6 +7,16 @@ Version History
  - Created the graphics::framebuff module (src/graphics/framebuff).
  - Created mod.rs (src/graphics/framebuff/mod.rs).
  - Added basic documentation (src/graphics/framebuff/mod.rs).
+ - Created the dev::drivers::pic8259 module (src/dev/drivers/pic8259.rs).
+ - Imported the pic8259 module (src/dev/drivers/mod.rs).
+ - Imported the drivers module (src/dev/mod.rs).
+ - Added full documentation (src/dev/drivers/pic8259.rs).
+ - Removed the pic8259 crate as a dependency (Cargo.toml).
+ - Updated module to use the pic8259 module (src/intr.rs).
+ - Updated module to use the pic8259 module (src/pic.rs).
+ - Imported the print macro (src/vgabuff.rs).
+ - Imported the println macro (src/vgabuff.rs).
+ - Updated module to use the pic8259 module (src/lib.rs).
  - Updated the kernel version (src/main.rs).
  - Updated the version number (Cargo.toml).
 
