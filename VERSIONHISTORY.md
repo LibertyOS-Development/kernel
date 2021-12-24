@@ -4,7 +4,11 @@ Version History
  - Created the graphics module (src/graphics).
  - Created mod.rs (src/graphics/mod.rs).
  - Added basic documentation (src/graphics/mod.rs).
- - 
+ - Created the graphics::framebuff module (src/graphics/framebuff).
+ - Created mod.rs (src/graphics/framebuff/mod.rs).
+ - Added basic documentation (src/graphics/framebuff/mod.rs).
+ - Updated the kernel version (src/main.rs).
+ - Updated the version number (Cargo.toml).
 
 0.13.1
  - Created the dev directory (src/dev).

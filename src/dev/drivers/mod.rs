@@ -2,3 +2,4 @@
 //
 // This is the central mod.rs file for the drivers subdirectory of the dev directory.
 
+pub mod pic8259;
