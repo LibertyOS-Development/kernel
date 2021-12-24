@@ -8,7 +8,7 @@ keywords = ["no-std", "liberty", "libertyos", "os", "kernel"]
 name = "libertyos_kernel"
 readme = "README.md"
 repository = "https://github.com/LibertyOS-Development/kernel"
-version = "0.13.2"
+version = "0.13.3"
 
 [dependencies]
 arrayvec = { version = "0.7.2", default-features = false }

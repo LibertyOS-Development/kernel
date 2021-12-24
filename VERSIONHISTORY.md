@@ -1,5 +1,10 @@
 Version History
 
+0.13.3
+ - Removed Cargo.lock from the repository (Cargo.lock).
+ - Updated the kernel version (src/main.rs).
+ - Updated the version number (Cargo.toml).
+
 0.13.2
  - Created the graphics module (src/graphics).
  - Created mod.rs (src/graphics/mod.rs).
