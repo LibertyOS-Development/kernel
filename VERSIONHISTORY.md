@@ -1,5 +1,21 @@
 Version History
 
+0.13.5
+ - Renamed the byteparse module to bparse (src/byteparse.rs -> src/bparse.rs).
+ - Renamed the bytesize module to bsize (src/bytesize.rs -> src/bsize.rs).
+ - Created the math::units module (src/math/units).
+ - Moved the bparse module into the math::units module (src/bparse.rs -> src/math/units/bparse.rs).
+ - Moved the bsize module into the math::units module (src/bsize.rs -> src/math/units/bsize.rs).
+ - Added basic documentation (src/math/units/bparse.rs).
+ - Added basic documentation (src/math/units/bsize.rs).
+ - Created mod.rs (src/math/units/mod.rs).
+ - Added basic documentation (src/math/units/mod.rs).
+ - Imported the units module (src/math/mod.rs).
+ - Removed the bytesize import (src/lib.rs).
+ - Removed the byteparse import (src/lib.rs).
+ - Removed the Cargo.toml.save file from the repository (Cargo.toml.save).
+ - Updated the kernel version (src/main.rs).
+ - Updated the version number (Cargo.toml).
 
 0.13.4
  - Created the math module (src/math)

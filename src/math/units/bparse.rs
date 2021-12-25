@@ -1,3 +1,7 @@
+// src/math/units/bparse.rs
+//
+// The math::units::bparse module is designed to help parse bytes.
+
 use core::convert::TryInto;
 
 fn aligndown(val: usize, align: usize) -> usize
