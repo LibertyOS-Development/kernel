@@ -1,5 +1,25 @@
 Version History
 
+
+0.13.4
+ - Created the math module (src/math)
+ - Created mod.rs (src/math/mod.rs).
+ - Added basic documentation (src/math/mod.rs).
+ - Created the math::int module (src/math/int)
+ - Created mod.rs (src/math/int/mod.rs).
+ - Added basic documentation (src/math/int/mod.rs).
+ - Created the math::int::sr (src/math/int/sr.rs)
+ - Imported the int module (src/math/mod.rs).
+ - Imported the math module (src/lib.rs).
+ - Added the num-traits crate as a dependency (Cargo.toml).
+ - Added the noblkio module (src/noblkio.rs).
+ - Imported the noblkio module (src/lib.rs).
+ - Added the block! macro (src/macros.rs).
+ - Removed the "!" following the name of each macro in the documentation (src/macros.rs).
+ - Added documentation. The documentation does not cover all of the module, but I do not see a reason to add more than I already have (src/noblkio.rs).
+ - Updated the kernel version (src/main.rs).
+ - Updated the version number (Cargo.toml).
+
 0.13.3
  - Removed Cargo.lock from the repository (Cargo.lock).
  - Updated the kernel version (src/main.rs).
