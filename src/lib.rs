@@ -27,6 +27,7 @@ pub mod font;
 pub mod fs;
 pub mod gdt;
 pub mod intr;
+pub mod io;
 pub mod macros;
 pub mod math;
 pub mod mem;
@@ -34,6 +35,7 @@ pub mod noblkio;
 pub mod pic;
 pub mod rgx;
 pub mod ser;
+pub mod syscall;
 pub mod time;
 pub mod vgabuff;
 

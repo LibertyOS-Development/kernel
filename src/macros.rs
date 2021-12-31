@@ -45,3 +45,17 @@ macro_rules! println
 	() => ($crate::print!("\n"));
 	($($arg:tt)*) => ($crate::print!("{}\n", format_args!($($arg)*)));
 }
+
+
+// waitfor
+#[macro_export]
+macro_rules! waitfor
+{
+	($cond:expr) =>
+	{
+		while !$cond
+		{
+			core::hint::spin_loop()
+		}
+	};
+}

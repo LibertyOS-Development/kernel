@@ -1,0 +1,399 @@
+// src/syscall/err.rs
+//
+// This module defines the error-codes for the syscall module.
+
+use core::{fmt, result};
+
+
+// The layout of "Err": a single signed, 32-bit integer (errid).
+#[derive(Eq, PartialEq)]
+pub struct Err
+{
+	pub errid: i32,
+}
+
+pub type Result<T, E = Err> = result::Result<T, E>;
+
+impl Err
+{
+	pub fn new(errid: i32) -> Err
+	{
+		Err
+		{
+			errid: errid
+		}
+	}
+
+	pub fn mux(result: Result<usize>) -> usize
+	{
+		match result
+		{
+			Ok(val) => val,
+			Err(err) => -err.errid as usize,
+		}
+	}
+
+	pub fn demux(val: usize) -> Result<usize>
+	{
+		let errid = -(val as i32);
+		if errid >= 1 && errid < STRERR.len() as i32
+		{
+			Err(Err::new(errid))
+		}
+		else
+		{
+			Ok(val)
+		}
+	}
+
+	pub fn text(&self) -> &'static str
+	{
+		STRERR.get(self.errid as usize).map(|&x| x).unwrap_or("[ERR] UNKNOWN ERROR")
+	}
+}
+
+
+// Implementing the core::fmt::Debug type for the Err struct.
+impl fmt::Debug for Err
+{
+	fn fmt(&self, f: &mut fmt::Formatter) -> result::Result<(), fmt::Error>
+	{
+		f.write_str(self.text())
+	}
+}
+
+
+// Implementing the core::fmt::Display type for the Err struct.
+impl fmt::Display for Err
+{
+	fn fmt(&self, f: &mut fmt::Formatter) -> result::Result<(), fmt::Error>
+	{
+		f.write_str(self.text())
+	}
+}
+
+
+/*
+	ERRORS - CONSTANTS
+*/
+
+// [ERR] OPERATION NOT PERMITTED
+pub const ERR_NOPERM: i32 = 1;
+
+// [ERR] FILE/DIR NOT FOUND
+pub const ERR_FILE_NOTFOUND: i32 = 2;
+
+// [ERR] PROCESS NOT FOUND
+pub const ERR_PROC_NOTFOUND: i32 = 3;
+
+// [ERR] SYSTEM CALL INTERRUPT
+pub const ERR_SYSCALL_INTR: i32 = 4;
+
+// [ERR] I/O ERROR
+pub const ERR_IO: i32 = 5;
+
+// [ERR] DEVICE/ADDRESS NOT FOUND
+pub const ERR_ADDR_NOTFOUND: i32 = 6;
+
+// [ERR] TOO MANY ARGUMENTS
+pub const ERR_TOOMANYARGS: i32 = 7;
+
+// [ERR] EXEC FORMAT ERROR
+pub const ERR_EXECFMT: i32 = 8;
+
+// [ERR] BAD FILE NUMBER
+pub const ERR_BADFILENO: i32 = 9;
+
+// [ERR] NO CHILD PROCESSES
+pub const ERR_NOCHILDPROC: i32 = 10;
+
+// [ERR] RETRY OPERATION
+pub const ERR_RETRYOP: i32 = 11;
+
+// [ERR] NO MORE MEMORY
+pub const ERR_NOMEM: i32 = 12;
+
+// [ERR] PERMISSION DENIED
+pub const ERR_PERMDENIED: i32 = 13;
+
+// [ERR] BAD ADDRESS
+pub const ERR_BADADDR: i32 = 14;
+
+// [ERR] BLOCK DEVICE IS REQUIRED
+pub const ERR_BLKDEVREQ: i32 = 15;
+
+// [ERR] DEVICE IS BUSY
+pub const ERR_BUSY_DEV: i32 = 16;
+
+// [ERR] FILE EXISTS
+pub const ERR_FILEEXISTS: i32 = 17;
+
+// [ERR] CROSS-DEVICE LINK
+pub const ERR_CROSSDEVLN: i32 = 18;
+
+// [ERR] DEVICE DOES NOT EXIST
+pub const ERR_DEV_NOTFOUND: i32 = 19;
+
+// [ERR] TARGET IS NOT A DIRECTORY
+pub const ERR_NOTDIR: i32 = 20;
+
+// [ERR] TARGET IS A DIRECTORY
+pub const ERR_ISDIR: i32 = 21;
+
+// [ERR] INVALID ARGUMENT(S)
+pub const ERR_INVARG: i32 = 22;
+
+// [ERR] FILE TABLE OVERFLOW
+pub const ERR_FTOVERFLOW: i32 = 23;
+
+// [ERR] TOO MANY FILES ARE OPEN
+pub const ERR_TOOMANYOPEN: i32 = 24;
+
+// [ERR] NOT TTY
+pub const ERR_NOTTY: i32 = 25;
+
+// [ERR] TEXT FILE BUSY
+pub const ERR_BUSY_TXTFILE: i32 = 26;
+
+// [ERR] FILE TOO LARGE
+pub const ERR_FILE_TOOLARGE: i32 = 27;
+
+// [ERR] NO SPACE ON DEVICE
+pub const ERR_NOSPACE: i32 = 28;
+
+// [ERR] ILLEGAL SEEK OPERATION
+pub const ERR_ILLEGALSEEK: i32 = 29;
+
+// [ERR] FILESYSTEM IS READ-ONLY
+pub const ERR_READONLY: i32 = 30;
+
+// [ERR] TOO MANY LINKS
+pub const ERR_TOOMANY_LINKS: i32 = 31;
+
+// [ERR] BROKEN PIPE
+pub const ERR_GAHOAX: i32 = 32;
+
+// [ERR] MATH ARGUMENT IS OUT OF RANGE
+pub const ERR_MATHARG_RANGE: i32 = 33;
+
+// [ERR] RESULT IS NOT REPRESENTABLE
+pub const ERR_NOTREP: i32 = 34;
+
+// [ERR] WOULD CAUSE RESOURCE DEADLOCK
+pub const ERR_RECDL: i32 = 35;
+
+// [ERR] FILE NAME IS TOO LONG
+pub const ERR_FILENAME_TOOLONG: i32 = 36;
+
+// [ERR] NO RECORD LOCKS AVAILABLE
+pub const ERR_NORECLOCK: i32 = 37;
+
+// [ERR] FUNCTION NOT IMPLEMENTED
+pub const ERR_FUNC_NOTIMPL: i32 = 38;
+
+// [ERR] DIRECTORY IS NOT EMPTY
+pub const ERR_DIR_NOTEMPTY: i32 = 39;
+
+// [ERR] TOO MANY SYMBOLIC LINKS
+pub const ERR_TOOMANY_SYMLN: i32 = 40;
+
+// [ERR] OPERATION WOULD CAUSE BLOCK
+pub const ERR_OPBLK: i32 = 41;
+
+// [ERR] NO MESSAGE FOUND OF GIVEN TYPE
+pub const ERR_NOMSG: i32 = 42;
+
+// [ERR] IDENTIFIER REMOVED
+pub const ERR_IDRM: i32 = 43;
+
+// [ERR] CHANNEL NUMBER IS OUT RANGE
+pub const ERR_CHAN_RANGE: i32 = 44;
+
+// [ERR] LEVEL 2 UNSYNCHRONIZED
+pub const ERR_LVL2_NOSYNC: i32 = 45;
+
+// [ERR] LEVEL 3 HALT
+pub const ERR_LVL3_HALT: i32 = 46;
+
+// [ERR] LEVEL 3 RESET
+pub const ERR_LVL3_RESET: i32 = 47;
+
+// [ERR] LINK NUMBER OUT OF RANGE
+pub const ERR_LNNO_RANGE: i32 = 48;
+
+// [ERR] PROTOCOL DRIVER NOT ATTACHED
+pub const ERR_PDRIVER_NOTCONN: i32 = 49;
+
+// [ERR] NO CSI STRUCTURE AVAILABLE
+pub const ERR_NOCSISTRUCT: i32 = 50;
+
+// [ERR] LEVEL 2 HALT
+pub const ERR_LVL2_HALT: i32 = 51;
+
+// [ERR] INVALID EXCHANGE
+pub const ERR_INVEXCHANGE: i32 = 52;
+
+// [ERR] INVALID REQUEST DESCRIPTOR
+pub const ERR_INV_REQDESC: i32 = 53;
+
+// [ERR] FULL EXCHANGE
+pub const ERR_FULLEXCHANGE: i32 = 54;
+
+// [ERR] NO ANODE
+pub const ERR_NOANODE: i32 = 55;
+
+// [ERR] INVALID REQUEST CODE
+pub const ERR_INVREQCODE: i32 = 56;
+
+// [ERR] INVALID SLOT
+pub const ERR_INVSLOT: i32 = 57;
+
+// [ERR] WOULD CAUSE RESOURCE DEADLOCK
+pub const ERR_WLDCAUSE_RESDL: i32 = 58;
+
+// [ERR] BAD FONT FILE FORMAT
+pub const ERR_BADFONTFILEFMT: i32 = 59;
+
+// [ERR] DEVICE NOT A STREAM
+pub const ERR_DEVNOTSTREAM: i32 = 60;
+
+// [ERR] NO DATA AVAILABLE
+pub const ERR_NODATA: i32 = 61;
+
+// [ERR] TIMER EXPIRED
+pub const ERR_TIMEREXP: i32 = 62;
+
+//TODO: Increase the value when adding more error-codes.
+pub static STRERR: [&'static str; 131] = [
+					"[INFO] SUCCESS",
+					"[ERR] OPERATION NOT PERMITTED",
+					"[ERR] FILE NOT FOUND",
+					"[ERR] PROCESS NOT FOUND",
+					"[ERR] SYSTEM-CALL INTERRUPTED",
+					"[ERR] I/O ERROR",
+					"[ERR] DEVICE/ADDRESS NOT FOUND",
+					"[ERR] TOO MANY ARGUMENTS",
+					"[ERR] EXEC FORMAT ERROR",
+					"[ERR] BAD FILE NUMBER",
+					"[ERR] NO CHILD PROCESSES",
+					"[ERR] RETRY OPERATION",
+					"[ERR] NO MEMORY AVAILABLE",
+					"[ERR] PERMISSION DENIED",
+					"[ERR] BAD ADDRESS",
+					"[ERR] BLOCK DEVICE REQUIRED",
+					"[ERR] DEVICE/RESOURCE IS BUSY",
+					"[ERR] FILE EXISTS",
+					"[ERR] CROSS-DEVICE LINK",
+					"[ERR] DEVICE NOT FOUND",
+					"[ERR] NOT A DIRECTORY",
+					"[ERR] IS A DIRECTORY",
+					"[ERR] INVALID ARGUMENT(S)",
+					"[ERR] FILE TABLE OVERFLOW",
+					"[ERR] TOO MANY FILES ARE OPEN",
+					"[ERR] NOT TTY",
+					"[ERR] TEXT FILE IS BUSY",
+					"[ERR] FILE TOO LARGE",
+					"[ERR] INSUFFICENT STORAGE",
+					"[ERR] ILLEGAL SEEK",
+					"[ERR] FILESYSTEM IS READ-ONLY",
+					"[ERR] TOO MANY LINKS",
+					"[ERR] BROKEN PIPE",
+					"[ERR] MATHEMATICAL ARGUMENT IS OUT OF RANGE",
+					"[ERR] MATHEMATICAL RESULT CANNOT BE REPRESENTED",
+					"[ERR] WOULD CAUSE A RESOURCE DEADLOCK",
+					"[ERR] FILENAME IS TOO LONG",
+					"[ERR] NO RECORD LOCKS ARE AVAILABLE",
+					"[ERR] NO IMPLEMENTATION",
+					"[ERR] DIRECTORY IS NOT EMPTY",
+					"[ERR] TOO MANY SYMBOLIC LINKS",
+					"[ERR] OPERATION WOULD BLOCK",
+					"[ERR] MESSAGE SPECIFIED COULD NOT BE FOUND",
+					"[ERR] IDENTIFIER REMOVED",
+					"[ERR] CHANNEL NUMBER IS OUT OF RANGE",
+					"[ERR] LEVEL 2 IS NOT SYNCHRONIZED",
+					"[ERR] LEVEL 3 HALT",
+					"[ERR] LEVEL 3 RESET",
+					"[ERR] LINK NUMBER IS OUT OF RANGE",
+					"[ERR] PROTOCOL DRIVER IS NOT ATTACHED",
+					"[ERR] CSI STRUCTURE UNAVAILABLE",
+					"[ERR] LEVEL 2 HALT",
+					"[ERR] INVALID EXCHANGE",
+					"[ERR] INVALID REQUEST DESCRIPTOR",
+					"[ERR] EXCHANGE FULL",
+					"[ERR] NO ANODE",
+					"[ERR] INVALID REQUEST CODE",
+					"[ERR] INVALID SLOT",
+					"[ERR] WOULD CAUSE RESOURCE DEADLOCK",
+					"[ERR] BAD FONT FILE FORMAT",
+					"[ERR] DEVICE IS NOT A STREAM",
+					"[ERR] NO DATA AVAILABLE",
+					"[ERR] TIMER HAS EXPIRED",
+					"[ERR] NO STREAMS RESOURCES",
+					"[ERR] NOT CONNECTED TO NETWORK",
+					"[ERR] PACKAGE NOT INSTALLED",
+					"[ERR] OBJECT IS REMOTE",
+					"[ERR] BROKEN LINK",
+					"[ERR] SRMOUNT ERROR",
+					"[ERR] COMMUNICATION ERROR DURING SEND",
+					"[ERR] PROTOCOL ERROR",
+					"[ERR] ATTEMPTED MULTIHOP",
+					"[ERR] RFS SPECIFIC ERROR",
+					"[ERR] NOT A DATA MESSAGE",
+					"[ERR] VALUE IS TOO LARGE FOR DEFINED DATA",
+					"[ERR] IDENTICAL NAME PRESENT ON NETWORK",
+					"[ERR] FILE DESCRIPTOR IN BAD STATE",
+					"[ERR] REMOTE ADDRESS HAS BEEN MODIFIED",
+					"[ERR] REQUIRED SHARED LIBRARY IS INACCESSIBLE",
+					"[ERR] CORRUPT SHARED LIBRARY",
+					"[ERR] .LIB SECTION IN A.OUT IS CORRUPT",
+					"[ERR] ATTEMPTED TO LINK TOO MANY SHARED LIBRARIES",
+					"[ERR] CANNOT DIRECTLY EXECUTE A SHARED LIBRARY",
+					"[ERR] ILLEGAL BYTE SEQUENCE",
+					"[ERR] INTERRUPTED SYSTEM-CALLS MUST BE RESTARTED",
+					"[ERR] STREAMS PIPE ERROR",
+					"[ERR] TOO MANY USERS",
+					"[ERR] ATTEMPTED SOCKET OPERATION ON NON-SOCKET",
+					"[ERR] REQUIRES A DESTINATION ADDRESS",
+					"[ERR] MESSAGE IS TOO LONG",
+					"[ERR] INCORRECT PROTOCOL FOR SOCKET",
+					"[ERR] PROTOCOL IS UNAVAILABLE",
+					"[ERR] PROTOCOL IS UNSUPPORTED",
+					"[ERR] SOCKET IS UNSUPPORTED",
+					"[ERR] OPERATION ON TRANSPOINT ENDPOINT IS UNSUPPORTED",
+					"[ERR] UNSUPPORTED PROTOCOL FAMILY",
+					"[ERR] UNSUPPORTED ADDRESS FAMILY",
+					"[ERR] ADDRESS IS IN USE",
+					"[ERR] UNABLE TO ASSIGN ADDRESS",
+					"[ERR] NETWORK DOWN",
+					"[ERR] NETWORK IS UNAVAILABLE",
+					"[ERR] NETWORK CONNECTION LOST DUE TO RESET",
+					"[ERR] CONNECTION ABORTED BY SOFTWARE",
+					"[ERR] CONNECTION RESET BY PEER",
+					"[ERR] NO BUFFER SPACE",
+					"[ERR] TRANSPORT ENDPOINT ALREADY CONNECTED",
+					"[ERR] TRANSPORT ENDPOINT NOT CONNECTED",
+					"[ERR] CANNOT SEND FOLLOWING TRANSPORT ENDPOINT SHUTDOWN",
+					"[ERR] CANNOT SPLICE DUE TO TOO MANY REFERENCES",
+					"[ERR] CONNECTION TIMED-OUT",
+					"[ERR] CONNECTION REFUSED",
+					"[ERR] HOST UNAVAILABLE",
+					"[ERR] NO ROUTE TO HOST",
+					"[ERR] OPERATION ALREADY IN PROGRESS",
+					"[ERR] OPERATION IN PROGRESS",
+					"[ERR] STALE NFS FILE HANDLE",
+					"[ERR] STRUCTURE MUST BE CLEANED",
+					"[ERR] NOT XENIX NAMED TYPE FILE",
+					"[ERR] NO XENIX SEMAPHORES",
+					"[ERR] NAMED TYPE FILE",
+					"[ERR] REMOTE I/O ERROR",
+					"[ERR] EXCEEDED QUOTA",
+					"[ERR] NO MEDIUM",
+					"[ERR] INCORRECT MEDIUM TYPE",
+					"[ERR] OPERATION CANCELLED",
+					"[ERR] REQUIRED KEY IS UNAVAILABLE",
+					"[ERR] EXPIRED KEY",
+					"[ERR] KEY REVOKED",
+					"[ERR] KEY REJECTED BY SERVICE",
+					"[ERR] DEAD OWNER",
+					"[ERR] STATE UNRECOVERABLE",
+					];

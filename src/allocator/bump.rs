@@ -1,4 +1,4 @@
-// allocator/bump.rs
+// src/allocator/bump.rs
 //
 // LibertyOS' bump-allocator.
 

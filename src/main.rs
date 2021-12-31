@@ -23,6 +23,9 @@ use vga::{ colors::{ Color16, TextModeColor }, writers::{ Graphics640x480x16, Gr
 
 entry_point!(kernel_main);
 
+// KSIZE is set to about 2MB.
+pub const KSIZE: usize = 2 << 20;
+
 fn kernel_main(bootinfo: &'static BootInfo) -> !
 {
 	use libertyos_kernel::mem::{self, BootInfoFrameAllocator};

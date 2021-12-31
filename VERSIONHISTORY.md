@@ -2,6 +2,48 @@ Version History
 
 # Version History
 
+## 0.13.7
+ - Created the dev::drivers::uart module (src/dev/drivers/uart.rs).
+ - Added basic documentation for the uart module (src/dev/drivers/uart.rs).
+ - Imported the uart module (src/dev/drivers/mod.rs).
+ - Began work on the dev::drivers::mm_uart module (src/dev/drivers/mm_uart.rs).
+ - Imported the mm_uart module, then commented it out (src/dev/drivers/mod.rs).
+ - Added the "waitfor" macro (src/macros.rs).
+ - Created the io module (src/io).
+ - Created mod.rs (src/io/mod.rs).
+ - Added basic documentation (src/io/mod.rs).
+ - Imported the io module (src/lib.rs).
+ - Created the math::float::logb2 module (src/math/float/logb2.rs).
+ - Added basic documentation (src/math/float/logb2.rs).
+ - Imported the logb2 module (src/math/float/mod.rs).
+ - Created the math::float::cpsign module (src/math/float/cpsign.rs).
+ - Added basic documentation (src/math/float/cpsign.rs).
+ - Imported the cpsign module (src/math/float/mod.rs).
+ - Created the math::float::cosine module (src/math/float/cosine.rs).
+ - Added basic documentation (src/math/float/cosine.rs).
+ - Imported the cosine module (src/math/float/mod.rs).
+ - Added the math::float::logb10 module (src/math/float/logb10.rs).
+ - Added basic documentation (src/math/float/logb10.rs).
+ - Imported the logb10 module (src/math/float/mod.rs).
+ - Added some additional documentation (src/fs/mod.rs).
+ - Added the KSIZE variable (src/main.rs).
+ - Added a line of documentation to explain the KSIZE variable (src/main.rs).
+ - Added additional code to create the OpenFlag enumeration/implementation (src/fs/mod.rs).
+ - Added additional comments to make code easier to navigate (src/fs/lib.rs).
+ - Continued development on the fs module (src/fs/*).
+ - Added the math::float::sine module (src/math/float/sine.rs).
+ - Added basic documentation (src/math/float/sine.rs).
+ - Imported the sine module (src/math/float/mod.rs).
+ - Added the math::float::tangent module (src/math/float/tangent.rs).
+ - Added basic documentation (src/math/float/tangent.rs).
+ - Imported the tangent module (src/math/float/mod.rs).
+ - Added the math::float::round module (src/math/float/round.rs).
+ - Added basic documentation (src/math/float/round.rs).
+ - Imported the round module (src/math/float/mod.rs).
+ - Updated header (src/allocator/bump.rs).
+ - Updated the kernel version (src/main.rs).
+ - Updated the version number (Cargo.toml).
+
 ## 0.13.6
  - Created the math::float module (src/math/float).
  - Created mod.rs (src/math/float/mod.rs).
