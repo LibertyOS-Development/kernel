@@ -41,6 +41,10 @@ Version History
  - Added basic documentation (src/math/float/round.rs).
  - Imported the round module (src/math/float/mod.rs).
  - Updated header (src/allocator/bump.rs).
+ - Created the syscall module (src/syscall).
+ - Began development on the syscall::err module (src/syscall/err.rs).
+ - Created mod.rs (src/syscall/mod.rs).
+ - Imported the err module, but the main module is not imported by src/lib.rs (src/syscall/mod.rs).
  - Updated the kernel version (src/main.rs).
  - Updated the version number (Cargo.toml).
 
