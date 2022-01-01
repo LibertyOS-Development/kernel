@@ -45,6 +45,10 @@ Version History
  - Began development on the syscall::err module (src/syscall/err.rs).
  - Created mod.rs (src/syscall/mod.rs).
  - Imported the err module, but the main module is not imported by src/lib.rs (src/syscall/mod.rs).
+ - Added the #![feature(const_mut_refs)] line (src/lib.rs).
+ - Added the allocator::fixedsize module (src/allocator/fixedsize.rs).
+ - Added basic documentation (src/allocator/fixedsize.rs).
+ - Imported the fixedsize module (src/allocator/mod.rs).
  - Updated the kernel version (src/main.rs).
  - Updated the version number (Cargo.toml).
 

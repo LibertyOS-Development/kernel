@@ -1,22 +1,23 @@
 // src/allocator/fixedsize.rs
 //
-// Fixed-size allocator for LibertyOS.
+// Fixed-size allocation for LibertyOS.
 
 use crate::allocator::Locked;
 use alloc::alloc::{GlobalAlloc, Layout};
 use core::{mem, ptr::{self, NonNull}};
 
-// This sets the size of blocks to be used.
-// NOTE: Blocksize must be a power of two (2), as the blocksize is also used for block-alignment.
 const BLKSIZES: &[usize] = &[8, 16, 32, 64, 128, 256, 512, 1024, 2048];
 
-// Chooses the appropriate size for the layout, return index into BLKSIZES array:
+// Set the blocksize to use:
+// NOTE: Blocksize must be a power of two (2).
+
 fn lsidx(layout: &Layout) -> Option<usize>
 {
 	let req_blksize = layout.size().max(layout.align());
 	BLKSIZES.iter().position(|&s| s >= req_blksize)
 }
 
+// Pair an appropriate blocksize for the specific layout in question. This returns an index into BLKSIZES.
 struct ListNode
 {
 	next: Option<&'static mut ListNode>,
@@ -24,42 +25,39 @@ struct ListNode
 
 pub struct FixedSizeBlockAlloc
 {
-	listheads: [Options<&'static mut ListNode>; BLKSIZES.len()],
-	// Use LOS' lnls
-	fallbackalloc: linked_list_allocator::Heap,
+	listheads: [Option<&'static mut ListNode>; BLKSIZES.len()],
+	fballoc: linked_list_allocator::Heap,
 }
-
 
 impl FixedSizeBlockAlloc
 {
-	// Create an empty FixedSizeBlockAlloc:
+	// Create a new, empty FixedSizeBlockAlloc:
 	pub const fn new() -> Self
 	{
 		const EMPTY: Option<&'static mut ListNode> = None;
 		FixedSizeBlockAlloc
 		{
 			listheads: [EMPTY; BLKSIZES.len()],
-			fallbackalloc: linked_list_allocator::Heap::empty(),
+			fballoc: linked_list_allocator::Heap::empty(),
 		}
 	}
 
-	// Initialize allocator using specified boundaries:
-	pub unsafe init(&mut self, heap_start: usize, heapsize: usize)
+	// Initialize allocator, using specified heap-bounds:
+	pub unsafe fn init(&mut self, heap_start: usize, heap_size: usize)
 	{
-		self.fallbackalloc.init(heap_start, heapsize);
+		self.fballoc.init(heap_start, heap_size);
 	}
 
-	// Allocate using fallbackalloc:
-	fn fallbackalloc(&mut self, layout: Layout) -> *mut u8
+	// Allocate with fballoc (fallback allocator):
+	fn fballoc(&mut self, layout: Layout) -> *mut u8
 	{
-		match self.fallbackalloc.allocate_first_fit(layout)
+		match self.fballoc.allocate_first_fit(layout)
 		{
 			Ok(ptr) => ptr.as_ptr(),
 			Err(_) => ptr::null_mut(),
 		}
 	}
 }
-
 
 unsafe impl GlobalAlloc for Locked<FixedSizeBlockAlloc>
 {
@@ -72,22 +70,25 @@ unsafe impl GlobalAlloc for Locked<FixedSizeBlockAlloc>
 			{
 				match allocator.listheads[index].take()
 				{
-					allocator.listheads[index] = node.next.take();
-					node as *mut ListNode as *mut u8
-				}
-				None =>
-				{
-					// If no block exists within the list, allocate a new block:
-					let blksize = BLKSIZES[idx];
-					let blkalign = blksize;
-					let layout = Layout::from_size_align(blksize, blkalign).unwrap();
-					allocator.fallback_alloc(layout)
+					Some(node) =>
+					{
+						allocator.listheads[index] = node.next.take();
+						node as *mut ListNode as *mut u8
+					}
+					None =>
+					{
+						// If no block exists in list, allocate a new block.
+						let blksize = BLKSIZES[index];
+						let blkalign = blksize;
+						let layout = Layout::from_size_align(blksize, blkalign).unwrap();
+						allocator.fballoc(layout)
+					}
 				}
 			}
+			None => allocator.fballoc(layout),
 		}
-		None => allocator.fallbackalloc(layout),
 	}
-}
+
 	unsafe fn dealloc(&self, ptr: *mut u8, layout: Layout)
 	{
 		let mut allocator = self.lock();
@@ -97,9 +98,10 @@ unsafe impl GlobalAlloc for Locked<FixedSizeBlockAlloc>
 			{
 				let new_node = ListNode
 				{
-					next: allocator.listheads[index].take();
+					next: allocator.listheads[index].take(),
 				};
-				// Verify block has a size and alignment in order to store node:
+
+				// Verify that the block has a size and an alignment.
 				assert!(mem::size_of::<ListNode>() <= BLKSIZES[index]);
 				assert!(mem::align_of::<ListNode>() <= BLKSIZES[index]);
 				let new_node_ptr = ptr as *mut ListNode;
@@ -109,7 +111,7 @@ unsafe impl GlobalAlloc for Locked<FixedSizeBlockAlloc>
 			None =>
 			{
 				let ptr = NonNull::new(ptr).unwrap();
-				allocator.fallbackalloc.deallocate(ptr, layout);
+				allocator.fballoc.deallocate(ptr, layout);
 			}
 		}
 	}
