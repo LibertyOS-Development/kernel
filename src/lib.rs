@@ -7,6 +7,7 @@
 #![feature(const_mut_refs)]
 #![feature(custom_test_frameworks)]
 #![feature(abi_x86_interrupt)]
+#![feature(type_ascription)]
 #![test_runner(crate::testexec)]
 #![reexport_test_harness_main = "testmain"]
 
@@ -18,7 +19,6 @@ use core::ops::Deref;
 use core::panic::PanicInfo;
 
 pub mod allocator;
-//pub mod ata;
 pub mod clock;
 pub mod cmos;
 pub mod ctypes;
