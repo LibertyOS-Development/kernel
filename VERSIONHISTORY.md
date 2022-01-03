@@ -2,6 +2,39 @@ Version History
 
 # Version History
 
+## 0.13.8
+ - Removed a line from the previous version's notes, which described a change to the kernel version, despite such change never being made (VERSIONHISTORY.md).
+ - Added the #![feature(type_ascription)] line (src/lib.rs).
+ - Added the allocator::lnls module (src/allocator/lnls.rs).
+ - Added basic documentation (src/allocator/lnls.rs).
+ - Imported the lnls module (src/allocator/mod.rs).
+ - Created the measurements module (src/math/measurements).
+ - Created mod.rs (src/math/measurements/mod.rs).
+ - Added basic documentation (src/math/measurements/mod.rs).
+ - Added the EULER constant (src/math/mod.rs).
+ - Added the PI constant (src/math/mod.rs).
+ - Removed the ata module (src/ata.rs).
+ - Removed the commented-out ata import (src/lib.rs).
+ - Added the #![feature(core_intrinsics)] line (src/lib.rs).
+ - Added the #![feature(slice_range)] line (src/lib.rs).
+ - Organized features (src/lib.rs).
+ - Created the vol module. This module is intended to replace the volatile crate (src/vol.rs).
+ - Added documentation (src/vol.rs).
+ - Imported the vol module (src/lib.rs).
+ - Created the vga module (src/graphics/vga).
+ - Created mod.rs (src/graphics/vga/mod.rs).
+ - Added basic documentation (src/graphics/vga/mod.rs).
+ - Imported vga module (src/graphics/mod.rs).
+ - Imported the graphics module (src/lib.rs).
+ - Created the pal module (src/graphics/vga/pal.rs).
+ - Added basic documentation (src/graphics/vga/pal.rs).
+ - Imported the pal module (src/graphics/vga/mod.rs).
+ - Created the std_color module (src/graphics/vga/std_color.rs).
+ - Added basic documentation (src/graphics/vga/std_color.rs).
+ - Imported the std_color module (src/graphics/vga/mod.rs).
+ - Updated the kernel version (src/main.rs).
+ - Updated the version number (Cargo.toml).
+
 ## 0.13.7
  - Created the dev::drivers::uart module (src/dev/drivers/uart.rs).
  - Added basic documentation for the uart module (src/dev/drivers/uart.rs).
@@ -49,7 +82,6 @@ Version History
  - Added the allocator::fixedsize module (src/allocator/fixedsize.rs).
  - Added basic documentation (src/allocator/fixedsize.rs).
  - Imported the fixedsize module (src/allocator/mod.rs).
- - Updated the kernel version (src/main.rs).
  - Updated the version number (Cargo.toml).
 
 ## 0.13.6

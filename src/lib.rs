@@ -3,10 +3,12 @@
 #![cfg_attr(test, no_main)]
 #![allow(dead_code)]
 #![allow(unused_imports)]
+#![feature(abi_x86_interrupt)]
 #![feature(alloc_error_handler)]
 #![feature(const_mut_refs)]
+#![feature(core_intrinsics)]
 #![feature(custom_test_frameworks)]
-#![feature(abi_x86_interrupt)]
+#![feature(slice_range)]
 #![feature(type_ascription)]
 #![test_runner(crate::testexec)]
 #![reexport_test_harness_main = "testmain"]
@@ -27,6 +29,7 @@ pub mod external;
 pub mod font;
 pub mod fs;
 pub mod gdt;
+pub mod graphics;
 pub mod intr;
 pub mod io;
 pub mod macros;
@@ -38,6 +41,7 @@ pub mod rgx;
 pub mod ser;
 pub mod syscall;
 pub mod time;
+pub mod vol;
 pub mod vgabuff;
 
 // This is set to be 2MB.
