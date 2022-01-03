@@ -75,7 +75,7 @@ fn kernel_main(bootinfo: &'static BootInfo) -> !
 	graphicsmode.draw_line((540, 420), (540, 60), Color16::White);
 	graphicsmode.draw_line((80, 90), (540, 90), Color16::White);
 
-	for (offset, character) in "LibertyOS v0.13.8".chars().enumerate()
+	for (offset, character) in "LibertyOS v0.13.9".chars().enumerate()
 	{
 		graphicsmode.draw_character(250 + offset * 8, 72, character, Color16::Red)
 	}

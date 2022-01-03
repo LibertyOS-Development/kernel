@@ -2,6 +2,11 @@ Version History
 
 # Version History
 
+## 0.13.9
+ - For some reason, 0.13.8 was already published, but I cannot seem to figure out what happened. A lot of the changes that are listed under the previous version were, in fact, intended to be released in this version. I have updated the version number, so that crates.io will accept a new version.
+ - Updated the kernel version (src/main.rs).
+ - Updated the version number (Cargo.toml).
+
 ## 0.13.8
  - Removed a line from the previous version's notes, which described a change to the kernel version, despite such change never being made (VERSIONHISTORY.md).
  - Added the #![feature(type_ascription)] line (src/lib.rs).
