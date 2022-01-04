@@ -2,6 +2,26 @@ Version History
 
 # Version History
 
+## 0.13.10
+ - Created the arch module (src/arch)
+ - Created mod.rs (src/arch/mod.rs).
+ - Added basic documentation (src/arch/mod.rs).
+ - Imported arch module (src/lib.rs).
+ - Created arch::x64 module (src/arch/x64).
+ - Imported x64 module (src/arch/mod.rs).
+ - Created mod.rs (src/arch/x64/mod.rs).
+ - Added basic documentation (src/arch/x64/mod.rs).
+ - Created the arch::x64::reg module (src/arch/x64).
+ - Created mod.rs (src/arch/x64/reg/mod.rs).
+ - Added basic documentation (src/arch/x64/reg/mod.rs).
+ - Created arch::x64::reg::rflags module (src/arch/x64/reg/rflags.rs).
+ - Added documentation (src/arch/x64/reg/rflags.rs).
+ - Imported rflags module (src/arch/x64/reg/mod.rs).
+ - Imported reg module (src/arch/x64/mod.rs).
+ - Created the instruct module (src/arch/x64/instruct).
+ - Updated kernel version (src/main.rs).
+ - Updated version number (Cargo.toml).
+
 ## 0.13.9
  - For some reason, 0.13.8 was already published, but I cannot seem to figure out what happened. A lot of the changes that are listed under the previous version were, in fact, intended to be released in this version. I have updated the version number, so that crates.io will accept a new version.
  - Updated the kernel version (src/main.rs).

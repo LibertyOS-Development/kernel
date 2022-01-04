@@ -21,6 +21,7 @@ use core::ops::Deref;
 use core::panic::PanicInfo;
 
 pub mod allocator;
+pub mod arch;
 pub mod clock;
 pub mod cmos;
 pub mod ctypes;
