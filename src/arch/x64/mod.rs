@@ -2,8 +2,10 @@
 //
 // This is the mod.rs file for the x64 (64-bit) arch support for LibertyOS.
 
+pub mod address;
+pub mod instructions;
 pub mod reg;
-
+pub mod structures;
 
 // An enumeration to represent the different rings of protection.
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]

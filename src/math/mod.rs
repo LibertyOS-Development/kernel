@@ -4,6 +4,7 @@
 
 pub mod float;
 pub mod int;
+pub mod measurement;
 pub mod units;
 
 

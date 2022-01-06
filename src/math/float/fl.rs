@@ -663,21 +663,3 @@ impl Zero for FL32
 		Self::ZERO == *self
 	}
 }
-
-
-
-/*
-	TESTS
-*/
-
-#[cfg(test)]
-mod tests
-{
-	use super::FL32;
-
-	#[test]
-	fn invtrait()
-	{
-		assert_eq!(num_traits::Inv::inv(FL32(2.0)), FL32(0.5));
-	}
-}

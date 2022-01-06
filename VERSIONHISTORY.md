@@ -2,6 +2,34 @@ Version History
 
 # Version History
 
+## 0.13.11
+ - Added libm as a dependency (Cargo.toml).
+ - Added serde as a dependency (Cargo.toml).
+ - Renamed the math::measurements module to math::measurement (src/math/measurements -> src/math/measurements).
+ - Imported the measurement module (src/math/mod.rs).
+ - Commented out the serde dependency. Future versions will probably use serde, until its functionality has been added into the kernel, itself (Cargo.toml).
+ - Added the math::measurement::volt module (src/math/measurement/volt.rs).
+ - Added documentation (src/math/measurement/volt.rs).
+ - Imported the volt module (src/math/measurement/mod.rs).
+ - Added the arch::x64::structures module (src/arch/x64/structures).
+ - Created mod.rs (src/arch/x64/structures/mod.rs).
+ - Added basic documentation (src/arch/x64/structures/mod.rs).
+ - Imported structures module (src/arch/x64/mod.rs).
+ - Created the arch::x64::structures::port module (src/arch/x64/structures/port.rs).
+ - Added documentation (src/arch/x64/structures/port.rs).
+ - Imported the port module (src/arch/x64/structures/mod.rs).
+ - Created the arch::x64::instructions module (src/arch/x64/instructions).
+ - Created mod.rs (src/arch/x64/instructions/mod.rs).
+ - Added basic documentation (src/arch/x64/instructions/mod.rs).
+ - Imported instructions (src/arch/x64/mod.rs).
+ - Added the #![feature(asm)] line (src/lib.rs).
+ - Removed tests from the math::float::fl module (src/math/float/fl.rs).
+ - Added the arch::x64::address module (src/arch/x64/address.rs).
+ - Added documentation (src/arch/x64/address.rs).
+ - Imported the address module (src/arch/x64/mod.rs).
+ - Updated kernel version (src/main.rs).
+ - Updated version number (Cargo.toml).
+
 ## 0.13.10
  - Created the arch module (src/arch)
  - Created mod.rs (src/arch/mod.rs).

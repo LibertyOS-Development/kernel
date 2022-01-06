@@ -26,6 +26,26 @@ macro_rules! block
 }
 
 
+// impl_display_measurement
+//
+// This macro is used to implement fmt::Display for measurements.
+#[macro_export]
+macro_rules! impl_display_measurement
+{
+	($($t:ty)*) => ($(
+		impl core::fmt::Display for $t
+		{
+			fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result
+			{
+				let (unit, value) = self.crate::math::measurements::measurement::ret_apt_units();
+				// Value:
+				value.fmt(f)?;
+				write!(f, "\u{00A0}{}", unit)
+			}
+		}
+	)*)
+}
+
 // print
 //
 // This macro is analagous to the "print!" macro (std), except for the fact that this macro prints to the VGA text buffer.
