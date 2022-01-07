@@ -16,6 +16,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Download Rust toolchain
+      uses: hermitcore/toolchain@downstream
     - name: Build
       run: cargo build --verbose
     - name: Run tests

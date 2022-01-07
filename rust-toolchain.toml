@@ -1,0 +1,4 @@
+[toolchain]
+channel = "nightly-2022-01-07"
+components = [ "rust-src", "clippy", "rustfmt", "rustc", "rust-std", "llvm-tools-preview" ]
+targets = [ "x86_64-unknown-linux-gnu" ]
