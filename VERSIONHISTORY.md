@@ -2,6 +2,79 @@ Version History
 
 # Version History
 
+## 0.14.1
+ - Removed the syscall module. The method that was being used to implement syscalls was not working as it should, and had become too large to really work with. I am starting over on the syscall module (src/syscall).
+ - Removed the syscall import (src/lib.rs).
+ - Added the #![feature(naked_functions)] line (src/lib.rs).
+ - Added the #![allow(named_asm_functions)] line (src/lib.rs).
+ - Rewrote the keyboard_interrupt_handler portion of the intr module (src/intr.rs).
+ - Removed the TUI displayed on startup (src/main.rs).
+ - Reintroduced the rather boring startup message (src/main.rs).
+ - Spawned the kbd::print_keypresses task (src/main.rs).
+ - Added to mod.rs, to add basic syscall/sysret functionality. Using these functions causes an error, so I have not implemented syscalls in the kernel (src/syscall/mod.rs).
+ - Added the libcore module (src/libcore).
+ - Moved the allocator module into libcore (src/allocator -> src/libcore/allocator).
+ - Modified libcore::allocator::fixedsize to use crate::libcore::allocator (src/libcore/allocator/fixedsize.rs).
+ - Removed the allocator module import (src/lib.rs).
+ - Imported the libcore module (src/lib.rs).
+ - Created mod.rs (src/libcore/mod.rs).
+ - Added basic documentation (src/libcore/mod.rs).
+ - Imported the allocator module (src/libcore/mod.rs).
+ - Modified libcore::allocator::lnls to use crate::libcore::allocator (src/libcore/allocator/lnls.rs).
+ - Modified main.rs to use libcore::allocator (src/main.rs).
+ - Moved the arch module to libcore (src/arch -> src/libcore/arch).
+ - Imported the arch module (src/libcore/mod.rs).
+ - Removed the arch module import (src/lib.rs).
+ - Moved the fs module into libcore (src/fs -> src/libcore/fs).
+ - Added the #![feature(asm)] line (src/main.rs).
+ - Added the #![allow(named_asm_labels)] line (src/main.rs).
+ - Moved the dev module into libcore (src/dev -> src/libcore/dev).
+ - Modified the pic module to use libcore::dev::drivers::pic8259 (src/pic.rs).
+ - Modified the intr module to use libcore::dev::drivers::pic8259 (src/intr.rs).
+ - Removed the dev module import (src/lib.rs).
+ - Imported the dev module (src/libcore/mod.rs).
+ - Moved the external module into libcore (src/external -> src/libcore/external).
+ - Imported the external module (src/libcore/mod.rs).
+ - Modified the libcore::external::setmem module to use libcore::external::WSIZE (src/libcore/external/setmem.rs).
+ - Modified the libcore::external::movemem module to use libcore::external::WSIZE (src/external/movemem.rs).
+ - Modified the libcore::external::cpmem module to use libcore::external::WSIZE (src/external/cpmem.rs).
+ - Modified the libcore::external::compmem module to use libcore::external::WSIZE (src/external/compmem.rs).
+ - Removed the external module import (src/lib.rs).
+ - Moved the graphics module into libcore (src/graphics -> src/libcore/graphics).
+ - Removed the graphics module import (src/lib.rs).
+ - Imported the graphics module (src/libcore/mod.rs).
+ - Moved the io module into libcore (src/io -> src/libcore/io).
+ - Imported the io module (src/libcore/mod.rs).
+ - Removed the io module import (src/lib.rs).
+ - Moved the math module into libcore (src/math -> src/libcore/math).
+ - Removed the math module import (src/lib.rs).
+ - Imported the math module (src/libcore/mod.rs).
+ - Modified libcore::math::float::round to use libcore::math::float::fl::FL32 (src/libcore/math/float/round.rs).
+ - Modified libcore::math::float::invert to use libcore::math::float::fl::FL32 (src/libcore/math/float/invert.rs).
+ - Modified libcore::math::float::itan to use libcore::math::float::fl::FL32 (src/libcore/math/float/itan.rs).
+ - Modified libcore::math::float::sr to use libcore::math::float::fl::FL32 (src/libcore/math/float/sr.rs).
+ - Modified libcore::math::float::absval to use libcore::math::float::fl::FL32 (src/libcore/math/float/absval.rs).
+ - Modified libcore::math::float::floor to use libcore::math::float::fl::FL32 (src/libcore/math/float/floor.rs).
+ - Modified libcore::math::float::cpsign to use libcore::math::float::fl::FL32 (src/libcore/math/float/cpsign.rs).
+ - Modified libcore::math::float::tangent to use libcore::math::float::fl::FL32 (src/libcore/math/float/tangent.rs).
+ - Modified libcore::math::float::cosine to use libcore::math::float::fl::FL32 (src/libcore/math/float/cosine.rs).
+ - Modified libcore::math::float::sine to use libcore::math::float::fl::FL32 (src/libcore/math/float/sine.rs).
+ - Modified libcore::math::float::icos to use libcore::math::float::fl::FL32 (src/libcore/math/float/icos.rs).
+ - Modified libcore::math::float::nlog to use libcore::math::float::fl::{EXP_M, FL32} (src/libcore/math/float/nlog.rs).
+ - Modified libcore::math::float::logb10 to use libcore::math::float::fl::FL32 (src/libcore/math/float/logb10.rs).
+ - Modified libcore::math::float::logb2 to use libcore::math::float::fl::FL32 (src/libcore/math/float/logb2.rs).
+ - Modified libcore::math::float::log to use libcore::math::float::fl::FL32 (src/libcore/math/float/log.rs).
+ - Modified libcore::math::float::hypotenuse to use libcore::math::float::fl::FL32 (src/libcore/math/float/hypotenuse.rs).
+ - Modified libcore::math::measurement to use libcore::math::PI (src/libcore/math/measurement/mod.rs).
+ - Cleared out the libcore::fs module (src/libcore/fs).
+ - Created the libcore::fs::ata module (src/libcore/fs/ata.rs).
+ - Added basic documentation (src/libcore/fs/ata.rs).
+ - Created mod.rs (src/libcore/fs/mod.rs).
+ - Added basic documentation (src/libcore/fs/mod.rs).
+ - Imported the ata module (src/libcore/fs/mod.rs).
+ - Updated kernel version (src/main.rs).
+ - Updated version number (Cargo.toml).
+
 ## 0.14.0
  - Added the task module (src/task).
  - Created mod.rs (src/task/mod.rs).

@@ -2,6 +2,7 @@
 #![no_std]
 #![cfg_attr(test, no_main)]
 #![allow(dead_code)]
+#![allow(named_asm_labels)]
 #![allow(unused_imports)]
 #![allow(unused_variables)]
 #![feature(abi_x86_interrupt)]
@@ -10,6 +11,7 @@
 #![feature(const_mut_refs)]
 #![feature(core_intrinsics)]
 #![feature(custom_test_frameworks)]
+#![feature(naked_functions)]
 #![feature(slice_range)]
 #![feature(type_ascription)]
 #![test_runner(crate::testexec)]
@@ -22,28 +24,21 @@ extern crate core;
 use core::ops::Deref;
 use core::panic::PanicInfo;
 
-pub mod allocator;
-pub mod arch;
+pub mod task;
+
+pub mod libcore;
 pub mod clock;
 pub mod cmos;
 pub mod ctypes;
-pub mod dev;
-pub mod external;
 pub mod font;
-pub mod fs;
 pub mod gdt;
-pub mod graphics;
 pub mod intr;
-pub mod io;
 pub mod macros;
-pub mod math;
 pub mod mem;
 pub mod noblkio;
 pub mod pic;
 pub mod rgx;
 pub mod ser;
-pub mod syscall;
-pub mod task;
 pub mod time;
 pub mod vol;
 pub mod vgabuff;

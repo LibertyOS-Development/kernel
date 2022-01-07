@@ -1,11 +1,13 @@
 #![no_std]
 #![no_main]
+#![feature(asm)]
 #![feature(abi_efiapi)]
 #![feature(custom_test_frameworks)]
 #![test_runner(libertyos_kernel::testexec)]
 #![reexport_test_harness_main = "testexec"]
 #![allow(dead_code)]
 #![allow(deprecated)]
+#![allow(named_asm_labels)]
 #![allow(unused_features)]
 #![allow(unused_imports)]
 #![allow(unused_mut)]
@@ -17,7 +19,7 @@ use alloc::{boxed::Box, vec, vec::Vec, rc::Rc};
 use bootloader::{BootInfo, entry_point};
 use core::panic::PanicInfo;
 use embedded_graphics::{image::Image, prelude::*};
-use libertyos_kernel::{println, task::{Task, kbd, simpexec::SimpleExec, exec::Exec}};
+use libertyos_kernel::{print, println, task::{Task, kbd, simpexec::SimpleExec, exec::Exec}, time::sleep};
 use tinybmp::DynamicBmp;
 use vga::{ colors::{ Color16, TextModeColor }, writers::{ Graphics640x480x16, GraphicsWriter, ScreenCharacter, TextWriter, Text80x25} };
 
@@ -29,7 +31,7 @@ pub const KSIZE: usize = 2 << 20;
 fn kernel_main(bootinfo: &'static BootInfo) -> !
 {
 	use libertyos_kernel::mem::{self, BootInfoFrameAllocator};
-	use libertyos_kernel::allocator;
+	use libertyos_kernel::libcore::allocator;
 	use x86_64::{structures::paging::Page, VirtAddr};
 	libertyos_kernel::init();
 
@@ -59,37 +61,14 @@ fn kernel_main(bootinfo: &'static BootInfo) -> !
 
 	let mut executor = Exec::new();
 
-	let bmpdat = include_bytes!("../resources/images/bmp/Logo-Dark.bmp");
-
-	// This controls LibertyOS' text mode.
-	let textmode = Text80x25::new();
-	let tmcolor = TextModeColor::new(Color16::Yellow, Color16::Black);
-//	let screenchar = ScreenCharacter::new("", tmcolor);
-
-
-	// This creates LibertyOS' TUI.
-	let graphicsmode = Graphics640x480x16::new();
-	graphicsmode.set_mode();
-	graphicsmode.clear_screen(Color16::Black);
-	graphicsmode.draw_line((80, 60), (80, 420), Color16::White);
-	graphicsmode.draw_line((80, 60), (540, 60), Color16::White);
-	graphicsmode.draw_line((80, 420), (540, 420), Color16::White);
-	graphicsmode.draw_line((540, 420), (540, 60), Color16::White);
-	graphicsmode.draw_line((80, 90), (540, 90), Color16::White);
-
-	for (offset, character) in "LibertyOS v0.14.0".chars().enumerate()
-	{
-		graphicsmode.draw_character(250 + offset * 8, 72, character, Color16::Red)
-	}
-
-	for (offset, character) in "Welcome to LibertyOS.".chars().enumerate()
-	{
-		graphicsmode.draw_character(100 + offset * 8, 100, character, Color16::Yellow)
-	}
+	// Welcome message
+	println!("LIBERTYOS v0.14.1");
+	println!("");
 
 	#[cfg(test)]
 	testexec();
 
+	executor.spawn(Task::new(kbd::print_keypresses()));
 	executor.run();
 }
 

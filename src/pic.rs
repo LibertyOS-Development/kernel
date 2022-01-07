@@ -1,6 +1,6 @@
 // pic.rs
 
-use crate::dev::drivers::pic8259::ChainPIC;
+use crate::libcore::dev::drivers::pic8259::ChainPIC;
 use spin::Mutex;
 
 pub const PO1: u8 = 32;

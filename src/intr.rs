@@ -3,7 +3,7 @@
 use x86_64::structures::idt::{InterruptDescriptorTable, InterruptStackFrame};
 use lazy_static::lazy_static;
 use crate::{gdt, print, println};
-use crate::dev::drivers::pic8259::ChainPIC;
+use crate::libcore::dev::drivers::pic8259::ChainPIC;
 use spin;
 
 pub const PIC_1_OFFSET: u8 = 32;
@@ -72,32 +72,20 @@ extern "x86-interrupt" fn doubleflt_handler(stackframe: InterruptStackFrame, _er
 }
 
 extern "x86-interrupt" fn keyboard_interrupt_handler(_stackframe: InterruptStackFrame) {
-	use pc_keyboard::{layouts, DecodedKey, HandleControl, Keyboard, ScancodeSet1};
-	use spin::Mutex;
 	use x86_64::instructions::port::Port;
 
-	lazy_static!
-	{
-		static ref KEYBOARD: Mutex<Keyboard<layouts::Us104Key, ScancodeSet1>> = Mutex::new(
-		Keyboard::new(layouts::Us104Key, ScancodeSet1, HandleControl::Ignore)
-		);
-	}
-	let mut keyboard = KEYBOARD.lock();
 	let mut port = Port::new(0x60);
-	let scancode: u8 = unsafe { port.read() };
+	let scancode: u8 = unsafe
+	{
+		port.read()
+	};
+
 	crate::task::kbd::add_scancode(scancode);
 
-	if let Ok(Some(key_event)) = keyboard.add_byte(scancode) {
-		if let Some(key) = keyboard.process_keyevent(key_event) {
-			match key
-			{
-				DecodedKey::Unicode(character) => print!("{}", character),
-				DecodedKey::RawKey(key) => print!("{:?}", key),
-			}
-		}
-	}
-	unsafe {
-	PICS.lock().notify_intrend(IntrIdx::Keyboard.asu8());
+	unsafe
+	{
+		PICS.lock()
+		.notify_intrend(IntrIdx::Keyboard.asu8());
 	}
 }
 
