@@ -8,13 +8,14 @@ keywords = ["no-std", "liberty", "libertyos", "os", "kernel"]
 name = "libertyos_kernel"
 readme = "README.md"
 repository = "https://github.com/LibertyOS-Development/kernel"
-version = "0.13.11"
+version = "0.14.0"
 
 [dependencies]
 arrayvec = { version = "0.7.2", default-features = false }
 bit_field = "0.10.0"
 bitflags = "1.3.2"
 bootloader = { version = "0.9.8", features = ["map_physical_memory"]}
+conquer-once = { version = "0.2.0", default-features = false }
 embedded-graphics = "0.7.1"
 fat32 = "0.2.0"
 libm = "0.2"
@@ -33,6 +34,16 @@ uart_16550 = "0.2.0"
 volatile = "0.2.6"
 vga = "0.2.7"
 x86 = "0.43.0"
+
+[dependencies.crossbeam-queue]
+version = "0.2.1"
+default-features = false
+features = ["alloc"]
+
+[dependencies.futures-util]
+version = "0.3.4"
+default-features = false
+features = ["alloc"]
 
 [dependencies.lazy_static]
 version = "1.0"

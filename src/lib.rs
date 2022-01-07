@@ -3,6 +3,7 @@
 #![cfg_attr(test, no_main)]
 #![allow(dead_code)]
 #![allow(unused_imports)]
+#![allow(unused_variables)]
 #![feature(abi_x86_interrupt)]
 #![feature(alloc_error_handler)]
 #![feature(asm)]
@@ -42,6 +43,7 @@ pub mod pic;
 pub mod rgx;
 pub mod ser;
 pub mod syscall;
+pub mod task;
 pub mod time;
 pub mod vol;
 pub mod vgabuff;

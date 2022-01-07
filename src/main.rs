@@ -17,7 +17,7 @@ use alloc::{boxed::Box, vec, vec::Vec, rc::Rc};
 use bootloader::{BootInfo, entry_point};
 use core::panic::PanicInfo;
 use embedded_graphics::{image::Image, prelude::*};
-use libertyos_kernel::println;
+use libertyos_kernel::{println, task::{Task, kbd, simpexec::SimpleExec, exec::Exec}};
 use tinybmp::DynamicBmp;
 use vga::{ colors::{ Color16, TextModeColor }, writers::{ Graphics640x480x16, GraphicsWriter, ScreenCharacter, TextWriter, Text80x25} };
 
@@ -57,6 +57,8 @@ fn kernel_main(bootinfo: &'static BootInfo) -> !
 	let clonedref = refcounted.clone();
 	core::mem::drop(refcounted);
 
+	let mut executor = Exec::new();
+
 	let bmpdat = include_bytes!("../resources/images/bmp/Logo-Dark.bmp");
 
 	// This controls LibertyOS' text mode.
@@ -75,7 +77,7 @@ fn kernel_main(bootinfo: &'static BootInfo) -> !
 	graphicsmode.draw_line((540, 420), (540, 60), Color16::White);
 	graphicsmode.draw_line((80, 90), (540, 90), Color16::White);
 
-	for (offset, character) in "LibertyOS v0.13.11".chars().enumerate()
+	for (offset, character) in "LibertyOS v0.14.0".chars().enumerate()
 	{
 		graphicsmode.draw_character(250 + offset * 8, 72, character, Color16::Red)
 	}
@@ -88,9 +90,14 @@ fn kernel_main(bootinfo: &'static BootInfo) -> !
 	#[cfg(test)]
 	testexec();
 
-	libertyos_kernel::hltloop();
+	executor.run();
 }
 
+
+async fn async_num() -> u32
+{
+	42
+}
 
 // This is used in the event of a panic.
 #[cfg(not(test))]

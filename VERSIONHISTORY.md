@@ -2,6 +2,35 @@ Version History
 
 # Version History
 
+## 0.14.0
+ - Added the task module (src/task).
+ - Created mod.rs (src/task/mod.rs).
+ - Added documentation (src/task/mod.rs).
+ - Imported the task module (src/lib.rs).
+ - Added async_num (src/main.rs).
+ - Added the task::simpexec module (src/task/simpexec.rs).
+ - Added documentation (src/task/simpexec.rs).
+ - Imported the simpexec module (src/task/mod.rs).
+ - Imported several portions of the task module (src/main.rs).
+ - Added code to initialize the executor (src/main.rs).
+ - Added crossbeam_queue as a dependency (Cargo.toml).
+ - Added a dedicated section to the crossbeam_queue crate (Cargo.toml).
+ - Added conquer-once as a dependency (Cargo.toml).
+ - Created the task::kbd module (src/task/kbd.rs).
+ - Added basic documentation (src/task/kbd.rs).
+ - Imported kbd module (src/task/mod.rs).
+ - Added a line to the keyboard_interrupt_handler, in order to use the task::kbd module's functionality (src/intr.rs).
+ - Added futures-util as a dependency (Cargo.toml).
+ - Added a dedicated section to the futures-util dependency (Cargo.toml).
+ - Created the task::exec module (src/task/exec.rs).
+ - Added basic documentation (src/task/exec.rs).
+ - Imported the exec module (src/task/mod.rs).
+ - Removed line that used the libertyos_kernel::hltloop function (src/main.rs).
+ - Added the #![allow(unused_variable)] line (src/lib.rs).
+ - Rewrote a lot of the gdt module, in order to prepare the kernel to be able to run processes in usermode (src/gdt.rs).
+ - Updated the kernel version (src/main.rs).
+ - Updated the version number (Cargo.toml).
+
 ## 0.13.11
  - Added libm as a dependency (Cargo.toml).
  - Added serde as a dependency (Cargo.toml).
