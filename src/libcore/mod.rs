@@ -26,5 +26,8 @@ pub mod io;
 // Mathematics, measurements, and time-keeping
 pub mod math;
 
+// System utilities, processes, syscalls, etc.
+pub mod sys;
+
 // Task-execution
 //pub mod task;

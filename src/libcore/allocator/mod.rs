@@ -85,3 +85,24 @@ fn alignup(address: usize, align: usize) -> usize
 {
 	(address + align - 1) & !(align - 1)
 }
+
+
+// Free memory
+pub fn memfree() -> usize
+{
+	ALLOCATOR.lock().free()
+}
+
+
+// Memory size
+pub fn memsize() -> usize
+{
+	ALLOCATOR.lock().size()
+}
+
+
+// Used memory
+pub fn memused() -> usize
+{
+	ALLOCATOR.lock().free()
+}

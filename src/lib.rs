@@ -25,6 +25,7 @@ use core::ops::Deref;
 use core::panic::PanicInfo;
 
 pub mod task;
+pub mod rand;
 
 pub mod libcore;
 pub mod clock;

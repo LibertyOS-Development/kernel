@@ -2,6 +2,58 @@ Version History
 
 # Version History
 
+## 0.14.2
+ - Finished writing the libcore::fs::ata module (src/libcore/fs/ata.rs).
+ - Finished writing documentation (src/libcore/fs/ata.rs).
+ - Added the libcore::fs::blk module (src/libcore/fs/blk.rs).
+ - Added basic documentation (src/libcore/fs/blk.rs).
+ - Imported the blk module (src/libcore/fs/mod.rs).
+ - Added the libcore::fs::blkdev module (src/libcore/fs/blkdev.rs).
+ - Added basic documentation (src/libcore/fs/blkdev.rs).
+ - Imported the blkdev module (src/libcore/fs/mod.rs).
+ - Added the libcore::fs::bmapblk module (src/libcore/fs/bmapblk.rs).
+ - Added basic documentation (src/libcore/fs/bmapblk.rs).
+ - Imported the bmapblk module (src/libcore/fs/mod.rs).
+ - Added the libcore::fs::dev module (src/libcore/fs/dev.rs).
+ - Added basic documentation (src/libcore/fs/dev.rs).
+ - Imported the dev module (src/libcore/fs/mod.rs).
+ - Added the libcore::fs::directory module (src/libcore/fs/directory.rs).
+ - Added basic documentation (src/libcore/fs/directory.rs).
+ - Imported the directory module (src/libcore/fs/mod.rs).
+ - Added the libcore::fs::file module (src/libcore/fs/file.rs).
+ - Added basic documentation (src/libcore/fs/file.rs).
+ - Imported the file module (src/libcore/fs/mod.rs).
+ - Added the libcore::fs::sblk module (src/libcore/fs/sblk.rs).
+ - Added basic documentation (src/libcore/fs/sblk.rs).
+ - Imported the sblk module (src/libcore/fs/mod.rs).
+ - Added the memsize function (src/libcore/allocator/mod.rs).
+ - Added the memused function (src/libcore/allocator/mod.rs).
+ - Added the memfree function (src/libcore/allocator/mod.rs).
+ - Created the rand module (src/rand.rs).
+ - Added basic documentation (src/rand.rs).
+ - Imported the rand module (src/lib.rs).
+ - Added the rand crate as a dependency (Cargo.toml).
+ - Added the rand_core crate as a dependency (Cargo.toml).
+ - Created the libcore::sys module (src/libcore/sys).
+ - Added mod.rs (src/libcore/sys/mod.rs).
+ - Added basic documentation (src/libcore/sys/mod.rs).
+ - Imported the sys module (src/libcore/mod.rs).
+ - Created the libcore::sys::proc module (src/libcore::sys::proc.rs).
+ - Added basic documentation (src/libcore::sys::proc.rs).
+ - Imported the proc module (src/libcore/sys/mod.rs).
+ - Commented out the proc import (src/libcore/sys/mod.rs).
+ - Added the libcore::fs::directory_entry (src/libcore/fs/directory_entry.rs).
+ - Added basic documentation (src/libcore/fs/directory_entry.rs).
+ - Imported the directory_entry module (src/libcore/fs/mod.rs).
+ - Added the libcore::math::float::invsr module (src/libcore/math/float/invsr.rs).
+ - Added basic documentation (src/libcore/math/float/invsr.rs).
+ - Imported the invsr module (src/libcore/math/float/mod.rs).
+ - Added the libcore::math::float::arcsine (src/libcore/math/float/arcsine.rs)
+ - Added basic documentation (src/libcore/math/float/arcsine.rs).
+ - Imported the arcsine module (src/libcore/math/float/mod.rs).
+ - Updated kernel version (src/main.rs).
+ - Updated version number (Cargo.toml).
+
 ## 0.14.1
  - Removed the syscall module. The method that was being used to implement syscalls was not working as it should, and had become too large to really work with. I am starting over on the syscall module (src/syscall).
  - Removed the syscall import (src/lib.rs).
