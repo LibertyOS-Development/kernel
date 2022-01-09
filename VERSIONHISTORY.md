@@ -51,6 +51,12 @@ Version History
  - Added the libcore::math::float::arcsine (src/libcore/math/float/arcsine.rs)
  - Added basic documentation (src/libcore/math/float/arcsine.rs).
  - Imported the arcsine module (src/libcore/math/float/mod.rs).
+ - Moved the task module into libcore (src/task -> src/libcore/task).
+ - Removed the task module import (src/lib.rs).
+ - Imported the task module (src/libcore/mod.rs).
+ - Consolidated imports (src/lib.rs).
+ - Updated the intr module to use libcore::task (src/intr.rs).
+ - Updated main.rs to use libcore::task (src/main.rs).
  - Updated kernel version (src/main.rs).
  - Updated version number (Cargo.toml).
 

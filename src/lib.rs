@@ -21,11 +21,7 @@
 extern crate alloc;
 extern crate core;
 
-use core::ops::Deref;
-use core::panic::PanicInfo;
-
-pub mod task;
-pub mod rand;
+use core::{ops::Deref, panic::PanicInfo};
 
 pub mod libcore;
 pub mod clock;
@@ -38,6 +34,7 @@ pub mod macros;
 pub mod mem;
 pub mod noblkio;
 pub mod pic;
+pub mod rand;
 pub mod rgx;
 pub mod ser;
 pub mod time;
