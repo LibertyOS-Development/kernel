@@ -64,7 +64,7 @@ fn kernel_main(bootinfo: &'static BootInfo) -> !
 	let mut executor = Exec::new();
 
 	// Welcome message
-	println!("LIBERTYOS v0.15.0");
+	println!("LIBERTYOS v0.15.1");
 	println!("");
 
 

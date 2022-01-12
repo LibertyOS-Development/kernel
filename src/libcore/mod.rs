@@ -31,3 +31,6 @@ pub mod sys;
 
 //Task-execution
 pub mod task;
+
+// User applications and functions
+pub mod user;

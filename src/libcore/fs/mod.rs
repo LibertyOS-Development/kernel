@@ -258,6 +258,36 @@ pub fn read_to_str(path: &str) -> Result<String, ()>
 }
 
 
+// Reopen
+pub fn reopen(path: &str, handle: usize) -> Result<usize, ()>
+{
+	let res = if let Some(info) = crate::libcore::sys::sc::info(&path)
+	{
+		if info.isdev()
+		{
+			dev_open(&path)
+		}
+		else
+		{
+			file_open(&path)
+		}
+	}
+	else
+	{
+		new_file(&path)
+	};
+
+	if let Some(original) = res
+	{
+		crate::libcore::sys::sc::dup(original, handle);
+		crate::libcore::sys::sc::close(original);
+		return Ok(handle);
+	}
+
+	Err(())
+}
+
+
 // Real path
 pub fn rpath(pname: &str) -> String
 {

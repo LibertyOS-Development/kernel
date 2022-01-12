@@ -104,6 +104,35 @@ impl FileIO for Console
 // Implementation of the Style struct
 impl Style
 {
+	// Background
+	pub fn bg(name: &str) -> Self
+	{
+		Self
+		{
+			fg: None,
+			bg: color_to_bg(name)
+		}
+	}
+
+
+	// Color
+	pub fn color(name: &str) -> Self
+	{
+		Self::fg(name)
+	}
+
+
+	// Foreground
+	pub fn fg(name: &str) -> Self
+	{
+		Self
+		{
+			fg: color_to_fg(name),
+			bg: None
+		}
+	}
+
+
 	// Reset
 	pub fn reset() -> Self
 	{
@@ -113,6 +142,64 @@ impl Style
 			bg: None
 		}
 	}
+
+
+	// With background
+	pub fn wbg(self, name: &str) -> Self
+	{
+		Self
+		{
+			fg: self.fg,
+			bg: color_to_bg(name)
+		}
+	}
+
+
+	// With color
+	pub fn wcolor(self, name: &str) -> Self
+	{
+		self.wfg(name)
+	}
+
+
+	// With foreground
+	pub fn wfg(self, name: &str) -> Self
+	{
+		Self
+		{
+			fg: None,
+			bg: color_to_bg(name)
+		}
+	}
+}
+
+
+// Implementation of the fmt::Display trait for the Style struct
+impl fmt::Display for Style
+{
+	// Format
+	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result
+	{
+		if let Some(fg) = self.fg
+		{
+			if let Some(bg) = self.bg
+			{
+				write!(f, "\x1b[{};{}m", fg, bg)
+			}
+			else
+			{
+				write!(f, "\x1b[{}m", fg)
+			}
+		}
+		else if let Some(bg) = self.bg
+		{
+			write!(f, "\x1b[{}m", bg)
+		}
+		else
+		{
+			write!(f, "\x1b[0m")
+		}
+	}
 }
 
 
@@ -120,6 +207,39 @@ impl Style
 pub fn canprint(c: char) -> bool
 {
 	((c as u32) < 0xFF) && crate::libcore::graphics::vga::canprint(c as u8)
+}
+
+
+// Color to background
+pub fn color_to_bg(name: &str) -> Option<usize>
+{
+	color_to_fg(name).map(|fg| fg + 10)
+}
+
+
+// Color to foreground
+pub fn color_to_fg(name: &str) -> Option<usize>
+{
+	match name
+	{
+		"Black" => Some(30),
+		"Red" => Some(31),
+		"Green" => Some(32),
+		"Brown" => Some(33),
+		"Blue" => Some(34),
+		"Magenta" => Some(35),
+		"Cyan" => Some(36),
+		"LightGray" => Some(37),
+		"Gray" => Some(90),
+		"LightRed" => Some(91),
+		"LightGreen" => Some(92),
+		"Yellow" => Some(93),
+		"LightBlue" => Some(94),
+		"Pink" => Some(95),
+		"LightCyan" => Some(96),
+		"White" => Some(97),
+		_ => None,
+	}
 }
 
 

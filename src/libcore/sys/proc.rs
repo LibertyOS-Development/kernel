@@ -7,7 +7,7 @@
 */
 
 use alloc::{collections::BTreeMap, string::{String, ToString}};
-use core::sync::atomic::{AtomicUsize, Ordering};
+use core::sync::atomic::{AtomicU64, AtomicUsize, Ordering};
 use lazy_static::lazy_static;
 use spin::RwLock;
 use x86_64::{structures::idt::InterruptStackFrameValue, VirtAddr};
@@ -19,6 +19,10 @@ use crate::libcore::{sys::console::Console, fs::{dev::Device, Resource}};
 	CONSTANTS
 */
 
+// Code address
+// NOTE: Set to 16 MB
+pub static CODEADDRESS: AtomicU64 = AtomicU64::new((crate::libcore::allocator::HEAP_START as u64) + (16 << 20));
+
 // Magic number for ELF executables
 const ELFMAG: [u8; 4] = [0x74, b'E', b'L', b'F'];
 
@@ -27,6 +31,9 @@ const MAX_FILEHANDLE: usize = 16;
 
 // Maximum number of processes
 const MAX_PROC: usize = 2;
+
+// Page size
+pub const PAGESIZE: u64 = 4 * 1024;
 
 
 lazy_static!
@@ -81,6 +88,63 @@ pub struct Reg
 // Implementation of the Proc struct
 impl Proc
 {
+/*
+	// Create
+	pub fn create(bin: &[u8]) -> Result<usize, ()>
+	{
+		let code_size = 1024 * PAGESIZE;
+		let code_address = CODEADDRESS.fetch_add(code_size, Ordering::SeqCst);
+		crate::libcore::allocator::alloc_pages(code_address, code_size);
+
+		let mut entrypt = 0;
+		let code_ptr = code_address as *mut u8;
+
+		// ELF binary
+		if bin[0..4 == ELFMAG
+		{
+			if let Ok(obj)
+
+
+	// Execute
+	pub fn exec(&self)
+	{
+		// Modify PID
+		setid(self.id);
+
+		unsafe
+		{
+			asm!(
+				// Disable interrupts
+				"cli",
+
+				// SS
+				"push rax",
+
+				// RSP
+				"push rsi",
+
+				// RFLAGS, interrupts enabled
+				"push 0x200",
+
+				// CS
+				"push rdx",
+
+				// RIP
+				"push rdi",
+
+				"iretq",
+
+				in("rax") GDT.1.userdata.0,
+				in("rsi") self.code_address = self.code_size,
+				in("rdx") GDT.1.usercode.0,
+				in("rdi") self.code_address + self.entrypt,
+			);
+		}
+	}
+
+	*/
+
+	// New
 	pub fn new(id: usize) -> Self
 	{
 		let isf = InterruptStackFrameValue
@@ -103,6 +167,22 @@ impl Proc
 			data: ProcData::new("/", None),
 		}
 	}
+
+/*
+	// Spawn
+	pub fn spawn(bin: &[u8])
+	{
+		if let Ok(pid) = Self::create(bin)
+		{
+			let proc =
+			{
+				let tab = PROCTAB.read();
+				tab[pid].clone()
+			};
+			proc.exec;
+		}
+	}
+*/
 }
 
 
@@ -317,6 +397,18 @@ pub fn sf() -> InterruptStackFrameValue
 	let tab = PROCTAB.read();
 	let proc = &tab[id()];
 	proc.sf.clone()
+}
+
+
+// Spawn
+pub fn spawn(path: &str) -> Result<(), ()>
+{
+	if crate::libcore::sys::sc::info(&path).is_some()
+	{
+		crate::libcore::sys::sc::spawn(&path);
+		return Ok(());
+	}
+	Err(())
 }
 
 

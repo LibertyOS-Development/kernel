@@ -2,6 +2,19 @@ Version History
 
 # Version History
 
+## 0.15.1
+ - Added additional functionality to the libcore::sys::console module (src/libcore/sys/console.rs).
+ - Updated documentation (src/libcore/sys/console.rs).
+ - Added the reopen function (src/libcore/fs/mod.rs).
+ - Added the dup syscall (src/libcore/sys/sc/mod.rs).
+ - Added the spawn syscall (src/libcore/sys/sc/mod.rs).
+ - Added the rt syscall (src/libcore/sys/sc/mod.rs).
+ - Added the spawn function (src/libcore/sys/proc.rs).
+ - Continued development on the shell (src/libcore/user/shell.rs).
+ - Updated kernel version (src/main.rs).
+ - Updated version number (Cargo.toml).
+
+
 ## 0.15.0
  - Added the libcore::math::float::ceiling module (src/libcore/math/float/ceiling.rs).
  - Added basic documentation (src/libcore/math/float/ceiling.rs).

@@ -117,6 +117,25 @@ pub fn close(handle: usize)
 }
 
 
+// Duplicate
+pub fn dup(original: usize, new: usize) -> Option<usize>
+{
+	let res = unsafe
+	{
+		sc!(DUPLICATE, original, new)
+	} as isize;
+
+	if res.is_negative()
+	{
+		None
+	}
+	else
+	{
+		Some(res as usize)
+	}
+}
+
+
 // Info
 pub fn info(path: &str) -> Option<FileInfo>
 {
@@ -179,6 +198,30 @@ pub fn read(handle: usize, buffer: &mut [u8]) -> Option<usize>
 	{
 		Some(res as usize)
 	}
+}
+
+
+// Real-time
+pub fn rt() -> f64
+{
+	let res = unsafe
+	{
+		sc!(RT)
+	};
+	f64::from_bits(res as u64)
+}
+
+
+// Spawn
+pub fn spawn(path: &str)
+{
+	let ptr = path.as_ptr() as usize;
+	let len = path.len() as usize;
+
+	unsafe
+	{
+		sc!(SPAWN, ptr, len)
+	};
 }
 
 
