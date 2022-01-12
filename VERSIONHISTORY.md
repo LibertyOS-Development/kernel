@@ -2,6 +2,59 @@ Version History
 
 # Version History
 
+## 0.15.0
+ - Added the libcore::math::float::ceiling module (src/libcore/math/float/ceiling.rs).
+ - Added basic documentation (src/libcore/math/float/ceiling.rs).
+ - Imported the ceiling module (src/libcore/math/float/mod.rs).
+ - Created the libcore::sys::sc module (src/libcore/sys/sc).
+ - Added mod.rs (src/libcore/sys/sc/mod.rs).
+ - Added basic documentation (src/libcore/sys/sc/mod.rs).
+ - Imported the sc module (src/libcore/sys/mod.rs).
+ - Renamed tovgareg to to_vga_reg (src/libcore/graphics/vga/std_color.rs).
+ - Fixed a typo in the block! macro (src/macros.rs).
+ - Removed the vgabuff module (src/vgabuff.rs).
+ - Removed the vgabuff import (src/lib.rs).
+ - Created a brand-new handler for printing to the VGA buffer. This new module supports backspaces, as well as many other cool things, but the backspace functionality is what has me so excited (src/libcore/graphics/vga/mod.rs).
+ - Added documentation (src/libcore/graphics/vga/mod.rs).
+ - Created the libcore::sys::console module (src/libcore/sys/console.rs).
+ - Added basic documentation (src/libcore/sys/console.rs).
+ - Imported the console module (src/libcore/sys/mod.rs).
+ - Created the libcore::sys::rand module (src/libcore/sys/rand.rs).
+ - Added basic documentation (src/libcore/sys/rand.rs).
+ - Imported the rand module (src/libcore/sys/mod.rs).
+ - Removed the old rand module (src/rand.rs).
+ - Removed the import of the rand module (src/lib.rs).
+ - Created the libcore::fs::directory_read module (src/libcore/fs/directory_read.rs).
+ - Added basic documentation (src/libcore/fs/directory_read.rs).
+ - Imported the directory_read module (src/libcore/fs/mod.rs).
+ - Added the sc! macro (src/macros.rs).
+ - Added the read_ui_func! macro (src/macros.rs).
+ - Added PMEM_OFFSET (src/mem.rs).
+ - Added MEMMAP (src/mem.rs).
+ - Added MEMSIZE (src/mem.rs).
+ - Added the memsize function (src/mem.rs).
+ - Imported core::sync::atomic::{AtomicU64, Ordering} (src/mem.rs).
+ - Added the mapper function (src/mem.rs).
+ - Added THANKYOU.md (THANKYOU.md).
+ - Added the libcore::io::stdin module (src/libcore/io/stdin.rs).
+ - Added the libcore::io::stdout module (src/libcore/io/stdout.rs).
+ - Added the libcore::io::stderr module (src/libcore/io/stderr.rs).
+ - Added basic documentation (src/libcore/io/stdin.rs).
+ - Added basic documentation (src/libcore/io/stdout.rs).
+ - Added basic documentation (src/libcore/io/stderr.rs).
+ - Imported the stdin module (src/libcore/io/mod.rs).
+ - Imported the stdout module (src/libcore/io/mod.rs).
+ - Imported the stderr module (src/libcore/io/mod.rs).
+ - Added numerous features to the libcore::io module (src/libcore/io).
+ - Created the libcore::user module (src/libcore/user).
+ - Created mod.rs (src/libcore/user/mod.rs).
+ - Added basic documentation (src/libcore/user/mod.rs).
+ - Added the libcore::sys::prompt module (src/libcore/sys/prompt.rs).
+ - Added basic documentation (src/libcore/sys/prompt.rs).
+ - Imported the prompt module (src/libcore/sys/mod.rs).
+ - Updated kernel version (src/main.rs).
+ - Updated version number (Cargo.toml).
+
 ## 0.14.2
  - Finished writing the libcore::fs::ata module (src/libcore/fs/ata.rs).
  - Finished writing documentation (src/libcore/fs/ata.rs).

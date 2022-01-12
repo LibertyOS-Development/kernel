@@ -7,7 +7,7 @@
 */
 
 use alloc::string::String;
-use crate::libcore::fs::{FileType, directory::Directory};
+use crate::libcore::fs::{dname, fname, rpath, FileType, directory::Directory};
 
 
 // Basic DirectoryEntry struct
@@ -54,6 +54,17 @@ impl DirectoryEntry
 		Self::len_null() == self.len()
 	}
 
+	// Info
+	pub fn info(&self) -> FileInfo
+	{
+		FileInfo
+		{
+			tp: self.tp,
+			size: self.size,
+			time: self.time
+		}
+	}
+
 	// Is a device
 	pub fn isdev(&self) -> bool
 	{
@@ -90,6 +101,36 @@ impl DirectoryEntry
 		self.name.clone()
 	}
 
+	// New
+	pub fn new(directory: Directory, tp: FileType, address: u32, size: u32, time: u64, name: &str) -> Self
+	{
+		let name = String::from(name);
+		Self
+		{
+			directory,
+			tp,
+			address,
+			size,
+			time,
+			name
+		}
+	}
+
+	// Open
+	pub fn open(pname: &str) -> Option<Self>
+	{
+		let pname = rpath(pname);
+		let dname = dname(&pname);
+		let fname = fname(&pname);
+
+		if let Some(directory) = Directory::open(dname)
+		{
+			return directory.find(fname);
+		}
+
+		None
+	}
+
 	// Size
 	pub fn size(&self) -> u32
 	{
@@ -108,19 +149,19 @@ impl DirectoryEntry
 impl FileInfo
 {
 	// Is a device
-	pub fn dev(&self) -> bool
+	pub fn isdev(&self) -> bool
 	{
 		self.tp == FileType::Dev
 	}
 
 	// Is a directory
-	pub fn dir(&self) -> bool
+	pub fn isdir(&self) -> bool
 	{
 		self.tp == FileType::Directory
 	}
 
 	// Is a file
-	pub fn file(&self) -> bool
+	pub fn isfile(&self) -> bool
 	{
 		self.tp == FileType::File
 	}

@@ -188,6 +188,32 @@ impl BlkDevIO for AtaBlkDev
 }
 
 
+// Dismount
+pub fn dismount()
+{
+	*BLKDEV.lock() = None;
+}
+
+
+// Format ATA
+pub fn fmtata()
+{
+	if let Some(sb) = SBlk::new()
+	{
+		// Write sblk
+		sb.write();
+
+		// Write zeros to blkbmaps
+		crate::libcore::fs::bmapblk::freeall();
+
+		// Alloc root directory
+		// TODO: Add debug info to check if drive is mounted
+		let root = Directory::root();
+		BMapBlk::alloc(root.address());
+	}
+}
+
+
 // Format memory
 pub fn fmtmem()
 {
@@ -200,6 +226,14 @@ pub fn fmtmem()
 	}
 }
 
+
+// Mount ATA
+pub fn mntata(bus: u8, disk: u8)
+{
+	*BLKDEV.lock() = AtaBlkDev::new(bus, disk).map(BlkDev::ATA);
+}
+
+
 // Mount memory
 pub fn mntmem()
 {
@@ -209,4 +243,11 @@ pub fn mntmem()
 	let device = MemBlkDev::new(len);
 
 	*BLKDEV.lock() = Some(BlkDev::MEM(device));
+}
+
+
+// Whether or not drive has been mounted
+pub fn mounted() -> bool
+{
+	BLKDEV.lock().is_some()
 }

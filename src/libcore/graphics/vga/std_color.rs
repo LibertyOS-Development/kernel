@@ -81,7 +81,7 @@ pub fn fromansi(code: u8) -> Color
 
 impl Color
 {
-	pub fn tovgareg(&self) -> u8
+	pub fn to_vga_reg(&self) -> u8
 	{
 		match self
 		{

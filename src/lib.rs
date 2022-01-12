@@ -34,12 +34,10 @@ pub mod macros;
 pub mod mem;
 pub mod noblkio;
 pub mod pic;
-pub mod rand;
 pub mod rgx;
 pub mod ser;
 pub mod time;
 pub mod vol;
-pub mod vgabuff;
 
 // This is set to be 2MB.
 pub const KSIZE: usize = 2 << 20;

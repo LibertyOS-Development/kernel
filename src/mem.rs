@@ -2,9 +2,21 @@
 #![allow(deprecated)]
 #![allow(unused_features)]
 
+use core::sync::atomic::{AtomicU64, Ordering};
 use bootloader::bootinfo::{MemoryMap, MemoryRegionType};
 use x86_64::{PhysAddr, VirtAddr};
-use x86_64::structures::paging::{FrameAllocator, Mapper, OffsetPageTable, Page, PageTable, PhysFrame, Size4KiB};
+use x86_64::structures::paging::{FrameAllocator, Mapper, OffsetPageTable, Page, page::PageRangeInclusive, PageTable, PhysFrame, Size4KiB};
+
+
+// Physical memory offset
+pub static mut PMEM_OFFSET: u64 = 0;
+
+// Memory map
+pub static mut MEMMAP: Option<&MemoryMap> = None;
+
+// Memory size
+pub static MEMSIZE: AtomicU64 = AtomicU64::new(0);
+
 
 
 pub unsafe fn init(physmem_offset: VirtAddr) -> OffsetPageTable<'static>
@@ -36,6 +48,35 @@ pub fn new_example_mapping(page: Page, mapper: &mut OffsetPageTable, framealloc:
 		mapper.map_to(page, frame, flags, framealloc)
 	};
 	map_to_result.expect("[ERR] MAP_TO FAILURE").flush();
+}
+
+
+// Deallocate pages
+pub fn p_dealloc(address: u64, size: u64)
+{
+	let mut mapper = unsafe
+	{
+			crate::mem::mapper(VirtAddr::new(crate::mem::PMEM_OFFSET))
+	};
+
+	let pages: PageRangeInclusive<Size4KiB> =
+	{
+		let page_start = Page::containing_address(VirtAddr::new(address));
+		let page_end = Page::containing_address(VirtAddr::new(address + size));
+		Page::range_inclusive(page_start, page_end)
+	};
+
+	for page in pages
+	{
+		if let Ok((_frame, mapping)) = mapper.unmap(page)
+		{
+			mapping.flush();
+		}
+		else
+		{
+			unimplemented!();
+		}
+	}
 }
 
 
@@ -98,4 +139,19 @@ unsafe impl FrameAllocator<Size4KiB> for BootInfoFrameAllocator
 		self.next += 1;
 		frame
 	}
+}
+
+
+// Mapper
+pub unsafe fn mapper(pmem_offset: VirtAddr) -> OffsetPageTable<'static>
+{
+	let lvl4_tab = active_lvl4_tab(pmem_offset);
+	OffsetPageTable::new(lvl4_tab, pmem_offset)
+}
+
+
+// Memory size
+pub fn memsize() -> u64
+{
+	MEMSIZE.load(Ordering::Relaxed)
 }

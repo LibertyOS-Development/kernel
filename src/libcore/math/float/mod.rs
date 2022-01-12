@@ -4,6 +4,7 @@
 
 pub mod absval;
 pub mod arcsine;
+pub mod ceiling;
 pub mod cosine;
 pub mod cpsign;
 pub mod fl;
