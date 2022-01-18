@@ -7,7 +7,7 @@
 #![allow(unused_variables)]
 #![feature(abi_x86_interrupt)]
 #![feature(alloc_error_handler)]
-#![feature(asm)]
+#![feature(asm_sym)]
 #![feature(const_mut_refs)]
 #![feature(core_intrinsics)]
 #![feature(custom_test_frameworks)]
@@ -28,7 +28,7 @@ pub mod clock;
 pub mod cmos;
 pub mod ctypes;
 pub mod font;
-pub mod gdt;
+pub mod init;
 pub mod intr;
 pub mod macros;
 pub mod mem;
@@ -50,7 +50,7 @@ fn alloc_error_handler(layout: alloc::alloc::Layout) -> !
 
 pub fn init()
 {
-	gdt::init();
+	libcore::sys::gdt::init();
 	intr::idtinit();
 	unsafe
 	{

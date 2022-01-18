@@ -46,9 +46,9 @@ checksum = "d73c55835cc76243c11580a55eff3f31250b00105a744015b8957ed4203fb8ad"
 
 [[package]]
 name = "bootloader"
-version = "0.9.20"
+version = "0.9.21"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6b0718f186cd449b21f044683933284ed90fb83f3e13949ff0e03b0b6f02e38e"
+checksum = "a62c8f6168cd106687ee36a2b71a46c4144d73399f72814104d33094b8092fd2"
 
 [[package]]
 name = "byteorder"
@@ -201,7 +201,7 @@ dependencies = [
 
 [[package]]
 name = "libertyos_kernel"
-version = "0.15.0"
+version = "0.15.2"
 dependencies = [
  "arrayvec 0.7.2",
  "bit_field",
@@ -230,7 +230,6 @@ dependencies = [
  "vga",
  "volatile 0.2.7",
  "vte",
- "x86",
  "x86_64",
 ]
 
@@ -492,17 +491,6 @@ checksum = "d257817081c7dffcdbab24b9e62d2def62e2ff7d00b1c20062551e6cccc145ff"
 dependencies = [
  "proc-macro2",
  "quote",
-]
-
-[[package]]
-name = "x86"
-version = "0.43.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1e85eb056bbe47f56d75dc0ccc5fe9c12211ed141292f4d7485d2a7c3dedda09"
-dependencies = [
- "bit_field",
- "bitflags",
- "raw-cpuid",
 ]
 
 [[package]]

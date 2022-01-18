@@ -114,6 +114,8 @@ impl SBlk
 		data[5] = self.vers;
 
 		let size = self.blksize;
+		debug_assert!(size >= 512);
+		debug_assert!(size.is_power_of_two());
 		data[9] = (size.trailing_zeros() as u8) - 9;
 		data[10..14].clone_from_slice(&self.blkcount.to_be_bytes());
 		data[14..18].clone_from_slice(&self.alloc_count.to_be_bytes());

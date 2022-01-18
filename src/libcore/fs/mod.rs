@@ -13,12 +13,14 @@ use alloc::{format, string::{String, ToString}, vec, vec::Vec};
 //use crate::libcore::fs::directory_entry::FileInfo;
 //use crate::libcore::fs::fname;
 
-use crate::libcore::fs::bmapblk::BMAPSIZE;
-use crate::libcore::fs::dev::{Device, DevType};
-use crate::libcore::fs::directory::Directory;
-use crate::libcore::fs::file::{File, SeekFrom};
-use crate::libcore::fs::blkdev::{fmtata, fmtmem, mounted, mntata, mntmem, dismount};
-use crate::libcore::fs::directory_entry::{DirectoryEntry, FileInfo};
+use crate::serprintln;
+pub use crate::libcore::fs::ata::BLKSIZE;
+pub use crate::libcore::fs::bmapblk::BMAPSIZE;
+pub use crate::libcore::fs::dev::{Device, DevType};
+pub use crate::libcore::fs::directory::Directory;
+pub use crate::libcore::fs::file::{File, SeekFrom};
+pub use crate::libcore::fs::blkdev::{fmtata, fmtmem, mounted, mntata, mntmem, dismount};
+pub use crate::libcore::fs::directory_entry::{DirectoryEntry, FileInfo};
 
 
 pub mod ata;
@@ -184,6 +186,13 @@ pub fn dname(pname: &str) -> &str
 }
 
 
+// Exists
+pub fn exists(path: &str) -> bool
+{
+	crate::libcore::sys::sc::info(path).is_some()
+}
+
+
 // Open file
 pub fn file_open(path: &str) -> Option<usize>
 {
@@ -212,6 +221,25 @@ pub fn info(pname: &str) -> Option<FileInfo>
 	DirectoryEntry::open(pname).map(|e| e.info())
 }
 
+
+// Initialize
+pub fn init()
+{
+	use crate::libcore::fs::sblk::SBlk;
+
+	for bus in 0..2
+	{
+		for disk in 0..2
+		{
+			if SBlk::checkata(bus, disk)
+			{
+				serprintln!("[INFO] FOUND LIBFS SBLK IN ATA DRIVE: {}:{}\n", bus, disk);
+				mntata(bus, disk);
+				return;
+			}
+		}
+	}
+}
 
 // New file
 pub fn new_file(path: &str) -> Option<usize>

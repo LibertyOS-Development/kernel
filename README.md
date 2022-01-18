@@ -9,38 +9,51 @@ This is the official repository of the LibertyOS kernel. LibertyOS is an operati
 	- cURL
 	- QEMU
 4. Run the bootstrap script (./bootstrap.sh)
-5. Compile the kernel with "cargo build", or run the kernel in QEMU, using "cargo run".
+5. Compile the kernel with "cargo build --release", or run the kernel in QEMU, using "cargo run --release".
 
 
 #### CURRENTLY IMPLEMENTED FEATURES
-- Support for x86_64
-- Support for the core crate
-- Support for the alloc crate
-- A small array of tests
-- Error handlers
-- Built-in support for running LOS with QEMU
-- Displaying text
-- Colored text
-- Support for the 104-key US keyboard
+ - Support for x86-64 architecture
+ - Support for Rust's core and alloc crates
+ - Memory allocation, using linked-lists, buddy-allocation, and bump-allocation
+ - Basic error-handling
+ - Built-in support for running LOS with QEMU
+ - Support for several keyboard layouts
+ - Basic support for asynchronous functions, including a basic task-executor
+ - Support for reading/writing to filesystems (support for specific filesystems has yet to be implemented, but the foundations have been implemented already)
+ - Uses a core library, built for LibertyOS (libcore)
+ - Supports mathematical calculations, including basic algebra, geometry, etc.
+ - Support for C-types
+ - Basic support for parsing fonts
+ - Time-keeping
+ - System-calls
+ - Basic process-management
+ - Support for stdin, stdout, and stderr
+ - Basic support for running processes in userspace
+
 
 #### WIP FEATURES
-- A basic filesystem
-- Basic documentation
+ - A basic filesystem, built for LibertyOS
+ - Full documentation for the entire kernel
+ - Full support for reading/writing to FAT filesystems
+ - Basic networking capabilities
+ - Support for computer mice
+ - A basic shell
+
 
 #### PLANNED FEATURES
-- A simple shell
-- Support for ARM-based targets
-- Support for glibc/musl (or, perhaps, rewriting certain parts of them)
-- Support for FAT, FAT32, EXFAT filesystems
-- Support for ext2, ext3, ext4 filesystems
-- Support for NTFS filesystem
-- Basic networking
-- Hostnames
-- Ability to update the kernel from within the operating system
-- A better, nicer font
-- Full support for ASCII
-- System time
-- Basic customization
+ - Support for ARM-based targets
+ - Support for glibc/musl (or, perhaps, rewriting certain parts of them)
+ - Support for FAT, FAT32, EXFAT filesystems
+ - Support for ext2, ext3, ext4 filesystems
+ - Support for NTFS filesystem
+ - Hostnames
+ - Ability to update the kernel from within the operating system
+ - Support for non-English characters
+ - Full support for Unicode
+ - Basic customization
 
 #### CURRENTLY EXPECTED BEHAVIOUR
-Upon startup, the kernel should output several lines, including the version number, and some additional information. If you encounter an error, please note the error and report it to us.
+ - The kernel initializes the critical portions of LibertyOS
+ - The kernel displays its current version
+ - The user should be able to use the shell

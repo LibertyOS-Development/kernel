@@ -6,6 +6,15 @@
 // Console definitions/functionality
 pub mod console;
 
+// CPU
+pub mod cpu;
+
+// Global descriptor table (GDT)
+pub mod gdt;
+
+// Interrupt descriptor table (IDT)
+pub mod idt;
+
 // System processes
 pub mod proc;
 

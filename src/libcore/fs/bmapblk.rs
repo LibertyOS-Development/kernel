@@ -11,7 +11,7 @@ use bit_field::BitField;
 use crate::libcore::fs::{blk::Blk, sblk::SBlk};
 
 // Constant to represent bitmap size
-pub const BMAPSIZE: usize = 8 * crate::libcore::fs::ata::BLKSIZE;
+pub const BMAPSIZE: usize = 5 * crate::libcore::fs::ata::BLKSIZE;
 
 
 // Basic bitmap block struct

@@ -52,6 +52,30 @@ macro_rules! impl_display_measurement
 	)*)
 }
 
+
+/*
+// irh
+//
+// Handler for interrupt-requests
+#[macro_export]
+macro_rules! irh
+{
+	($handler:ident, $it:expr) =>
+	{
+		pub extern "x86-interrupt" fn $handler(_stack_frame: InterruptStackFrame)
+		{
+			let handlers = IR_HANDLERS.lock();
+			handlers[$ir]();
+			unsafe
+			{
+				crate::pic::PICS.lock().notify_intrend(interrupt_index($ir));
+			}
+		}
+	};
+}
+*/
+
+
 // print
 //
 // This macro is analagous to the "print!" macro (std), except for the fact that this macro prints to the VGA text buffer.

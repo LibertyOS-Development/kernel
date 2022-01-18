@@ -6,6 +6,8 @@
 /*
 	IMPORTS
 */
+use core::arch::asm;
+
 use crate::{sc, libcore::{fs::directory_entry::FileInfo, sys::sc}};
 
 
@@ -57,6 +59,24 @@ pub fn dispatch(n: usize, a1: usize, a2: usize, a3: usize) -> usize
 {
 	match n
 	{
+		// Close
+		CLOSE =>
+		{
+			let handle = a1;
+			close(handle);
+			0
+		}
+
+
+		// Duplicate
+		DUPLICATE =>
+		{
+			let original = a1;
+			let new = a2;
+			crate::libcore::sys::sc::svc::dp(original, new) as usize
+		}
+
+
 		// Read
 		READ =>
 		{
@@ -82,7 +102,23 @@ pub fn dispatch(n: usize, a1: usize, a2: usize, a3: usize) -> usize
 		// Sleep
 		SLEEP =>
 		{
-			crate::libcore::sys::sc::svc::sl(a1 as u64);
+			crate::libcore::sys::sc::svc::sl(a1 as f64);
+			0
+		}
+
+
+
+		// SPAWN
+		SPAWN =>
+		{
+			let ptr = crate::libcore::sys::proc::ptr_from_address(a1 as u64);
+			let len = a2;
+			let path = unsafe
+			{
+				core::str::from_utf8_unchecked(core::slice::from_raw_parts(ptr, len))
+			};
+
+			spawn(path);
 			0
 		}
 

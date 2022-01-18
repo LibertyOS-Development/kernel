@@ -1,11 +1,24 @@
+// src/mem.rs
+//
+// Basic memory management functions.
+
 #![allow(dead_code)]
 #![allow(deprecated)]
 #![allow(unused_features)]
 
+
+/*
+	IMPORTS
+*/
+
 use core::sync::atomic::{AtomicU64, Ordering};
 use bootloader::bootinfo::{MemoryMap, MemoryRegionType};
+use bootloader::BootInfo;
 use x86_64::{PhysAddr, VirtAddr};
+use x86_64::instructions::interrupts;
 use x86_64::structures::paging::{FrameAllocator, Mapper, OffsetPageTable, Page, page::PageRangeInclusive, PageTable, PhysFrame, Size4KiB};
+
+use crate::serprint;
 
 
 // Physical memory offset
@@ -19,10 +32,48 @@ pub static MEMSIZE: AtomicU64 = AtomicU64::new(0);
 
 
 
-pub unsafe fn init(physmem_offset: VirtAddr) -> OffsetPageTable<'static>
+// Initialization
+pub fn init(bootinfo: &'static BootInfo)
 {
-	let lvl4_tab = active_lvl4_tab(physmem_offset);
-	OffsetPageTable::new(lvl4_tab, physmem_offset)
+	interrupts::without_interrupts(||
+	{
+		let mut memsize = 0;
+
+		for region in bootinfo.memory_map.iter()
+		{
+			let start_address = region.range.start_addr();
+			let end_address = region.range.end_addr();
+
+			memsize += end_address - start_address;
+			serprint!("[INFO] MEM [{:#016X}-{:#016X}] {:?}\n", start_address, end_address, region.region_type);
+		}
+
+		serprint!("[INFO] MEM: {} KB\n", memsize >> 10);
+		MEMSIZE.store(memsize, Ordering::Relaxed);
+
+		unsafe
+		{
+			PMEM_OFFSET = bootinfo.physical_memory_offset
+		};
+
+		unsafe
+		{
+			MEMMAP.replace(&bootinfo.memory_map)
+		};
+
+		let mut mapper = unsafe
+		{
+			mapper(VirtAddr::new(PMEM_OFFSET))
+		};
+
+		let mut framealloc = unsafe
+		{
+			BootInfoFrameAllocator::init(&bootinfo.memory_map)
+		};
+
+		crate::libcore::allocator::init_heap(&mut mapper, &mut framealloc)
+			.expect("[ERR] FAILED TO INITALIZE HEAP");
+	});
 }
 
 
@@ -77,6 +128,16 @@ pub fn p_dealloc(address: u64, size: u64)
 			unimplemented!();
 		}
 	}
+}
+
+
+// Physical-address to virtual-address
+pub fn ptov(address: PhysAddr) -> VirtAddr
+{
+	VirtAddr::new(address.as_u64() + unsafe
+	{
+		PMEM_OFFSET
+	})
 }
 
 

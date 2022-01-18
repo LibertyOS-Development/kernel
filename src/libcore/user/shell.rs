@@ -141,6 +141,45 @@ pub fn exec(cmd: &str) -> XCode
 }
 
 
+// Main
+pub fn main(args: &[&str]) -> XCode
+{
+	match args.len()
+	{
+		1 =>
+		{
+			run()
+		},
+
+		2 =>
+		{
+			let pname = args[1];
+			if let Ok(contents) = crate::libcore::fs::read_to_str(pname)
+			{
+				for ln in contents.split('\n')
+				{
+					if !ln.is_empty()
+					{
+						exec(ln);
+					}
+				}
+
+				XCode::CMD_SUCCESS
+			}
+			else
+			{
+				println!("[ERR] FILE NOT FOUND: '{}'", pname);
+				XCode::CMD_ERR
+			}
+		},
+
+		_ =>
+		{
+			XCode::CMD_ERR
+		},
+	}
+}
+
 // Prompt string function
 pub fn promptstr(success: bool) -> String
 {

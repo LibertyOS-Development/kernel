@@ -1,6 +1,51 @@
-Version History
+\Version History
 
 # Version History
+
+## 0.15.2
+ - Added the exists function (src/libcore/fs/mod.rs).
+ - Added the GEN_PROT_FAULT_ISTIDX constant (src/gdt.rs).
+ - Added the PAGE_FAULT_ISTIDX constant (src/gdt.rs).
+ - Added full documentation (src/gdt.rs).
+ - Rewrote the TSS static reference (src/gdt.rs).
+ - Rewrote the GDT static reference (src/gdt.rs).
+ - Removed unused code from a previous attempt at implementating userspace functionality (src/gdt.rs).
+ - Rewrote the init function, removing unnecessary code and condensing the function significantly (src/gdt.rs).
+ - Created the init module (src/init.rs).
+ - Add basic documentation (src/init.rs).
+ - Imported the init module (src/lib.rs).
+ - Moved the gdt module into libcore::sys (src/gdt.rs -> src/libcore/sys/gdt.rs).
+ - Removed the gdt module import (src/lib.rs).
+ - Imported the gdt module (src/libcore/sys/mod.rs).
+ - Added documentation for the gdt module import (src/libcore/sys/mod.rs).
+ - Updated the path of the gdt module (src/intr.rs).
+ - Added the libcore::sys::idt module (src/libcore/sys/idt.rs).
+ - Added basic documentation (src/libcore/sys/idt.rs).
+ - Imported the idt module (src/libcore/sys/mod.rs).
+ - Added documentation for the idt module import (src/libcore/sys/mod.rs).
+ - Created the init module (src/init.rs).
+ - Added basic documentation (src/init.rs).
+ - Imported the init module (src/init.rs).
+ - Rewrote the foundations of the ser module (src/ser.rs).
+ - Added basic documentation (src/ser.rs).
+ - Added initialization function for the ser module (src/ser.rs).
+ - Rewrote the foundations of the time module (src/time.rs).
+ - Updated mod.rs to reflect changes made to the time module (src/libcore/sys/sc/mod.rs).
+ - Updated the libcore::sys::sc::svc module to reflect changes made to the time module (src/libcore/sys/sc/svc.rs).
+ - Added initialization function for the time module (src/time.rs).
+ - Created the libcore::dev::kbd module (src/libcore/dev/kbd).
+ - Created mod.rs (src/libcore/dev/kbd/mod.rs).
+ - Added basic documentation (src/libcore/dev/kbd/mod.rs).
+ - Imported the kbd module (src/libcore/dev/mod.rs).
+ - Improved documentation (src/libcore/dev/mod.rs).
+ - Created the disk directory. This is not a module, rather a directory for the kernel to read from if basic files have not been found (src/disk).
+ - Created the libcore::sys::cpu module (src/libcore/sys/cpu.rs).
+ - Added basic documentation (src/libcore/sys/cpu.rs).
+ - Imported the cpu module (src/libcore/sys/mod.rs).
+ - Added documentation for the cpu module import (src/libcore/sys/mod.rs).
+ - Updated README.md (README.md).
+ - Updated kernel version (src/main.rs).
+ - Updated version number (Cargo.toml).
 
 ## 0.15.1
  - Added additional functionality to the libcore::sys::console module (src/libcore/sys/console.rs).

@@ -60,7 +60,7 @@ pub fn rt() -> f64
 
 
 // Sleep
-pub fn sl(sec: u64)
+pub fn sl(sec: f64)
 {
 	crate::time::sleep(sec);
 }

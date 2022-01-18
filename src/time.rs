@@ -1,33 +1,61 @@
 // time.rs
+//
+// Basic time-keeping functionality.
 
-use crate::cmos::CMOS;
+
+/*
+	IMPORTS
+*/
+
 use core::hint::spin_loop;
 use core::sync::atomic::{AtomicUsize, AtomicU64, Ordering};
 use x86_64::instructions::{interrupts, port::Port};
 
+use crate::cmos::CMOS;
+
+
+// PID divider
 const PITDIV: usize = 1193;
+
+// PIT frequency
 pub const PITFREQ: f64 = 3_579_545.0 / 3.0;
+
+// PIT interval
 const PITINTV: f64 = (PITDIV as f64) / PITFREQ;
 
+// PIT tick
 static PIT_TICK: AtomicUsize = AtomicUsize::new(0);
+
+// Last RTC update
 static LAST_RTCUPDATE: AtomicUsize = AtomicUsize::new(0);
+
+// Clock per nanoseconds
 static CLOCK_PER_NS: AtomicU64 = AtomicU64::new(0);
 
+
+
+// Tick function
 pub fn tick() -> usize
 {
 	PIT_TICK.load(Ordering::Relaxed)
 }
 
+
+// Time between ticks
 pub fn time_between_ticks() -> f64
 {
 	PITINTV
 }
 
+
+// Last RTC update
 pub fn last_rtcupdate() -> usize
 {
 	LAST_RTCUPDATE.load(Ordering::Relaxed)
 }
 
+
+// Halt
 pub fn halt()
 {
 	let disabled = !interrupts::are_enabled();
@@ -38,6 +66,47 @@ pub fn halt()
 	}
 }
 
+
+// Initialization
+pub fn init()
+{
+	// PIT
+	let div = if PITDIV < 65536
+	{
+		PITDIV
+	}
+	else
+	{
+		0
+	};
+
+	let channel = 0;
+
+	set_pitfreq_div(div as u16, channel);
+	crate::libcore::sys::idt::set_irh(0, pit_intrh);
+
+
+	// RTC
+	crate::libcore::sys::idt::set_irh(8, rtc_intrh);
+	crate::cmos::CMOS::new().enable_updateintr();
+
+
+	// TSC
+
+	// Set calibration time to around 0.25 seconds
+	let calib = 250_000;
+	let a = rdtsc();
+
+	// Sleep for ~0.25 seconds
+	sleep(calib as f64 / 1e6);
+
+	let b = rdtsc();
+
+	CLOCK_PER_NS.store((b - a) / calib, Ordering::Relaxed);
+}
+
+
+
 fn rdtsc() -> u64
 {
 	unsafe
@@ -47,16 +116,20 @@ fn rdtsc() -> u64
 	}
 }
 
-pub fn sleep(nsec: u64)
+
+// Sleep
+pub fn sleep(sec: f64)
 {
-	let start = rdtsc();
-	let delta = nsec * CLOCK_PER_NS.load(Ordering::Relaxed);
-	while rdtsc() - start < delta
+	let start = crate::clock::uptime();
+
+	while crate::clock::uptime() - start < sec
 	{
-		spin_loop();
+		halt();
 	}
 }
 
+
+// Wait (in nanoseconds)
 pub fn nwait(nsec: u64)
 {
 	let start = rdtsc();
@@ -67,6 +140,8 @@ pub fn nwait(nsec: u64)
 	}
 }
 
+
+// Set PIT frequency divider
 pub fn set_pitfreq_div(divider: u16, channel: u8)
 {
 	interrupts::without_interrupts(||
@@ -85,12 +160,16 @@ pub fn set_pitfreq_div(divider: u16, channel: u8)
 	});
 }
 
-pub fn pit_intrhandler()
+
+// PIT interrupt handler
+pub fn pit_intrh()
 {
 	PIT_TICK.fetch_add(1, Ordering::Relaxed);
 }
 
-pub fn rtc_intrhandler()
+
+// RTC interrupt handler
+pub fn rtc_intrh()
 {
 	LAST_RTCUPDATE.store(tick(), Ordering::Relaxed);
 	CMOS::new().notify_intrend();

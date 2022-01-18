@@ -1,8 +1,8 @@
 #![no_std]
 #![no_main]
-#![feature(asm)]
 #![feature(abi_efiapi)]
 #![feature(custom_test_frameworks)]
+#![feature(type_ascription)]
 #![test_runner(libertyos_kernel::testexec)]
 #![reexport_test_harness_main = "testexec"]
 #![allow(dead_code)]
@@ -30,6 +30,23 @@ pub const KSIZE: usize = 2 << 20;
 
 fn kernel_main(bootinfo: &'static BootInfo) -> !
 {
+	libertyos_kernel::init::start(bootinfo: &'static BootInfo);
+	println!("LIBERTYOS v0.15.2");
+	print!("\x1b[?25h");
+	loop
+	{
+		if let Some(cmd) = option_env!("LIBCMD")
+		{
+			let prompt = libertyos_kernel::libcore::user::shell::promptstr(true);
+			println!("{}{}", prompt, cmd);
+			libertyos_kernel::libcore::user::shell::exec(cmd);
+		}
+		else
+		{
+			custom();
+		}
+	}
+/*
 	use libertyos_kernel::mem::{self, BootInfoFrameAllocator};
 	use libertyos_kernel::libcore::allocator;
 	use x86_64::{structures::paging::Page, VirtAddr};
@@ -59,22 +76,51 @@ fn kernel_main(bootinfo: &'static BootInfo) -> !
 	let clonedref = refcounted.clone();
 	core::mem::drop(refcounted);
 
-	libertyos_kernel::libcore::graphics::vga::init();
 
-	let mut executor = Exec::new();
+//	let mut executor = Exec::new();
+//	let prompt = libertyos_kernel::libcore::user::shell::promptstr(true);
 
 	// Welcome message
-	println!("LIBERTYOS v0.15.1");
+	println!("LIBERTYOS v0.15.2");
 	println!("");
+	print!("\x1b[?25h");
+//	print!("{}", prompt);
 
 
 	#[cfg(test)]
 	testexec();
 
-	executor.spawn(Task::new(kbd::print_keypresses()));
-	executor.run();
+//	executor.spawn(Task::new(kbd::print_keypresses()));
+//	executor.run();
+
+*/
 }
 
+
+// Custom boot
+fn custom()
+{
+	let boot = "failsafe/boot.sh";
+
+	if libertyos_kernel::libcore::fs::File::open(boot).is_some()
+	{
+		libertyos_kernel::libcore::user::shell::main(&["shell", boot]);
+	}
+	else
+	{
+		if libertyos_kernel::libcore::fs::mounted()
+		{
+			println!("[ERR] FAILED TO LOCATE: {}", boot);
+		}
+		else
+		{
+			println!("[ERR] LIBFS HAS NOT BEEN MOUNTED TO THE ROOT DIRECTORY");
+		}
+
+		println!("[INFO] LIBERTYOS WILL RUN IN DISKLESS MODE");
+		libertyos_kernel::libcore::user::shell::main(&["shell"]);
+	}
+}
 
 async fn async_num() -> u32
 {
