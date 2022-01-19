@@ -9,7 +9,7 @@
 
 use bootloader::BootInfo;
 
-use crate::println;
+use crate::{print, println};
 
 // The start function, which is the main function of the init module
 pub fn start(bootinfo: &'static BootInfo)
@@ -47,8 +47,85 @@ pub fn start(bootinfo: &'static BootInfo)
 	crate::mem::init(bootinfo);
 
 	// Initialize ATA support
+	println!("[INFO] INITIALIZING ATA SUPPORT");
 	crate::libcore::fs::ata::init();
 
 	// Initialize filesystem functions
+	println!("[INFO] INITIALIZING FILESYSTEM SUPPORT");
 	crate::libcore::fs::init();
+
+	// Initialize CPU module
+	println!("[INFO] INITIALIZING CPU");
+	crate::libcore::sys::cpu::init();
+
+
+	// Create LibertyOS installation
+	let csicolor = crate::libcore::sys::console::Style::color("Blue");
+	let csireset = crate::libcore::sys::console::Style::reset();
+	println!();
+
+	print!("\nWould you like to create a new installation of LibertyOS? [Y/N]");
+	if crate::libcore::io::stdin::Stdin.readln().trim() == "y"
+	{
+		println!("you entered y");
+	}
+//	setup(true);
+}
+
+
+// Copy file
+pub fn cp_file(pname: &str, buffer: &[u8], v: bool)
+{
+	if crate::libcore::fs::exists(pname)
+	{
+		return;
+	}
+
+	crate::libcore::fs::write(pname, buffer).ok();
+
+	if v
+	{
+		println!("[INFO] COPIED FILE: {}", pname);
+	}
+}
+
+
+// Create device
+pub fn new_dev(pname: &str, dev: crate::libcore::fs::DevType, v: bool)
+{
+	if crate::libcore::sys::sc::info(pname).is_none()
+	{
+		if let Some(handle) = crate::libcore::fs::dev_new(pname, dev)
+		{
+			crate::libcore::sys::sc::close(handle);
+
+			if v
+			{
+				println!("[INFO] NEW DEVICE: {}", pname);
+			}
+		}
+	}
+}
+
+
+// Create directory
+pub fn new_dir(pname: &str, v: bool)
+{
+	if let Some(handle) = crate::libcore::fs::directory_new(pname)
+	{
+		crate::libcore::sys::sc::close(handle);
+
+		if v
+		{
+			println!("[INFO] NEW DIRECTORY: {}", pname);
+		}
+	}
+}
+
+
+// Set up a basic installation
+pub fn setup(v: bool)
+{
+	new_dir("/bin", v);
+	new_dir("/dev", v);
 }

@@ -43,6 +43,7 @@ pub fn init_heap(mapper: &mut impl Mapper<Size4KiB>, frame_allocator: &mut impl 
 	Ok(())
 }
 
+
 pub struct Dummy;
 
 unsafe impl GlobalAlloc for Dummy

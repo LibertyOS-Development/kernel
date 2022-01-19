@@ -52,6 +52,9 @@ pub const UT: usize = 0xA;
 // Real-time
 pub const RT: usize = 0xB;
 
+// Unknown system call
+pub const UNKNOWN: usize = 0x26;
+
 
 
 // Dispatcher for system-calls
@@ -134,7 +137,7 @@ pub fn dispatch(n: usize, a1: usize, a2: usize, a3: usize) -> usize
 		_ =>
 		{
 			// For anything else
-			unimplemented!();
+			UNKNOWN
 		}
 	}
 }

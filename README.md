@@ -55,5 +55,5 @@ This is the official repository of the LibertyOS kernel. LibertyOS is an operati
 
 #### CURRENTLY EXPECTED BEHAVIOUR
  - The kernel initializes the critical portions of LibertyOS
- - The kernel displays its current version
- - The user should be able to use the shell
+ - The kernel displays a message about the setup process
+ - The kernel encounters a page-fault. :(

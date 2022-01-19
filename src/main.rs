@@ -30,22 +30,20 @@ pub const KSIZE: usize = 2 << 20;
 
 fn kernel_main(bootinfo: &'static BootInfo) -> !
 {
-	libertyos_kernel::init::start(bootinfo: &'static BootInfo);
-	println!("LIBERTYOS v0.15.2");
+	libertyos_kernel::init::start(bootinfo);
+	println!("LIBERTYOS v0.15.3");
 	print!("\x1b[?25h");
+	println!();
+
 	loop
 	{
-		if let Some(cmd) = option_env!("LIBCMD")
-		{
-			let prompt = libertyos_kernel::libcore::user::shell::promptstr(true);
-			println!("{}{}", prompt, cmd);
-			libertyos_kernel::libcore::user::shell::exec(cmd);
-		}
-		else
-		{
-			custom();
-		}
+	if let Some(cmd) = option_env!("CMD")
+	{
+		let prompt = libertyos_kernel::libcore::user::shell::promptstr(true);
+		println!("{}", prompt);
 	}
+}
+//	libertyos_kernel::libcore::user::shell::main(&["shell"]);
 /*
 	use libertyos_kernel::mem::{self, BootInfoFrameAllocator};
 	use libertyos_kernel::libcore::allocator;
@@ -96,31 +94,11 @@ fn kernel_main(bootinfo: &'static BootInfo) -> !
 */
 }
 
-
-// Custom boot
-fn custom()
+pub fn shell()
 {
-	let boot = "failsafe/boot.sh";
-
-	if libertyos_kernel::libcore::fs::File::open(boot).is_some()
-	{
-		libertyos_kernel::libcore::user::shell::main(&["shell", boot]);
-	}
-	else
-	{
-		if libertyos_kernel::libcore::fs::mounted()
-		{
-			println!("[ERR] FAILED TO LOCATE: {}", boot);
-		}
-		else
-		{
-			println!("[ERR] LIBFS HAS NOT BEEN MOUNTED TO THE ROOT DIRECTORY");
-		}
-
-		println!("[INFO] LIBERTYOS WILL RUN IN DISKLESS MODE");
-		libertyos_kernel::libcore::user::shell::main(&["shell"]);
-	}
+	libertyos_kernel::libcore::user::shell::main(&["shell"]);
 }
+
 
 async fn async_num() -> u32
 {

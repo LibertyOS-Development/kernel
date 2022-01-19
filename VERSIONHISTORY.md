@@ -1,6 +1,18 @@
-\Version History
+Version History
 
 # Version History
+
+## 0.15.3
+ - Added the UNKNOWN syscall (src/libcore/sys/sc/mod.rs).
+ - Added new functions to libcore::fs (src/libcore/fs/mod.rs).
+ - Created the libcore::sys::pic module (src/libcore/sys/pic.rs).
+ - Added basic documentation (src/libcore/sys/pic.rs).
+ - Imported pic module (src/libcore/sys/mod.rs).
+ - Added documentation for the new pic module (src/libcore/sys/mod.rs).
+ - Created basic installation program message (src/init.rs).
+ - Updated README.md (README.md).
+ - Updated the version number (Cargo.toml).
+ - Updated the kernel version (src/main.rs).
 
 ## 0.15.2
  - Added the exists function (src/libcore/fs/mod.rs).

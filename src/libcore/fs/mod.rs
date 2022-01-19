@@ -140,10 +140,40 @@ pub fn canon(path: &str) -> Result<String, ()>
 }
 
 
+// Create a new device
+pub fn dev_new(path: &str, tp: DevType) -> Option<usize>
+{
+	let flags = OpenFlag::CREATE as usize | OpenFlag::DEVICE as usize;
+	if let Some(handle) = crate::libcore::sys::sc::open(path, flags)
+	{
+		let buffer = [tp as u8; 1];
+		return crate::libcore::sys::sc::write(handle, &buffer);
+	}
+
+	None
+}
+
+
 // Open device
 pub fn dev_open(path: &str) -> Option<usize>
 {
 	let flags = OpenFlag::CREATE as usize | OpenFlag::DIRECTORY as usize;
+	crate::libcore::sys::sc::open(path, flags)
+}
+
+
+// Create a new directory
+pub fn directory_new(path: &str) -> Option<usize>
+{
+	let flags = OpenFlag::CREATE as usize | OpenFlag::DIRECTORY as usize;
+	crate::libcore::sys::sc::open(path, flags)
+}
+
+
+// Open a directory
+pub fn directory_open(path: &str) -> Option<usize>
+{
+	let flags = OpenFlag::DIRECTORY as usize;
 	crate::libcore::sys::sc::open(path, flags)
 }
 
@@ -246,6 +276,34 @@ pub fn new_file(path: &str) -> Option<usize>
 {
 	let flags = OpenFlag::CREATE as usize;
 	crate::libcore::sys::sc::open(path, flags)
+}
+
+
+// Read
+pub fn read(path: &str, buffer: &mut [u8]) -> Result<usize, ()>
+{
+	if let Some(info) = crate::libcore::sys::sc::info(&path)
+	{
+		let res = if info.isdev()
+		{
+			dev_open(&path)
+		}
+		else
+		{
+			file_open(&path)
+		};
+
+		if let Some(handle) = res
+		{
+			if let Some(bytes) = crate::libcore::sys::sc::read(handle, buffer)
+			{
+				crate::libcore::sys::sc::close(handle);
+				return Ok(bytes);
+			}
+		}
+	}
+
+	Err(())
 }
 
 
