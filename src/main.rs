@@ -37,8 +37,6 @@ fn kernel_main(bootinfo: &'static BootInfo) -> !
 
 	loop
 	{
-	if let crate::init::success()
-	{
 		let prompt = libertyos_kernel::libcore::user::shell::promptstr(true);
 		println!("{}", prompt);
 	}
@@ -92,7 +90,6 @@ fn kernel_main(bootinfo: &'static BootInfo) -> !
 //	executor.run();
 
 */
-}
 
 pub fn shell()
 {
