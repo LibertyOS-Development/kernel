@@ -14,6 +14,19 @@ use crate::{print, println};
 // The start function, which is the main function of the init module
 pub fn start(bootinfo: &'static BootInfo)
 {
+	/*	INITIALIZATION PROCESS
+
+	LibertyOS has a simple initialization process. One by one, the
+	critical functions (needed by the kernel) are initialized, with
+	the order of initialization being dependent on required features
+	for each component, respectively.
+
+	Prior to initializing a component, a line is written to the screen,
+	detailing the process.
+
+	*/
+
+
 	// Initialize VGA
 	println!("[INFO] INITIALIZING VGA");
 	crate::libcore::graphics::vga::init();
@@ -46,19 +59,29 @@ pub fn start(bootinfo: &'static BootInfo)
 	println!("[INFO] INITIALIZING MEMORY MANAGEMENT");
 	crate::mem::init(bootinfo);
 
+
+	// Initialize logger
+	println!("[INFO] INITIALIZING LOGGER");
+	crate::libcore::sys::log::init();
+
+
+	// Initialize CPU module
+	println!("[INFO] INITIALIZING CPU MODULE");
+	crate::libcore::sys::cpu::init();
+
+	// Initialize PCI support
+	println!("[INFO] INITIALIZING PCI SUPPORT");
+	crate::libcore::sys::pci::init();
+
+	// Initialize filesystem support
+	println!("[INFO] INITIALIZING FILESYSTEM SUPPORT");
+	crate::libcore::fs::init();
+
 	// Initialize ATA support
 	println!("[INFO] INITIALIZING ATA SUPPORT");
 	crate::libcore::fs::ata::init();
 
-	// Initialize filesystem functions
-	println!("[INFO] INITIALIZING FILESYSTEM SUPPORT");
-	crate::libcore::fs::init();
-
-	// Initialize CPU module
-	println!("[INFO] INITIALIZING CPU");
-	crate::libcore::sys::cpu::init();
-
-
+/*
 	// Create LibertyOS installation
 	let csicolor = crate::libcore::sys::console::Style::color("Blue");
 	let csireset = crate::libcore::sys::console::Style::reset();
@@ -69,6 +92,8 @@ pub fn start(bootinfo: &'static BootInfo)
 	{
 		println!("you entered y");
 	}
+
+*/
 //	setup(true);
 }
 

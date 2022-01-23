@@ -38,7 +38,7 @@ impl Device
 		let fname = fname(&pname);
 		if let Some(directory) = Directory::open(dname)
 		{
-			if let Some(directory_entry) = directory.dev_new(fname)
+			if let Some(directory_entry) = directory.new_dev(fname)
 			{
 				return Some(Device::File(directory_entry.into()))
 			}

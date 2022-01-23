@@ -201,7 +201,7 @@ dependencies = [
 
 [[package]]
 name = "libertyos_kernel"
-version = "0.15.2"
+version = "0.15.4"
 dependencies = [
  "arrayvec 0.7.2",
  "bit_field",

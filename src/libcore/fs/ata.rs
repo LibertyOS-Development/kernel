@@ -93,6 +93,7 @@ pub struct Bus
 
 impl Bus
 {
+	// New
 	pub fn new(id: u8, iobase: u16, ctlbase: u16, irq: u8) -> Self
 	{
 		Self
@@ -274,7 +275,7 @@ impl Bus
 	// READ
 	fn read(&mut self, drive: u8, blk: u32, buffer: &mut [u8]) -> Result<(), ()>
 	{
-		serprint!("{}", buffer.len() == BLKSIZE);
+	//	serprint!("{}", buffer.len() == BLKSIZE);
 		self.setup_pio(drive, blk)?;
 		self.writecmd(Command::Read)?;
 		for chunk in buffer.chunks_mut(2)

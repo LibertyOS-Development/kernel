@@ -257,18 +257,18 @@ pub fn init()
 {
 	use crate::libcore::fs::sblk::SBlk;
 
-	for bus in 0..2
-	{
-		for disk in 0..2
-		{
-			if SBlk::checkata(bus, disk)
-			{
-				serprintln!("[INFO] FOUND LIBFS SBLK IN ATA DRIVE: {}:{}\n", bus, disk);
-				mntata(bus, disk);
-				return;
-			}
-		}
-	}
+//	for bus in 0..2
+//	{
+//		for disk in 0..2
+//		{
+//			if SBlk::checkata(bus, disk)
+//			{
+//				serprintln!("[INFO] FOUND LIBFS SBLK IN ATA DRIVE: {}:{}\n", bus, disk);
+//				mntata(bus, disk);
+//				return;
+//			}
+//		}
+//	}
 }
 
 // New file
@@ -276,6 +276,48 @@ pub fn new_file(path: &str) -> Option<usize>
 {
 	let flags = OpenFlag::CREATE as usize;
 	crate::libcore::sys::sc::open(path, flags)
+}
+
+
+// Open
+pub fn open(path: &str, flags: usize) -> Option<Resource>
+{
+	if OpenFlag::DIRECTORY.set(flags)
+	{
+		let res = Directory::open(path);
+		if res.is_none() && OpenFlag::CREATE.set(flags)
+		{
+			Directory::create(path)
+		}
+		else
+		{
+			res
+		}.map(Resource::Directory)
+	}
+	else if OpenFlag::DEVICE.set(flags)
+	{
+		let res = Device::open(path);
+		if res.is_none() && OpenFlag::CREATE.set(flags)
+		{
+			Device::create(path)
+		}
+		else
+		{
+			res
+		}.map(Resource::Device)
+	}
+	else
+	{
+		let res = File::open(path);
+		if res.is_none() && OpenFlag::CREATE.set(flags)
+		{
+			File::create(path)
+		}
+		else
+		{
+			res
+		}.map(Resource::File)
+	}
 }
 
 

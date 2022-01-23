@@ -1,46 +1,141 @@
-use alloc::alloc::{GlobalAlloc, Layout};
-use core::ptr::null_mut;
-use linked_list_allocator::LockedHeap;
-use x86_64::{structures::paging::{mapper::MapToError, FrameAllocator, Mapper, Page, PageTableFlags, Size4KiB}, VirtAddr};
+// src/libcore/allocator/mod.rs
+//
+// This is the mod.rs file for the libcore::allocator module.
 
+/*
+	IMPORTS
+*/
+
+use alloc::{alloc::{GlobalAlloc, Layout}, slice::SliceIndex, sync::Arc, vec::{self, Vec}};
+use core::{cmp, ops::{Index, IndexMut}, ptr::null_mut};
+use linked_list_allocator::LockedHeap;
+use x86_64::{structures::paging::{mapper::MapToError, FrameAllocator, Mapper, Page, page::PageRangeInclusive, PageTableFlags, Size4KiB}, VirtAddr};
+
+use crate::print;
+
+// Bump allocation
 pub mod bump;
+
+// Fixed-size allocation
 pub mod fixedsize;
+
+// Linked-list allocation
 pub mod lnls;
 
+
+
 pub const HEAP_START: usize = 0x_4444_4444_0000;
-pub const HEAP_SIZE: usize = 100 * 1024;
+
 
 #[global_allocator]
 static ALLOCATOR: LockedHeap = LockedHeap::empty();
 
 pub fn init_heap(mapper: &mut impl Mapper<Size4KiB>, frame_allocator: &mut impl FrameAllocator<Size4KiB>) -> Result<(), MapToError<Size4KiB>>
 {
-	let page_range =
-	{
-	        let heap_start = VirtAddr::new(HEAP_START as u64);
-       		let heap_end = heap_start + HEAP_SIZE - 1u64;
-       		let heap_start_page = Page::containing_address(heap_start);
-     		let heap_end_page = Page::containing_address(heap_end);
-       		Page::range_inclusive(heap_start_page, heap_end_page)
-   	};
+	// Allocate half of available memory to the heap.
+	// NOTE: Memory allocated to the heap cannot exceed 16MB.
+	let hsize = cmp::min(crate::mem::memsize() / 2, 16 << 20);
 
-  	for page in page_range {
-        let frame = frame_allocator
-            .allocate_frame()
-            .ok_or(MapToError::FrameAllocationFailed)?;
-        let flags = PageTableFlags::PRESENT | PageTableFlags::WRITABLE;
-        unsafe
+	let pages =
 	{
-		mapper.map_to(page, frame, flags, frame_allocator)?.flush()
+		let hstart = VirtAddr::new(HEAP_START as u64);
+		let hend = hstart + hsize - 1u64;
+		let hstartpage = Page::containing_address(hstart);
+		let hendpage = Page::containing_address(hend);
+
+		Page::range_inclusive(hstartpage, hendpage)
 	};
-    }
+
+	let flags = PageTableFlags::PRESENT | PageTableFlags::WRITABLE;
+
+	for page in pages
+	{
+		let frame = frame_allocator.allocate_frame().ok_or(MapToError::FrameAllocationFailed)?;
+
+		unsafe
+		{
+			mapper.map_to(page, frame, flags, frame_allocator)?.flush();
+		}
+	}
 
 	unsafe
 	{
-       		ALLOCATOR.lock().init(HEAP_START, HEAP_SIZE);
-    	}
+		ALLOCATOR.lock().init(HEAP_START, hsize as usize);
+	}
 
 	Ok(())
+}
+
+
+
+// Allocate pages
+pub fn palloc(address: u64, size: u64)
+{
+	let mut mapper = unsafe
+	{
+		crate::mem::mapper(VirtAddr::new(crate::mem::PMEM_OFFSET))
+	};
+
+	let mut framealloc = unsafe
+	{
+		crate::mem::BootInfoFrameAllocator::init(crate::mem::MEMMAP.unwrap())
+	};
+
+	let flags = PageTableFlags::PRESENT | PageTableFlags::WRITABLE | PageTableFlags::USER_ACCESSIBLE;
+
+	let pages =
+	{
+		let spage = Page::containing_address(VirtAddr::new(address));
+		let epage = Page::containing_address(VirtAddr::new(address + size));
+		Page::range_inclusive(spage, epage)
+	};
+
+	for page in pages
+	{
+		let frame = framealloc.allocate_frame().unwrap();
+
+		unsafe
+		{
+			if let Ok(mapping) = mapper.map_to(page, frame, flags, &mut framealloc)
+			{
+				mapping.flush();
+			}
+			else
+			{
+				print!("[ERR] UNABLE TO MAP {:?}", page);
+			}
+		}
+	}
+}
+
+
+// Deallocate pages
+pub fn pdealloc(address: u64, size: u64)
+{
+	let mut mapper = unsafe
+	{
+		crate::mem::mapper(VirtAddr::new(crate::mem::PMEM_OFFSET))
+	};
+
+	let pages: PageRangeInclusive<Size4KiB> =
+	{
+		let spage = Page::containing_address(VirtAddr::new(address));
+		let epage = Page::containing_address(VirtAddr::new(address + size));
+
+		Page::range_inclusive(spage, epage)
+	};
+
+	for page in pages
+	{
+		if let Ok((_frame, mapping)) = mapper.unmap(page)
+		{
+			mapping.flush();
+		}
+		else
+		{
+			print!("[ERR] COULD NOT DEALLOCATE {:?}", page);
+		}
+	}
 }
 
 

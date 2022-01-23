@@ -30,10 +30,21 @@ impl Directory
 	}
 
 
-	// Create a new device
-	pub fn dev_new(&self, name: &str) -> Option<DirectoryEntry>
+	// Create new directory
+	pub fn create(pname: &str) -> Option<Self>
 	{
-		self.new_item(FileType::Dev, name)
+		let pname = rpath(pname);
+		let dname = crate::libcore::fs::dname(&pname);
+		let fname = crate::libcore::fs::fname(&pname);
+
+		if let Some(directory) = Directory::open(dname)
+		{
+			if let Some(directory_entry) = directory.new_dir(fname)
+			{
+				return Some(directory_entry.into());
+			}
+		}
+		None
 	}
 
 
@@ -114,6 +125,20 @@ impl Directory
 	}
 
 
+	// Create a new device
+	pub fn new_dev(&self, name: &str) -> Option<DirectoryEntry>
+	{
+		self.new_item(FileType::Dev, name)
+	}
+
+
+	// Create a new directory
+	pub fn new_dir(&self, name: &str) -> Option<DirectoryEntry>
+	{
+		self.new_item(FileType::File, name)
+	}
+
+
 	// New file
 	pub fn new_file(&self, name: &str) -> Option<DirectoryEntry>
 	{
@@ -175,7 +200,7 @@ impl Directory
 	// Open
 	pub fn open(pname: &str) -> Option<Self>
 	{
-		if crate::libcore::fs::blkdev::mounted()
+		if !crate::libcore::fs::blkdev::mounted()
 		{
 			return None;
 		}
@@ -214,12 +239,52 @@ impl Directory
 	}
 
 
+	// Remove
+	pub fn rm(pname: &str) -> Result<(), ()>
+	{
+		let pname = crate::libcore::fs::rpath(pname);
+		let dname = crate::libcore::fs::dname(&pname);
+		let fname = crate::libcore::fs::fname(&pname);
+
+		if let Some(mut directory) = Directory::open(dname)
+		{
+			directory.item_del(fname)
+		}
+		else
+		{
+			Err(())
+		}
+	}
+
+
 	// Root
 	pub fn root() -> Self
 	{
 		Self
 		{
 			address: SBlk::read().data_area()
+		}
+	}
+
+
+	// Update item
+	pub fn update_item(&mut self, name: &str, size: u32)
+	{
+		let time = crate::clock::realtime() as u64;
+		let mut items = self.items();
+		for item in &mut items
+		{
+			if item.name() == name
+			{
+				let i = items.blk_data_offset() - item.len();
+				let data = items.blk.datamut();
+
+				data[(i + 5)..(i + 9)].clone_from_slice(&size.to_be_bytes());
+				data[(i + 9)..(i + 17)].clone_from_slice(&time.to_be_bytes());
+				items.blk.write();
+
+				break;
+			}
 		}
 	}
 }

@@ -6,13 +6,16 @@
 	IMPORTS
 */
 
+#![allow(unused_mut)]
+
 use alloc::{collections::BTreeMap, string::{String, ToString}};
-use core::sync::atomic::{AtomicU64, AtomicUsize, Ordering};
+use core::{arch::asm, sync::atomic::{AtomicU64, AtomicUsize, Ordering}};
 use lazy_static::lazy_static;
+use object::{Object, ObjectSegment};
 use spin::RwLock;
 use x86_64::{structures::idt::InterruptStackFrameValue, VirtAddr};
 
-use crate::libcore::{sys::console::Console, fs::{dev::Device, Resource}};
+use crate::libcore::{sys::console::Console, sys::gdt::GDT, fs::{dev::Device, Resource}};
 
 
 /*
@@ -88,61 +91,103 @@ pub struct Reg
 // Implementation of the Proc struct
 impl Proc
 {
-/*
 	// Create
 	pub fn create(bin: &[u8]) -> Result<usize, ()>
 	{
+		// Code size
 		let code_size = 1024 * PAGESIZE;
+
+		// Code address
 		let code_address = CODEADDRESS.fetch_add(code_size, Ordering::SeqCst);
-		crate::libcore::allocator::alloc_pages(code_address, code_size);
 
+		// Allocate pages, using code address and code size
+		crate::libcore::allocator::palloc(code_address, code_size);
+
+		// Entry point
 		let mut entrypt = 0;
-		let code_ptr = code_address as *mut u8;
 
-		// ELF binary
-		if bin[0..4 == ELFMAG
+		// Code pointer
+		let cptr = code_address as *mut u8;
+
+		// If binary is an ELF binary
+		if bin[0..4] == ELFMAG
 		{
-			if let Ok(obj)
+			if let Ok(obj) = object::File::parse(bin)
+			{
+				entrypt = obj.entry();
+				for seg in obj.segments()
+				{
+					let address = seg.address() as usize;
+					if let Ok(data) = seg.data()
+					{
+						for (i, op) in data.iter().enumerate()
+						{
+							unsafe
+							{
+								let ptr = cptr.add(address + i);
+								core::ptr::write(ptr, *op);
+							}
+						}
+					}
+				}
+			}
+		}
+		else
+		{
+			// If binary is a raw binary
+			for (i, op) in bin.iter().enumerate()
+			{
+				unsafe
+				{
+					let ptr = cptr.add(i);
+					core::ptr::write(ptr, *op);
+				}
+			}
+		}
+
+		let mut tab = PROCTAB.write();
+		let parent = &tab[id()];
+		let data = parent.data.clone();
+		let reg = parent.reg;
+		let sf = parent.sf.clone();
+
+		let id = MAXPID.fetch_add(1, Ordering::SeqCst);
+		let proc = Proc
+		{
+			id,
+			code_address,
+			code_size,
+			entrypt,
+			data,
+			sf,
+			reg
+		};
+
+		Ok(id)
+	}
 
 
 	// Execute
 	pub fn exec(&self)
 	{
-		// Modify PID
 		setid(self.id);
-
 		unsafe
 		{
 			asm!(
-				// Disable interrupts
 				"cli",
-
-				// SS
 				"push rax",
-
-				// RSP
 				"push rsi",
-
-				// RFLAGS, interrupts enabled
 				"push 0x200",
-
-				// CS
 				"push rdx",
-
-				// RIP
 				"push rdi",
-
 				"iretq",
-
 				in("rax") GDT.1.userdata.0,
-				in("rsi") self.code_address = self.code_size,
+				in("rsi") self.code_address + self.code_size,
 				in("rdx") GDT.1.usercode.0,
 				in("rdi") self.code_address + self.entrypt,
 			);
 		}
 	}
-
-	*/
 
 	// New
 	pub fn new(id: usize) -> Self
@@ -168,7 +213,7 @@ impl Proc
 		}
 	}
 
-/*
+
 	// Spawn
 	pub fn spawn(bin: &[u8])
 	{
@@ -179,10 +224,9 @@ impl Proc
 				let tab = PROCTAB.read();
 				tab[pid].clone()
 			};
-			proc.exec;
+			proc.exec();
 		}
 	}
-*/
 }
 
 

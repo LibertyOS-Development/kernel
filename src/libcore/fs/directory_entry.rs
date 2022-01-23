@@ -137,6 +137,14 @@ impl DirectoryEntry
 		self.size
 	}
 
+
+	// Time
+	pub fn time(&self) -> u64
+	{
+		self.time
+	}
+
+
 	// File type
 	pub fn tp(&self) -> FileType
 	{

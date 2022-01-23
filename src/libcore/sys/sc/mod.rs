@@ -175,6 +175,16 @@ pub fn dup(original: usize, new: usize) -> Option<usize>
 }
 
 
+// Exit
+pub fn exit(code: usize) -> usize
+{
+	unsafe
+	{
+		sc!(EXIT, code as u64)
+	}
+}
+
+
 // Info
 pub fn info(path: &str) -> Option<FileInfo>
 {
@@ -251,6 +261,16 @@ pub fn rt() -> f64
 }
 
 
+// Sleep
+pub fn sleep(sec: f64)
+{
+	unsafe
+	{
+		sc!(SLEEP, sec.to_bits())
+	};
+}
+
+
 // Spawn
 pub fn spawn(path: &str)
 {
@@ -261,6 +281,18 @@ pub fn spawn(path: &str)
 	{
 		sc!(SPAWN, ptr, len)
 	};
+}
+
+
+// Uptime
+pub fn uptime() -> f64
+{
+	let res = unsafe
+	{
+		sc!(UT)
+	};
+
+	f64::from_bits(res as u64)
 }
 
 

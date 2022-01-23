@@ -15,6 +15,9 @@ pub mod gdt;
 // Interrupt descriptor table (IDT)
 pub mod idt;
 
+// Logger
+pub mod log;
+
 // PCI
 pub mod pci;
 

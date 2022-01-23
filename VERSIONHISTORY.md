@@ -2,6 +2,39 @@ Version History
 
 # Version History
 
+## 0.15.4
+ - Continued development on the libcore::sys::pci module (src/libcore/sys/pci.rs).
+ - Improved documentation (src/libcore/sys/pci.rs).
+ - Added a line of code to initialize libcore::sys::pci (src/init.rs).
+ - Improved documentation (src/init.rs).
+ - Added the uptime function (src/libcore/sys/sc/mod.rs).
+ - Added the sleep function (src/libcore/sys/sc/mod.rs).
+ - Added the exit function (src/libcore/sys/sc/mod.rs).
+ - Added the create function for the Proc implementation (src/libcore/sys/proc.rs).
+ - Added the exec function for the Proc implementation (src/libcore/sys/proc.rs).
+ - Added the spawn function for the Proc implementation (src/libcore/sys/proc.rs).
+ - Added the time function for the DirectoryEntry implementation (src/libcore/fs/directory_entry.rs).
+ - Fixed a typo with the open function of the Directory implementation (src/libcore/fs/directory.rs).
+ - Commented out lines in libcore::fs::ata's init function, as the lack of a device caused an error when initializing the kernel (src/libcore/fs/ata.rs).
+ - Added the create function for the Directory implementation (src/libcore/fs/directory.rs).
+ - Added the new_dir function for the Directory implementation (src/libcore/fs/directory.rs).
+ - Removed the rewrite directory (rewrite).
+ - Removed the new_example_mapping function (src/mem.rs).
+ - Renamed the dev_new function to new_dev (src/libcore/fs/directory.rs).
+ - Updated code to reflect name-changes in this version (src/libcore/fs/dev.rs).
+ - Added the update_item function to the Directory implementation (src/libcore/fs/directory.fs).
+ - Added the rm function to the Directory implementation (src/libcore/fs/directory.rs).
+ - Added the open function (src/libcore/fs/mod.rs).
+ - Added the libcore::sys::log module (src/libcore/sys/log.rs).
+ - Added basic documentation (src/libcore/sys/log.rs).
+ - Imported the log module (src/libcore/sys/mod.rs).
+ - Added documentation for the log module import (src/libcore/sys/mod.rs).
+ - Commented out the setup process (src/init.rs).
+ - Added a line of code to initialize the new logger (src/init.rs).
+ - Added documentation for the logger module (src/init.rs)
+ - Updated the kernel version (src/main.rs).
+ - Updated the version number (Cargo.toml).
+
 ## 0.15.3
  - Added the UNKNOWN syscall (src/libcore/sys/sc/mod.rs).
  - Added new functions to libcore::fs (src/libcore/fs/mod.rs).

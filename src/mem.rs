@@ -88,20 +88,6 @@ unsafe fn active_lvl4_tab(physmem_offset: VirtAddr) -> &'static mut PageTable
 }
 
 
-// This creates an example mapping to frame 0xb8000.
-pub fn new_example_mapping(page: Page, mapper: &mut OffsetPageTable, framealloc: &mut impl FrameAllocator<Size4KiB>)
-{
-	use x86_64::structures::paging::PageTableFlags as Flags;
-	let frame = PhysFrame::containing_address(PhysAddr::new(0xb8000));
-	let flags = Flags::PRESENT | Flags::WRITABLE;
-	let map_to_result = unsafe
-	{
-		mapper.map_to(page, frame, flags, framealloc)
-	};
-	map_to_result.expect("[ERR] MAP_TO FAILURE").flush();
-}
-
-
 // Deallocate pages
 pub fn p_dealloc(address: u64, size: u64)
 {

@@ -31,13 +31,13 @@ pub const KSIZE: usize = 2 << 20;
 fn kernel_main(bootinfo: &'static BootInfo) -> !
 {
 	libertyos_kernel::init::start(bootinfo);
-	println!("LIBERTYOS v0.15.3");
+	println!("LIBERTYOS v0.15.4");
 	print!("\x1b[?25h");
 	println!();
 
 	loop
 	{
-	if let Some(cmd) = option_env!("CMD")
+	if let crate::init::success()
 	{
 		let prompt = libertyos_kernel::libcore::user::shell::promptstr(true);
 		println!("{}", prompt);
@@ -104,6 +104,13 @@ async fn async_num() -> u32
 {
 	42
 }
+
+// Handles allocation errors
+pub fn alloc_err_handler(layout: alloc::alloc::Layout) -> !
+{
+	panic!("[ERR] ALLOCATION ERROR: {:?}", layout)
+}
+
 
 // This is used in the event of a panic.
 #[cfg(not(test))]
