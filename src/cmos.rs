@@ -1,9 +1,17 @@
 // cmos.rs
+//
+// Establishes kernel support for the time-keeping ability of the computer.
+
+/*
+	IMPORTS
+*/
 
 use core::hint::spin_loop;
 use bit_field::BitField;
 use x86_64::instructions::{interrupts, port::Port};
 
+
+// Reg enumeration
 #[repr(u8)]
 enum Reg
 {
@@ -18,6 +26,8 @@ enum Reg
 	C = 0x0C,
 }
 
+
+// Intr enumeration, creates interrupts for time-keeping/alarms
 #[repr(u8)]
 enum Intr
 {
@@ -26,25 +36,46 @@ enum Intr
 	Update = 1 << 4,
 }
 
+
+// CMOS struct
 pub struct CMOS
 {
+	// Address
 	address: Port<u8>,
+
+	// Data
 	data: Port<u8>,
 }
 
+
+// Real-time (RTC) struct
 #[derive(Debug, PartialEq)]
 pub struct RTC
 {
+	// Day
 	pub day: u8,
+
+	// Hour
 	pub hour: u8,
+
+	// Minute
 	pub minute: u8,
+
+	// Month
 	pub month: u8,
+
+	// Second
 	pub second: u8,
+
+	// Year
 	pub year: u16,
 }
 
+
+//  Implementation of the CMOS struct
 impl CMOS
 {
+	// New
 	pub fn new() -> Self
 	{
 		CMOS
@@ -54,6 +85,8 @@ impl CMOS
 		}
 	}
 
+
+	// Real-time (RTC)
 	pub fn rtc(&mut self) -> RTC
 	{
 		let mut rtc;
@@ -88,6 +121,8 @@ impl CMOS
 		rtc
 	}
 
+
+	// Unchecked real-time (RTC)
 	fn nocheck_rtc(&mut self) -> RTC
 	{
 		RTC
@@ -101,6 +136,8 @@ impl CMOS
 		}
 	}
 
+
+	// Enable interrupts
 	fn enable_intr(&mut self, intr: Intr)
 	{
 		interrupts::without_interrupts(||
@@ -118,11 +155,15 @@ impl CMOS
 		});
 	}
 
+
+	// Enable periodic interrupts
 	pub fn enable_periodintr(&mut self)
 	{
 		self.enable_intr(Intr::Periodic);
 	}
 
+	
+	// Set periodic interrupt rate
 	pub fn set_periodintr_rate(&mut self, rate: u8)
 	{
 		interrupts::without_interrupts(||
@@ -140,6 +181,8 @@ impl CMOS
 		});
 	}
 
+
+	// Wait for update to finish
 	fn waitfor_update(&mut self)
 	{
 		while self.updating()
@@ -148,6 +191,8 @@ impl CMOS
 		}
 	}
 
+
+	// Check if time is being updated
 	fn updating(&mut self) -> bool
 	{
 		unsafe
@@ -157,6 +202,8 @@ impl CMOS
 		}
 	}
 
+
+	// Read registers
 	fn readreg(&mut self, reg: Reg) -> u8
 	{
 		unsafe
@@ -166,16 +213,22 @@ impl CMOS
 		}
 	}
 
+
+	// Enable alarm interrupt
 	pub fn enable_alarmintr(&mut self)
 	{
 		self.enable_intr(Intr::Alarm);
 	}
 
+
+	// Enable update interrupt
 	pub fn enable_updateintr(&mut self)
 	{
 		self.enable_intr(Intr::Update);
 	}
 
+
+	// Notify when interrupt has ended
 	pub fn notify_intrend(&mut self)
 	{
 		unsafe
@@ -185,6 +238,8 @@ impl CMOS
 		}
 	}
 
+
+	// Enable NMI
 	fn enablenmi(&mut self)
 	{
 		unsafe
@@ -194,6 +249,8 @@ impl CMOS
 		}
 	}
 
+
+	// Disable NMI
 	fn disablenmi(&mut self)
 	{
 		unsafe

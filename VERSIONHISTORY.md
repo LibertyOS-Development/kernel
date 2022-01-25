@@ -2,6 +2,12 @@ Version History
 
 # Version History
 
+## 0.15.5
+ - Added documentation (src/cmos.rs).
+ - Created LAYOUT.md (LAYOUT.md).
+ - Updated kernel version (src/main.rs).
+ - Updated version number (Cargo.toml).
+
 ## 0.15.4
  - Continued development on the libcore::sys::pci module (src/libcore/sys/pci.rs).
  - Improved documentation (src/libcore/sys/pci.rs).
