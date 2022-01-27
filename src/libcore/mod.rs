@@ -8,6 +8,9 @@ pub mod allocator;
 // Arch-related modules
 pub mod arch;
 
+// Data encoding, decoding, support for additional programming languages, etc.
+pub mod data;
+
 // Devices and drivers
 pub mod dev;
 

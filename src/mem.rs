@@ -16,7 +16,7 @@ use bootloader::bootinfo::{MemoryMap, MemoryRegionType};
 use bootloader::BootInfo;
 use x86_64::{PhysAddr, VirtAddr};
 use x86_64::instructions::interrupts;
-use x86_64::structures::paging::{FrameAllocator, Mapper, OffsetPageTable, Page, page::PageRangeInclusive, PageTable, PhysFrame, Size4KiB};
+use x86_64::structures::paging::{FrameAllocator, Mapper, OffsetPageTable, Page, page::PageRangeInclusive, PageTable, PhysFrame, Size4KiB, Translate};
 
 use crate::serprint;
 
@@ -201,4 +201,16 @@ pub unsafe fn mapper(pmem_offset: VirtAddr) -> OffsetPageTable<'static>
 pub fn memsize() -> u64
 {
 	MEMSIZE.load(Ordering::Relaxed)
+}
+
+
+// Virtual to physical address
+pub fn vtop(address: VirtAddr) -> Option<PhysAddr>
+{
+	let mapper = unsafe
+	{
+		mapper(VirtAddr::new(PMEM_OFFSET))
+	};
+
+	mapper.translate_addr(address)
 }

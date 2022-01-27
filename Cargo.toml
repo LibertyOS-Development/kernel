@@ -8,9 +8,11 @@ keywords = ["no-std", "liberty", "libertyos", "os", "kernel"]
 name = "libertyos_kernel"
 readme = "README.md"
 repository = "https://github.com/LibertyOS-Development/kernel"
-version = "0.15.5"
+version = "0.15.6"
 
 [dependencies]
+acpi = "4.1.0"
+aml = "0.16.0"
 arrayvec = { version = "0.7.2", default-features = false }
 bit_field = "0.10.1"
 bitflags = "1.3.2"

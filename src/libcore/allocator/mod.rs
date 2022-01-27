@@ -6,9 +6,10 @@
 	IMPORTS
 */
 
-use alloc::{alloc::{GlobalAlloc, Layout}, slice::SliceIndex, sync::Arc, vec::{self, Vec}};
+use alloc::{alloc::{GlobalAlloc, Layout}, slice::SliceIndex, sync::Arc, vec::Vec, vec};
 use core::{cmp, ops::{Index, IndexMut}, ptr::null_mut};
 use linked_list_allocator::LockedHeap;
+use spin::Mutex;
 use x86_64::{structures::paging::{mapper::MapToError, FrameAllocator, Mapper, Page, page::PageRangeInclusive, PageTableFlags, Size4KiB}, VirtAddr};
 
 use crate::print;
@@ -201,4 +202,61 @@ pub fn memsize() -> usize
 pub fn memused() -> usize
 {
 	ALLOCATOR.lock().free()
+}
+
+
+// PhysicalBuffer struct
+#[derive(Clone)]
+pub struct PhysicalBuffer
+{
+	buffer: Arc<Mutex<Vec<u8>>>,
+}
+
+
+// Implementation of the PhysicalBuffer struct
+impl PhysicalBuffer
+{
+	// Address
+	pub fn address(&self) -> u64
+	{
+		physaddr(&self.buffer.lock()[0])
+	}
+
+
+	// From
+	pub fn from(vec: Vec<u8>) -> Self
+	{
+		let bufferlen = vec.len() - 1;
+		let memlen = physaddr(&vec[bufferlen]) - physaddr(&vec[0]);
+
+		if bufferlen == memlen as usize
+		{
+			Self
+			{
+				buffer: Arc::new(Mutex::new(vec))
+			}
+		}
+		else
+		{
+			// If there is an error, clone the vector and retry
+			Self::from(vec.clone())
+		}
+	}
+
+
+	// New
+	pub fn new(len: usize) -> Self
+	{
+		Self::from(vec![0; len])
+	}
+}
+
+
+// Physical address
+pub fn physaddr(ptr: &u8) -> u64
+{
+	let rxptr = ptr as *const u8;
+	let virtaddr = VirtAddr::new(rxptr as u64);
+	let physaddr = crate::mem::vtop(virtaddr).unwrap();
+	physaddr.as_u64()
 }

@@ -2,6 +2,29 @@ Version History
 
 # Version History
 
+## 0.15.6
+ - Moved THANKYOU to doc (THANKYOU.md -> doc/THANKYOU.md).
+ - Moved LAYOUT to doc (LAYOUT.md -> doc/LAYOUT.md).
+ - Added acpi as a dependency (Cargo.toml).
+ - Added aml as a dependency (Cargo.toml).
+ - Added the libcore::user::ut module (src/libcore/user/ut.rs).
+ - Added basic documentation (src/libcore/user/ut.rs).
+ - Imported the ut module (src/libcore/user/mod.rs).
+ - Added additional documentation for the ut module import (src/libcore/user/mod.rs).
+ - Added documentation (src/libcore/user/mod.rs).
+ - Created the libcore::data module (src/libcore/data).
+ - Added mod.rs (src/libcore/data/mod.rs).
+ - Added basic documentation (src/libcore/data/mod.rs).
+ - Created the libcore::data::ucs2 module (src/libcore/ucs2).
+ - Created mod.rs (src/libcore/ucs2/mod.rs).
+ - Added basic documentation (src/libcore/data/ucs2/mod.rs).
+ - Imported ucs2 module (src/libcore/data/mod.rs).
+ - Added documentation for ucs2 module import (src/libcore/data/mod.rs).
+ - Imported the data module (src/libcore/mod.rs).
+ - Added documentation for the data module (src/libcore/mod.rs).
+ - Updated kernel version (src/main.rs).
+ - Updated version number (Cargo.toml).
+
 ## 0.15.5
  - Added documentation (src/cmos.rs).
  - Created LAYOUT.md (LAYOUT.md).
