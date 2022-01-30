@@ -3,6 +3,9 @@
 // This is the mod.rs file for the libcore::sys module.
 
 
+// Booting the kernel, bootloader support, etc.
+pub mod boot;
+
 // Console definitions/functionality
 pub mod console;
 

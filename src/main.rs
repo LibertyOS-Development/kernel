@@ -31,7 +31,7 @@ pub const KSIZE: usize = 2 << 20;
 fn kernel_main(bootinfo: &'static BootInfo) -> !
 {
 	libertyos_kernel::init::start(bootinfo);
-	println!("LIBERTYOS v0.15.6");
+	println!("LIBERTYOS v0.15.7");
 	print!("\x1b[?25h");
 	println!();
 

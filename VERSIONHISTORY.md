@@ -2,6 +2,21 @@ Version History
 
 # Version History
 
+## 0.15.7
+ - Created the libcore::sys::boot module (src/libcore/sys/boot).
+ - Created mod.rs (src/libcore/sys/boot/mod.rs).
+ - Added basic documentation (src/libcore/sys/boot/mod.rs).
+ - Added the libcore::sys::boot::memmap module (src/libcore/sys/boot/memmap.rs).
+ - Added basic documentation (src/libcore/sys/boot/memmap.rs).
+ - Created the libcore::sys::boot::efi module (src/libcore/sys/boot/efi.rs).
+ - Added basic documentation (src/libcore/sys/boot/efi.rs).
+ - Imported the memmap module (src/libcore/sys/boot/mod.rs).
+ - Updated documentation for the memmap module import (src/libcore/sys/boot/mod.rs).
+ - Imported the efi module (src/libcore/sys/boot/mod.rs).
+ - Updated documentation for the efi module import (src/libcore/sys/boot/mod.rs).
+ - Updated kernel version (src/main.rs).
+ - Updated version number (Cargo.toml).
+
 ## 0.15.6
  - Moved THANKYOU to doc (THANKYOU.md -> doc/THANKYOU.md).
  - Moved LAYOUT to doc (LAYOUT.md -> doc/LAYOUT.md).
