@@ -14,6 +14,12 @@ Version History
  - Updated documentation for the memmap module import (src/libcore/sys/boot/mod.rs).
  - Imported the efi module (src/libcore/sys/boot/mod.rs).
  - Updated documentation for the efi module import (src/libcore/sys/boot/mod.rs).
+ - Added the libcore::sys::rsdp module (src/libcore/sys/rsdp.rs).
+ - Added basic documenation (src/libcore/sys/rsdp.rs).
+ - Imported the rsdp module (src/libcore/sys/mod.rs).
+ - Added documentation for the rsdp module import (src/libcore/sys/mod.rs).
+ - Added the #![allow(non_camel_case_types)] line to the rsdp module (src/libcore/sys/rsdp.rs).
+ - Commented out the libcore::sys::boot::efi module, as it is not finished, and prevents the kernel from building (src/libcore/sys/boot/mod.rs).
  - Updated kernel version (src/main.rs).
  - Updated version number (Cargo.toml).
 

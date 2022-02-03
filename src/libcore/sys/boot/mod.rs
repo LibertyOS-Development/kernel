@@ -4,7 +4,7 @@
 
 
 // EFI
-pub mod efi;
+//pub mod efi;
 
 // Memory-mapping
 pub mod memmap;

@@ -33,6 +33,9 @@ pub mod prompt;
 // Random number generation
 pub mod rand;
 
+// Root system descriptor table
+pub mod rsdp;
+
 // Syscalls
 pub mod sc;
 
