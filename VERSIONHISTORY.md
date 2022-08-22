@@ -2,6 +2,11 @@ Version History
 
 # Version History
 
+## 0.15.8
+ - Added some documentation to libcore::arch (src/libcore/arch/mod.rs).
+ - Updated kernel version (src/main.rs).
+ - Updated version number (Cargo.toml).
+
 ## 0.15.7
  - Created the libcore::sys::boot module (src/libcore/sys/boot).
  - Created mod.rs (src/libcore/sys/boot/mod.rs).
