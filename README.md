@@ -2,6 +2,9 @@
 
 This is the official repository of the LibertyOS kernel. LibertyOS is an operating system, built with Rust, that is open-source, free-to-use, and open to new contributors. Everything in LOS is, or will be, built from scratch. Currently, LOS supports x86_64 systems, and can be booted on real hardware, using a simple bootloader. This operating system is being worked on continuously, and all changes are logged in the VERSIONHISTORY.md file (in the root directory of this repository). If you want to see a more detailed explanation of changes between versions, you can read the commits on the GitHub repository.
 
+## Blog
+As of August 22, 2022, there is a blog file (BLOG.md). This will explain some of the design decisions that are made, some of the issues in development, and what to expect in the near future. LibertyOS is not dead. There is a bright future ahead for this project.
+
 ## Building/Running LibertyOS
 1. Clone this repository.
 2. Navigate to the location that you cloned this repository to.
