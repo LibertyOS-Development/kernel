@@ -9,7 +9,7 @@
 	IMPORTS
 */
 
-use alloc::{format, string::String, vec::Vec};
+use alloc::{format, string::{String, ToString}, vec::Vec};
 
 use crate::{print, println, {sys::console::Style}};
 
@@ -38,11 +38,12 @@ pub enum XCode
 	SHEX = 255,
 }
 
-
 // Execute
 pub fn exec(cmd: &str) -> XCode
 {
-	let mut args = splargs(cmd);
+	let cmd = cmd.to_string();
+
+	let mut args = splargs(&cmd);
 	let mut redir = false;
 	let mut n = args.len();
 	let mut i = 0;

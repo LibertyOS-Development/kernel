@@ -40,9 +40,12 @@ fn kernel_main(bootinfo: &'static BootInfo) -> !
 
 	loop
 	{
-		let prompt = libertyos_kernel::user::shell::promptstr(true);
-		println!("{}", prompt);
-//		libertyos_kernel::libcore::user::shell::exec(cmd).CMD_SUCCESS();
+		if let Some(cmd) = option_env!("LIBERTYOS_CMD")
+		{
+			let prompt = libertyos_kernel::user::shell::promptstr(true);
+			println!("{}{}", prompt, cmd);
+			libertyos_kernel::user::shell::exec(cmd);
+		}
 	}
 }
 //	libertyos_kernel::libcore::user::shell::main(&["shell"]);
