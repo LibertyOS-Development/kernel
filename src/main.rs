@@ -30,8 +30,11 @@ pub const KSIZE: usize = 2 << 20;
 
 fn kernel_main(bootinfo: &'static BootInfo) -> !
 {
+	use libertyos_kernel::libcore::user::shell::exec;
+
+
 	libertyos_kernel::init::start(bootinfo);
-	println!("LIBERTYOS v0.15.8");
+	println!("LIBERTYOS v0.15.9");
 	print!("\x1b[?25h");
 	println!();
 
@@ -39,6 +42,7 @@ fn kernel_main(bootinfo: &'static BootInfo) -> !
 	{
 		let prompt = libertyos_kernel::libcore::user::shell::promptstr(true);
 		println!("{}", prompt);
+//		libertyos_kernel::libcore::user::shell::exec(cmd).CMD_SUCCESS();
 	}
 }
 //	libertyos_kernel::libcore::user::shell::main(&["shell"]);

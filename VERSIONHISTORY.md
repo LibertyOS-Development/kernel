@@ -2,6 +2,11 @@ Version History
 
 # Version History
 
+## 0.15.9
+ - Made sure to include Cargo.lock in release.
+ - Updated kernel version (src/main.rs).
+ - Updated version number (Cargo.toml).
+
 ## 0.15.8
  - Added some documentation to libcore::arch (src/libcore/arch/mod.rs).
  - Improved documentation for clock module (src/clock.rs).
