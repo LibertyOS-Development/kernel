@@ -89,7 +89,7 @@ pub fn _print(args: ::core::fmt::Arguments)
 // Initialize
 pub fn init()
 {
-	crate::libcore::sys::idt::set_irh(4, intrh);
+	crate::sys::idt::set_irh(4, intrh);
 }
 
 
@@ -104,7 +104,7 @@ fn intrh()
 		c => c,
 	};
 
-	crate::libcore::sys::console::keyhandler(c);
+	crate::sys::console::keyhandler(c);
 }
 
 

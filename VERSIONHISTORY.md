@@ -2,6 +2,36 @@ Version History
 
 # Version History
 
+## 0.16.0 - LIBCORE IS NO MORE!
+ - Removed libcore, moved all of its functionality directly into the kernel.
+ - Removed all references to libcore in all modules and documentation.
+ - Renamed math::float::logb10 to math::float::log_10 (src/math/float/log_10.rs).
+ - Renamed math::float::logb2 to math::float::log_2 (src/math/float/log_2.rs).
+ - Renamed math::float::nlog to math::float::ln (src/math/float/ln.rs).
+ - Renamed math::float::sr to math::float::sqrt. (src/math/float/sqrt.rs).
+ - Renamed math::float::itan to math::float::inv_tan (src/math/float/inv_tan.rs).
+ - Renamed math::float::invsr to math::float::inv_sqrt (src/math/float/inv_sqrt.rs).
+ - Updated mod.rs to reflect name change of math::float::inv_tan (src/math/float/mod.rs).
+ - Updated mod.rs to reflect name change of math::float::inv_sqrt (src/math/float/inv_sqrt.rs).
+ - Updated mod.rs to reflect name change of math::float::sqrt (src/math/float/mod.rs).
+ - Updated mod.rs to reflect name change of math::float::log_10 (src/math/float/mod.rs).
+ - Updated mod.rs to reflect name change of math::float::log_2 (src/math/float/mod.rs).
+ - Updated mod.rs to reflect name change of math::float::ln (src/math/float/mod.rs).
+ - Added allocator module (src/lib.rs).
+ - Added arch module (src/lib.rs).
+ - Added data module (src/lib.rs).
+ - Added dev module (src/lib.rs).
+ - Added external module (src/lib.rs).
+ - Added fs module (src/lib.rs).
+ - Added graphics module (src/lib.rs).
+ - Added io module (src/lib.rs).
+ - Added math module (src/lib.rs).
+ - Added sys module (src/lib.rs).
+ - Added task module (src/lib.rs).
+ - Added user module (src/lib.rs).
+ - Updated kernel version (src/main.rs).
+ - Updated version number (Cargo.toml).
+
 ## 0.15.9
  - Made sure to include Cargo.lock in release.
  - Updated kernel version (src/main.rs).

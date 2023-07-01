@@ -71,7 +71,7 @@ pub fn init(bootinfo: &'static BootInfo)
 			BootInfoFrameAllocator::init(&bootinfo.memory_map)
 		};
 
-		crate::libcore::allocator::init_heap(&mut mapper, &mut framealloc)
+		crate::allocator::init_heap(&mut mapper, &mut framealloc)
 			.expect("[ERR] FAILED TO INITALIZE HEAP");
 	});
 }

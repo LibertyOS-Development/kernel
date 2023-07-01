@@ -23,7 +23,20 @@ extern crate core;
 
 use core::{ops::Deref, panic::PanicInfo};
 
-pub mod libcore;
+pub mod allocator;
+pub mod arch;
+pub mod data;
+pub mod dev;
+pub mod external;
+pub mod fs;
+pub mod graphics;
+pub mod io;
+pub mod math;
+pub mod sys;
+pub mod task;
+pub mod user;
+
+
 pub mod clock;
 pub mod cmos;
 pub mod ctypes;
@@ -50,7 +63,7 @@ fn alloc_error_handler(layout: alloc::alloc::Layout) -> !
 
 pub fn init()
 {
-	libcore::sys::gdt::init();
+	sys::gdt::init();
 	intr::idtinit();
 	unsafe
 	{

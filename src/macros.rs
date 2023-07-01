@@ -5,7 +5,7 @@
 	IMPORTS
 */
 
-use crate::libcore::fs::directory_read;
+use crate::fs::directory_read;
 
 
 // block
@@ -82,7 +82,7 @@ macro_rules! irh
 #[macro_export]
 macro_rules! print
 {
-	($($arg:tt)*) => ($crate::libcore::sys::console::printfmt(format_args!($($arg)*)));
+	($($arg:tt)*) => ($crate::sys::console::printfmt(format_args!($($arg)*)));
 }
 
 
@@ -124,16 +124,16 @@ macro_rules! read_ui_func
 macro_rules! sc
 {
 	($n:expr) => (
-		$crate::libcore::sys::sc::sc0($n as usize));
+		$crate::sys::sc::sc0($n as usize));
 
 	($n:expr, $a1:expr) => (
-		$crate::libcore::sys::sc::sc1($n as usize, $a1 as usize));
+		$crate::sys::sc::sc1($n as usize, $a1 as usize));
 
 	($n:expr, $a1:expr, $a2:expr) => (
-		$crate::libcore::sys::sc::sc2($n as usize, $a1 as usize, $a2 as usize));
+		$crate::sys::sc::sc2($n as usize, $a1 as usize, $a2 as usize));
 
 	($n:expr, $a1:expr, $a2:expr, $a3:expr) => (
-		$crate::libcore::sys::sc::sc3($n as usize, $a1 as usize, $a2 as usize, $a3 as usize));
+		$crate::sys::sc::sc3($n as usize, $a1 as usize, $a2 as usize, $a3 as usize));
 }
 
 

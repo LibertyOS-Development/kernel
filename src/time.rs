@@ -83,11 +83,11 @@ pub fn init()
 	let channel = 0;
 
 	set_pitfreq_div(div as u16, channel);
-	crate::libcore::sys::idt::set_irh(0, pit_intrh);
+	crate::sys::idt::set_irh(0, pit_intrh);
 
 
 	// RTC
-	crate::libcore::sys::idt::set_irh(8, rtc_intrh);
+	crate::sys::idt::set_irh(8, rtc_intrh);
 	crate::cmos::CMOS::new().enable_updateintr();
 
 

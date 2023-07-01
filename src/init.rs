@@ -29,15 +29,15 @@ pub fn start(bootinfo: &'static BootInfo)
 
 	// Initialize VGA
 	println!("[INFO] INITIALIZING VGA");
-	crate::libcore::graphics::vga::init();
+	crate::graphics::vga::init();
 
 	// Initialize GDT (global descriptor table)
 	println!("[INFO] INITIALIZING GDT");
-	crate::libcore::sys::gdt::init();
+	crate::sys::gdt::init();
 
 	// Initialize the IDT (interrupt descriptor table)
 	println!("[INFO] INITIALIZING IDT");
-	crate::libcore::sys::idt::init();
+	crate::sys::idt::init();
 
 	// Initialize the PIC module, enable interrupts
 	println!("[INFO] INITIALIZING PIC");
@@ -49,7 +49,7 @@ pub fn start(bootinfo: &'static BootInfo)
 
 	// Initialize keyboard support
 	println!("[INFO] INITIALIZING KEYBOARD SUPPORT");
-	crate::libcore::dev::kbd::init();
+	crate::dev::kbd::init();
 
 	// Initialize time-keeping
 	println!("[INFO] INITIALIZING TIME MANAGEMENT");
@@ -62,24 +62,24 @@ pub fn start(bootinfo: &'static BootInfo)
 
 	// Initialize logger
 	println!("[INFO] INITIALIZING LOGGER");
-	crate::libcore::sys::log::init();
+	crate::sys::log::init();
 
 
 	// Initialize CPU module
 	println!("[INFO] INITIALIZING CPU MODULE");
-	crate::libcore::sys::cpu::init();
+	crate::sys::cpu::init();
 
 	// Initialize PCI support
 	println!("[INFO] INITIALIZING PCI SUPPORT");
-	crate::libcore::sys::pci::init();
+	crate::sys::pci::init();
 
 	// Initialize filesystem support
 	println!("[INFO] INITIALIZING FILESYSTEM SUPPORT");
-	crate::libcore::fs::init();
+	crate::fs::init();
 
 	// Initialize ATA support
 	println!("[INFO] INITIALIZING ATA SUPPORT");
-	crate::libcore::fs::ata::init();
+	crate::fs::ata::init();
 
 /*
 	// Create LibertyOS installation
@@ -101,12 +101,12 @@ pub fn start(bootinfo: &'static BootInfo)
 // Copy file
 pub fn cp_file(pname: &str, buffer: &[u8], v: bool)
 {
-	if crate::libcore::fs::exists(pname)
+	if crate::fs::exists(pname)
 	{
 		return;
 	}
 
-	crate::libcore::fs::write(pname, buffer).ok();
+	crate::fs::write(pname, buffer).ok();
 
 	if v
 	{
@@ -116,13 +116,13 @@ pub fn cp_file(pname: &str, buffer: &[u8], v: bool)
 
 
 // Create device
-pub fn new_dev(pname: &str, dev: crate::libcore::fs::DevType, v: bool)
+pub fn new_dev(pname: &str, dev: crate::fs::DevType, v: bool)
 {
-	if crate::libcore::sys::sc::info(pname).is_none()
+	if crate::sys::sc::info(pname).is_none()
 	{
-		if let Some(handle) = crate::libcore::fs::dev_new(pname, dev)
+		if let Some(handle) = crate::fs::dev_new(pname, dev)
 		{
-			crate::libcore::sys::sc::close(handle);
+			crate::sys::sc::close(handle);
 
 			if v
 			{
@@ -136,9 +136,9 @@ pub fn new_dev(pname: &str, dev: crate::libcore::fs::DevType, v: bool)
 // Create directory
 pub fn new_dir(pname: &str, v: bool)
 {
-	if let Some(handle) = crate::libcore::fs::directory_new(pname)
+	if let Some(handle) = crate::fs::directory_new(pname)
 	{
-		crate::libcore::sys::sc::close(handle);
+		crate::sys::sc::close(handle);
 
 		if v
 		{

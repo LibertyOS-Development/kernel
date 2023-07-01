@@ -19,7 +19,7 @@ use alloc::{boxed::Box, vec, vec::Vec, rc::Rc};
 use bootloader::{BootInfo, entry_point};
 use core::panic::PanicInfo;
 use embedded_graphics::{image::Image, prelude::*};
-use libertyos_kernel::{print, println, libcore::task::{Task, kbd, simpexec::SimpleExec, exec::Exec}, time::sleep};
+use libertyos_kernel::{print, println, task::{Task, kbd, simpexec::SimpleExec, exec::Exec}, time::sleep};
 use tinybmp::DynamicBmp;
 use vga::{ colors::{ Color16, TextModeColor }, writers::{ Graphics640x480x16, GraphicsWriter, ScreenCharacter, TextWriter, Text80x25} };
 
@@ -30,17 +30,17 @@ pub const KSIZE: usize = 2 << 20;
 
 fn kernel_main(bootinfo: &'static BootInfo) -> !
 {
-	use libertyos_kernel::libcore::user::shell::exec;
+	use libertyos_kernel::user::shell::exec;
 
 
 	libertyos_kernel::init::start(bootinfo);
-	println!("LIBERTYOS v0.15.9");
+	println!("LIBERTYOS v0.16.0");
 	print!("\x1b[?25h");
 	println!();
 
 	loop
 	{
-		let prompt = libertyos_kernel::libcore::user::shell::promptstr(true);
+		let prompt = libertyos_kernel::user::shell::promptstr(true);
 		println!("{}", prompt);
 //		libertyos_kernel::libcore::user::shell::exec(cmd).CMD_SUCCESS();
 	}
@@ -97,7 +97,7 @@ fn kernel_main(bootinfo: &'static BootInfo) -> !
 
 pub fn shell()
 {
-	libertyos_kernel::libcore::user::shell::main(&["shell"]);
+	libertyos_kernel::user::shell::main(&["shell"]);
 }
 
 
