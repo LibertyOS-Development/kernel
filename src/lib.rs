@@ -1,4 +1,3 @@
-
 #![no_std]
 #![cfg_attr(test, no_main)]
 #![allow(dead_code)]
@@ -42,7 +41,7 @@ pub mod cmos;
 pub mod ctypes;
 pub mod font;
 pub mod init;
-pub mod intr;
+pub mod interrupts;
 pub mod macros;
 pub mod mem;
 pub mod noblkio;
@@ -64,10 +63,10 @@ fn alloc_error_handler(layout: alloc::alloc::Layout) -> !
 pub fn init()
 {
 	sys::gdt::init();
-	intr::idtinit();
+	interrupts::idtinit();
 	unsafe
 	{
-		intr::PICS.lock().init()
+		interrupts::PICS.lock().init()
 	};
 	x86_64::instructions::interrupts::enable();
 }
@@ -239,7 +238,7 @@ impl<T, const N: usize> AsMutSlice for [T; N]
 #[cfg(test)]
 use bootloader::{BootInfo, entry_point};
 
-#[cfg(test)]
+//#[cfg(test)]
 //entry_point!(test_kernmain);
 
 #[cfg(test)]
@@ -258,6 +257,7 @@ pub extern "C" fn _start() -> !
 	testmain();
 	hltloop();
 }
+
 
 #[cfg(test)]
 #[panic_handler]

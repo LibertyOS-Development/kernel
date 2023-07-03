@@ -16,7 +16,7 @@ lazy_static!
 		{
 			idt.double_fault
 				.set_handler_fn(test_double_fault_handler)
-				.set_stack_index(libertyos_kernel::gdt::DOUBLEFAULT_IST_IDX);
+				.set_stack_index(libertyos_kernel::sys::gdt::DOUBLEFAULT_IST_IDX);
 		}
 		idt
 	};
@@ -39,7 +39,7 @@ extern "x86-interrupt" fn test_double_fault_handler(_stackframe: InterruptStackF
 pub extern "C" fn _start() -> !
 {
 	serprint!("STACKOVERFLOW::STACK_OVERFLOW...\t");
-	libertyos_kernel::gdt::init();
+	libertyos_kernel::sys::gdt::init();
 	init_test_idt();
 	stackoverflow();
 	panic!("[MSG] EXEC CONTINUED AFTER STACK OVERFLOW");

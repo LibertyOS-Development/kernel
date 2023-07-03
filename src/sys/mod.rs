@@ -3,6 +3,9 @@
 // This is the mod.rs file for the libcore::sys module.
 
 
+// ACPI stuff.
+pub mod acpi;
+
 // Booting the kernel, bootloader support, etc.
 pub mod boot;
 

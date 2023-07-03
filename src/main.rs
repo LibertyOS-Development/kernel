@@ -45,11 +45,21 @@ fn kernel_main(bootinfo: &'static BootInfo) -> !
 			let prompt = libertyos_kernel::user::shell::promptstr(true);
 			println!("{}{}", prompt, cmd);
 			libertyos_kernel::user::shell::exec(cmd);
+//			libertyos_kernel::sys::acpi::shutdown;
 		}
 	}
 }
-//	libertyos_kernel::libcore::user::shell::main(&["shell"]);
 /*
+fn start_shell()
+{
+	libertyos_kernel::user::shell::main(&["shell", script]).ok();
+}
+*/
+
+
+/*
+	libertyos_kernel::user::shell::main(&["shell"]);
+
 	use libertyos_kernel::mem::{self, BootInfoFrameAllocator};
 	use libertyos_kernel::libcore::allocator;
 	use x86_64::{structures::paging::Page, VirtAddr};

@@ -24,7 +24,7 @@ pub mod fixedsize;
 pub mod lnls;
 
 
-
+pub const HEAP_SIZE: usize = 100 * 1024; // 100 KB
 pub const HEAP_START: usize = 0x_4444_4444_0000;
 
 
@@ -35,23 +35,23 @@ pub fn init_heap(mapper: &mut impl Mapper<Size4KiB>, frame_allocator: &mut impl 
 {
 	// Allocate half of available memory to the heap.
 	// NOTE: Memory allocated to the heap cannot exceed 16MB.
-	let hsize = cmp::min(crate::mem::memsize() / 2, 16 << 20);
+	//let heap_size = cmp::min(crate::mem::memsize() / 2, 16 << 20);
 
-	let pages =
+	let page_range =
 	{
-		let hstart = VirtAddr::new(HEAP_START as u64);
-		let hend = hstart + hsize - 1u64;
-		let hstartpage = Page::containing_address(hstart);
-		let hendpage = Page::containing_address(hend);
+		let heap_start = VirtAddr::new(HEAP_START as u64);
+		let heap_end = heap_start + HEAP_SIZE - 1u64;
+		let heap_startpage = Page::containing_address(heap_start);
+		let heap_endpage = Page::containing_address(heap_end);
 
-		Page::range_inclusive(hstartpage, hendpage)
+		Page::range_inclusive(heap_startpage, heap_endpage)
 	};
 
-	let flags = PageTableFlags::PRESENT | PageTableFlags::WRITABLE;
 
-	for page in pages
+	for page in page_range
 	{
 		let frame = frame_allocator.allocate_frame().ok_or(MapToError::FrameAllocationFailed)?;
+		let flags = PageTableFlags::PRESENT | PageTableFlags::WRITABLE;
 
 		unsafe
 		{
@@ -61,7 +61,7 @@ pub fn init_heap(mapper: &mut impl Mapper<Size4KiB>, frame_allocator: &mut impl 
 
 	unsafe
 	{
-		ALLOCATOR.lock().init(HEAP_START, hsize as usize);
+		ALLOCATOR.lock().init(HEAP_START, HEAP_SIZE as usize);
 	}
 
 	Ok(())

@@ -2,6 +2,44 @@ Version History
 
 # Version History
 
+## 0.16.1
+ - Created data::json (src/data/json).
+ - Created mod.rs file for data::son (src/data/json/mod.rs).
+ - Added Xiliang Chen to the "THANK YOU" list (THANKYOU.md).
+ - Renamed intr to interrupts (src/interrupts.rs).
+ - Updated lib.rs to reflect name change of interrupts (src/lib.rs).
+ - Created the arch::riscv module (src/arch/riscv).
+ - Created mod.rs file for arch::riscv (src/arch/riscv/mod.rs).
+ - Created the arch::riscv::rt module (src/arch/riscv/rt).
+ - Created mod.rs file for arch::riscv (src/arch/riscv/rt/mod.rs).
+ - Added data::json::parse (src/data/json/parse.rs).
+ - Added data::json::traits (src/data/json/traits.rs).
+ - Created data::json::parser (src/data/json/parser).
+ - Created mod.rs file for data::json::parser (src/data/json/parser/mod.rs).
+ - Added data::json::parser::implementation (src/data/json/parser/implementation.rs).
+ - Added data::json::parser::traits (src/data/json/parser/traits.rs).
+ - Removed the rewrite directory (rewrite/).
+ - Fixed incorrect import path in stackoverflow test (tests/stackoverflow.rs).
+ - Added the "HEAP_SIZE" constant to the allocator module (src/allocator/mod.rs).
+ - Renamed "hsize" to "heap_size" (src/allocator/mod.rs).
+ - Renamed "pages" to "page_range" (src/allocator/mod.rs).
+ - Renamed "hstart" to "heap_start" (src/allocator/mod.rs).
+ - Renamed "hend" to "heap_end" (src/allocator/mod.rs).
+ - Renamed "hstartpage" to "heap_startpage" (src/allocator/mod.rs).
+ - Renamed "hendpage" to "heap_end_page" (src/allocator/mod.rs).
+ - Removed "heap_size" from the init_heap function (src/allocator/mod.rs).
+ - Added "HEAP_SIZE" constant to allocator (src/allocator/mod.rs).
+ - Moved "flags" from the init_heap function, into the "for page in page_range" loop (src/allocator/mod.rs).
+ - Removed the "heapalloc" test (tests/heapalloc.rs).
+ - Added TESTING.md (TESTING.md).
+ - Added the "Basic Boot" test-case to TESTING.md (TESTING.md).
+ - Added the "Should-Panic" test-case to TESTING.md (TESTING.md).
+ - Added the "Stack Overflow" test-case to TESTING.md (TESTING.md).
+ - Created the boilerplate subdirectory in the testing directory (tests/boilerplate).
+ - Created the broken subdirectory in the testing directory (tests/broken).
+ - Created the INFO.md file for the boilerplate subdirectory (tests/broken/INFO.md).
+
+
 ## 0.16.0 - LIBCORE IS NO MORE!
  - Removed libcore, moved all of its functionality directly into the kernel.
  - Removed all references to libcore in all modules and documentation.
