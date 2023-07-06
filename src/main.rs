@@ -13,12 +13,14 @@
 #![allow(unused_mut)]
 #![allow(unused_variables)]
 
+
 extern crate alloc;
 
 use alloc::{boxed::Box, vec, vec::Vec, rc::Rc};
 use bootloader::{BootInfo, entry_point};
 use core::panic::PanicInfo;
-use embedded_graphics::{image::Image, prelude::*};
+use embedded_graphics::{image::Image, mock_display::MockDisplay, pixelcolor::BinaryColor, prelude::*, primitives::{Line, PrimitiveStyle, Rectangle}};
+//use embedded_graphics_framebuf::FrameBuf;
 use libertyos_kernel::{print, println, task::{Task, kbd, simpexec::SimpleExec, exec::Exec}, time::sleep};
 use tinybmp::DynamicBmp;
 use vga::{ colors::{ Color16, TextModeColor }, writers::{ Graphics640x480x16, GraphicsWriter, ScreenCharacter, TextWriter, Text80x25} };
@@ -34,7 +36,7 @@ fn kernel_main(bootinfo: &'static BootInfo) -> !
 
 
 	libertyos_kernel::init::start(bootinfo);
-	println!("LIBERTYOS v0.16.0");
+	println!("LIBERTYOS v0.16.1");
 	print!("\x1b[?25h");
 	println!();
 
@@ -45,10 +47,49 @@ fn kernel_main(bootinfo: &'static BootInfo) -> !
 			let prompt = libertyos_kernel::user::shell::promptstr(true);
 			println!("{}{}", prompt, cmd);
 			libertyos_kernel::user::shell::exec(cmd);
+
+//			fn test_display() {};
+
 //			libertyos_kernel::sys::acpi::shutdown;
 		}
 	}
 }
+
+
+/*
+fn test_display()
+{
+	let mut data = [BinaryColor::Off; 12 * 11];
+	let mut fbuf = FrameBuf::new(&mut data, 12, 11);
+
+	let mut display: MockDisplay<BinaryColor> = MockDisplay::new();
+
+	Line::new(Point::new(2, 2), Point::new(10, 2))
+		.into_styled(PrimitiveStyle::with_stroke(BinaryColor::On, 2))
+		.draw(&mut fbuf)
+		.unwrap();
+
+	let area = Rectangle::new(Point::new(0, 0), fbuf.size());
+	display.fill_contiguous(&area, data).unwrap();
+}
+*/
+
+/*
+fn display_logo<C>(data: &[u8], settings: &OutputSettings)
+where
+	C: PixelColor + From<Rgb555> + From<Rgb888> + Into<Rgb888>,
+	{
+		let bmp = Bmp::<C>::from_slice(&data).unwrap();
+		let mut display = SimulatorDisplay::<Rgb888>::new(bmp.size());
+
+		Image::new(&bmp, Point::zero())
+			.draw(&mut display.color_converted())
+			.unwrap();
+
+		let mut window = Window::new(
+
+*/
+
 /*
 fn start_shell()
 {

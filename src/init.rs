@@ -61,8 +61,8 @@ pub fn start(bootinfo: &'static BootInfo)
 
 
 	// Initialize logger
-	println!("[INFO] INITIALIZING LOGGER");
-	crate::sys::log::init();
+//	println!("[INFO] INITIALIZING LOGGER");
+//	crate::sys::log::init();
 
 
 	// Initialize CPU module

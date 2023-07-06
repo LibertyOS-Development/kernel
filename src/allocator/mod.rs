@@ -144,13 +144,14 @@ pub struct Dummy;
 
 unsafe impl GlobalAlloc for Dummy
 {
-	unsafe fn alloc(&self, _layout: Layout) -> *mut u8 {
-	null_mut()
-}
+	unsafe fn alloc(&self, _layout: Layout) -> *mut u8
+	{
+		null_mut()
+	}
 
-unsafe fn dealloc(&self, _ptr: *mut u8, _layout: Layout)
-{
-	panic!("[ERR] DEALLOC SHOULD NOT BE CALLED")
+	unsafe fn dealloc(&self, _ptr: *mut u8, _layout: Layout)
+	{
+		panic!("[ERR] DEALLOC SHOULD NOT BE CALLED")
 	}
 }
 

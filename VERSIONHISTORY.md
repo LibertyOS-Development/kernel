@@ -2,7 +2,7 @@ Version History
 
 # Version History
 
-## 0.16.1
+## 0.17.0
  - Created data::json (src/data/json).
  - Created mod.rs file for data::son (src/data/json/mod.rs).
  - Added Xiliang Chen to the "THANK YOU" list (THANKYOU.md).
@@ -38,6 +38,19 @@ Version History
  - Created the boilerplate subdirectory in the testing directory (tests/boilerplate).
  - Created the broken subdirectory in the testing directory (tests/broken).
  - Created the INFO.md file for the boilerplate subdirectory (tests/broken/INFO.md).
+ - Expanded the code of sys::acpi (src/sys/acpi.rs).
+ - Arranged the constants based on hexadecimal value, rather than by alphabetical order (src/graphics/vga/mod.rs).
+ - Fixed an typo: changed value of INPUT_STATUS_REG from "0x3Da" to 0x3DA" (src/graphics/vga/mod.rs).
+ - Created the dev::mouse module (src/dev/mouse.rs).
+ - Added the mouse module to the mod.rs file (src/dev/mod.rs).
+ - Added "#![feature(const_fn_fn_ptr_basics)]" to kernel (src/lib.rs).
+ - Created "layout" as a temporary way to see what the kernel contains (layout).
+ - Fixed an issue where "dealloc" was not a part of the GlobalAlloc implementation for Dummy (src/allocator/mod.rs).
+ - Commented out the line that initializes the kernel's logger (src/init.rs).
+ - Commented out the line that prints a message about the logger being initialized (src/init.rs).
+ - Updated kernel version (src/main.rs).
+ - Updated version number (Cargo.toml).
+
 
 
 ## 0.16.0 - LIBCORE IS NO MORE!

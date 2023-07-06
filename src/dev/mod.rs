@@ -8,3 +8,5 @@ pub mod drivers;
 
 // Keyboard support
 pub mod kbd;
+
+pub mod mouse;

@@ -1,0 +1,162 @@
+.
+|-- allocator
+|   |-- bump.rs
+|   |-- fixedsize.rs
+|   |-- lnls.rs
+|   `-- mod.rs
+|-- arch
+|   |-- mod.rs
+|   |-- riscv
+|   |   |-- mod.rs
+|   |   `-- rt
+|   |       `-- mod.rs
+|   `-- x64
+|       |-- address.rs
+|       |-- instructions
+|       |   `-- mod.rs
+|       |-- mod.rs
+|       |-- reg
+|       |   |-- mod.rs
+|       |   `-- rflags.rs
+|       `-- structures
+|           |-- mod.rs
+|           `-- port.rs
+|-- clock.rs
+|-- cmos.rs
+|-- ctypes.rs
+|-- data
+|   |-- json
+|   |   |-- mod.rs
+|   |   |-- parse.rs
+|   |   |-- parser
+|   |   |   |-- implementation.rs
+|   |   |   |-- mod.rs
+|   |   |   `-- traits.rs
+|   |   `-- traits.rs
+|   |-- mod.rs
+|   `-- ucs2
+|       `-- mod.rs
+|-- dev
+|   |-- drivers
+|   |   |-- mm_uart.rs
+|   |   |-- mod.rs
+|   |   |-- pic8259.rs
+|   |   `-- uart.rs
+|   |-- kbd
+|   |   `-- mod.rs
+|   |-- mod.rs
+|   `-- mouse.rs
+|-- external
+|   |-- compmem.rs
+|   |-- cpmem.rs
+|   |-- mod.rs
+|   |-- movemem.rs
+|   `-- setmem.rs
+|-- font.rs
+|-- fs
+|   |-- ata.rs
+|   |-- blk.rs
+|   |-- blkdev.rs
+|   |-- bmapblk.rs
+|   |-- dev.rs
+|   |-- directory.rs
+|   |-- directory_entry.rs
+|   |-- directory_read.rs
+|   |-- file.rs
+|   |-- mod.rs
+|   `-- sblk.rs
+|-- graphics
+|   |-- framebuff
+|   |   `-- mod.rs
+|   |-- mod.rs
+|   `-- vga
+|       |-- backupmod
+|       |-- mod.rs
+|       |-- pal.rs
+|       `-- std_color.rs
+|-- init.rs
+|-- interrupts.rs
+|-- io
+|   |-- mod.rs
+|   |-- stderr.rs
+|   |-- stdin.rs
+|   `-- stdout.rs
+|-- layoud
+|-- lib.rs
+|-- macros.rs
+|-- main.rs
+|-- math
+|   |-- float
+|   |   |-- absval.rs
+|   |   |-- arcsine.rs
+|   |   |-- ceiling.rs
+|   |   |-- cosine.rs
+|   |   |-- cpsign.rs
+|   |   |-- fl.rs
+|   |   |-- floor.rs
+|   |   |-- hypotenuse.rs
+|   |   |-- inv_cos.rs
+|   |   |-- inv_sqrt.rs
+|   |   |-- inv_tan.rs
+|   |   |-- invert.rs
+|   |   |-- ln.rs
+|   |   |-- log.rs
+|   |   |-- log_10.rs
+|   |   |-- log_2.rs
+|   |   |-- mod.rs
+|   |   |-- round.rs
+|   |   |-- sine.rs
+|   |   |-- sqrt.rs
+|   |   `-- tangent.rs
+|   |-- int
+|   |   |-- mod.rs
+|   |   `-- sr.rs
+|   |-- measurement
+|   |   |-- mod.rs
+|   |   `-- volt.rs
+|   |-- mod.rs
+|   `-- units
+|       |-- bparse.rs
+|       |-- bsize.rs
+|       `-- mod.rs
+|-- mem.rs
+|-- noblkio.rs
+|-- pic.rs
+|-- rgx.rs
+|-- ser.rs
+|-- sys
+|   |-- acpi.rs
+|   |-- boot
+|   |   |-- efi.rs
+|   |   |-- efi.rs.save
+|   |   |-- memmap.rs
+|   |   `-- mod.rs
+|   |-- console.rs
+|   |-- cpu.rs
+|   |-- gdt.rs
+|   |-- idt.rs
+|   |-- log.rs
+|   |-- mod.rs
+|   |-- pci.rs
+|   |-- proc.rs
+|   |-- prompt.rs
+|   |-- rand.rs
+|   |-- rsdp.rs
+|   `-- sc
+|       |-- mod.rs
+|       `-- svc.rs
+|-- task
+|   |-- exec.rs
+|   |-- kbd.rs
+|   |-- mod.rs
+|   |-- prompt.rs
+|   `-- simpexec.rs
+|-- time.rs
+|-- user
+|   |-- date.rs
+|   |-- mod.rs
+|   |-- shell.rs
+|   `-- ut.rs
+`-- vol.rs
+
+31 directories, 128 files

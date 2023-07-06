@@ -156,6 +156,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "embedded-dma"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "994f7e5b5cb23521c22304927195f236813053eb9c065dd2226a32ba64695446"
+dependencies = [
+ "stable_deref_trait",
+]
+
+[[package]]
 name = "embedded-graphics"
 version = "0.7.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -176,6 +185,16 @@ checksum = "b8b1239db5f3eeb7e33e35bd10bd014e7b2537b17e071f726a09351431337cfa"
 dependencies = [
  "az",
  "byteorder",
+]
+
+[[package]]
+name = "embedded-graphics-framebuf"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "03f348b2818ebb88be69cc505ee78c0d39e078ef608f8eea41eb90575435b375"
+dependencies = [
+ "embedded-dma",
+ "embedded-graphics",
 ]
 
 [[package]]
@@ -254,6 +273,7 @@ dependencies = [
  "conquer-once 0.2.1",
  "crossbeam-queue",
  "embedded-graphics",
+ "embedded-graphics-framebuf",
  "fat32",
  "futures-util",
  "lazy_static",
@@ -466,6 +486,12 @@ checksum = "75adad84ee84b521fb2cca2d4fd0f1dab1d8d026bda3c5bea4ca63b5f9f9293c"
 dependencies = [
  "lock_api",
 ]
+
+[[package]]
+name = "stable_deref_trait"
+version = "1.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a8f112729512f8e442d81f95a8a7ddf2b7c6b8a1a6f509a95864142b30cab2d3"
 
 [[package]]
 name = "tap"
