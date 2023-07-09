@@ -6,8 +6,6 @@
 #![allow(unused_variables)]
 #![feature(abi_x86_interrupt)]
 #![feature(alloc_error_handler)]
-#![feature(asm_sym)]
-#![feature(const_fn_fn_ptr_basics)]
 #![feature(const_mut_refs)]
 #![feature(core_intrinsics)]
 #![feature(custom_test_frameworks)]

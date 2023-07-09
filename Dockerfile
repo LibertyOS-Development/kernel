@@ -5,7 +5,7 @@ run apk add --no-cache musl-dev bash
 RUN adduser --disabled-password --gecos "" liberty
 USER liberty
 WORKDIR /home/liberty
-COPY . .
+COPY rust-toolchain.toml .
 
 RUN rustup target add x86_64-unknown-linux-gnu
 RUN rustup component add rust-src 
@@ -14,6 +14,7 @@ RUN cargo install bootimage
 RUN rustup default nightly
 RUN rustup update nightly
 
+COPY . .
 RUN cargo build
 
 RUN touch copy.sh
