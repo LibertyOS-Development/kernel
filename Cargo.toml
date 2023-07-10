@@ -8,7 +8,7 @@ keywords = ["no-std", "liberty", "libertyos", "os", "kernel"]
 name = "libertyos_kernel"
 readme = "README.md"
 repository = "https://github.com/LibertyOS-Development/kernel"
-version = "0.17.0"
+version = "0.17.1"
 
 [dependencies]
 acpi = "4.1.0"
