@@ -2,6 +2,16 @@ Version History
 
 # Version History
 
+## 0.17.2
+ - Added a documentation header for ctypes (src/ctypes.rs).
+ - Added documentation for ctypes (src/ctypes.rs).
+ - Created a directory for keeping track of ideas (ideas).
+ - Created a README for the ideas directory (ideas/README.md).
+ - Created a file that explains an idea for a build-system (ideas/build-system.md).
+ - Updated kernel version number (src/main.rs).
+ - Updated version number (Cargo.toml).
+
+
 ## 0.17.1
  - Created NEEDED.md (NEEDED.md).
  - Added a documentation header for the interrupts module (src/interrupts.rs).
