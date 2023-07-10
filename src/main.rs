@@ -36,7 +36,7 @@ fn kernel_main(bootinfo: &'static BootInfo) -> !
 
 
 	libertyos_kernel::init::start(bootinfo);
-	println!("LIBERTYOS v0.17.1");
+	println!("LIBERTYOS v0.17.2");
 	print!("\x1b[?25h");
 	println!();
 
