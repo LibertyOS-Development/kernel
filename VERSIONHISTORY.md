@@ -2,6 +2,12 @@ Version History
 
 # Version History
 
+## 0.17.1
+ - Created NEEDED.md (NEEDED.md).
+ - Added a documentation header for the interrupts module (src/interrupts.rs).
+ - Updated kernel version (src/main.rs).
+ - Updated version number (Cargo.toml).
+
 ## 0.17.0
  - Created data::json (src/data/json).
  - Created mod.rs file for data::son (src/data/json/mod.rs).

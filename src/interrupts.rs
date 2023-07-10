@@ -1,3 +1,7 @@
+// src/interrupts.rs
+//
+// Handles interrupts for the kernel.
+
 #![allow(dead_code)]
 
 use x86_64::structures::idt::{InterruptDescriptorTable, InterruptStackFrame};
