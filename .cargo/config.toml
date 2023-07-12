@@ -8,3 +8,6 @@ target = "x86_64-libertyos.json"
 
 [target.'cfg(target_os = "none")']
 runner = "bootimage runner"
+
+[registries.crates-io]
+protocol = "sparse"
