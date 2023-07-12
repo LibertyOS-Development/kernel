@@ -2,6 +2,10 @@ Version History
 
 # Version History
 
+## 0.17.3
+ - Added "better-error-messages" (ideas/better-error-messages.md).
+ - Added a section to the README to explain how people can contribute to the kernel's development (README.md).
+
 ## 0.17.2
  - Created the data::parser module (src/data/parse).
  - Created mod.rs for data::parse (src/data/parse/mod.rs).
