@@ -22,7 +22,7 @@ use embedded_graphics::{image::{Image, ImageRaw}, pixelcolor::BinaryColor, prelu
 use embedded_time::{duration::*, rate::*};
 use libertyos_kernel::{print, println, task::{Task, kbd, simpexec::SimpleExec, exec::Exec}, time::sleep};
 use tinybmp::Bmp;
-use vga::{ colors::{ Color16, TextModeColor }, writers::{ Graphics640x480x16, GraphicsWriter, ScreenCharacter, TextWriter, Text80x25} };
+use vga::{ colors::{ Color16, TextModeColor }, writers::{ Graphics640x480x16, GraphicsWriter, ScreenCharacter, TextWriter, Text80x25, PrimitiveDrawing} };
 
 entry_point!(kernel_main);
 
