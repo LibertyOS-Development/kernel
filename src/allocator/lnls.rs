@@ -53,7 +53,7 @@ impl LnLsAlloc
 	// Initialize allocator with specified heap bounds:
 	pub unsafe fn init(&mut self, heap_start: usize, heap_size: usize)
 	{
-		self.add_freergn(heap_start: usize, heap_size: usize)
+		self.add_freergn(heap_start, heap_size)
 	}
 
 	// Add specified memreg to front of the list:
