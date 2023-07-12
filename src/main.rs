@@ -1,6 +1,5 @@
 #![no_std]
 #![no_main]
-#![feature(abi_efiapi)]
 #![feature(custom_test_frameworks)]
 #![feature(type_ascription)]
 #![test_runner(libertyos_kernel::testexec)]
