@@ -2,6 +2,31 @@ Version History
 
 # Version History
 
+## 0.17.2
+ - Created the data::parser module (src/data/parse).
+ - Created mod.rs for data::parse (src/data/parse/mod.rs).
+ - Created the data::parse::json module (src/data/parse/json.rs).
+ - Created mod.rs file for data::parse (src/data/parse/mod.rs).
+ - Added the data::parse module to mod.rs (src/data/mod.rs).
+ - Added the data::parse::json module to mod.rs (src/data/parse/mod.rs).
+ - Commented out the data::parse::json module from mod.rs (src/data/parse/mod.rs).
+ - Added the #![allow(missing_fragment_specifier)] feature to the kernel (src/lib.rs).
+ - Added "consolidate-macros" (ideas/consolidate-macros.md).
+ - Added "consolidate-errors" (ideas/consolidate-errors.md).
+ - Updated kernel version (src/main.rs).
+ - Updated version number (Cargo.toml).
+
+## 0.17.1
+ - Added a documentation header for ctypes (src/ctypes.rs).
+ - Added documentation for ctypes (src/ctypes.rs).
+ - Created a directory for keeping track of ideas (ideas).
+ - Created a README for the ideas directory (ideas/README.md).
+ - Created a file that explains an idea for a build-system (ideas/build-system.md).
+ - Created NEEDED.md (NEEDED.md).
+ - Added a documentation header for the interrupts module (src/interrupts.rs).
+ - Updated kernel version (src/main.rs).
+ - Updated version number (Cargo.toml).
+
 ## 0.17.0
  - Created data::json (src/data/json).
  - Created mod.rs file for data::son (src/data/json/mod.rs).

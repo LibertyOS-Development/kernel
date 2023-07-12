@@ -6,8 +6,8 @@
 
 pub mod parser;
 
-
-pub mod parse;
+// Requires the paste! macro.
+//pub mod parse;
 pub mod traits;
 
 

@@ -19,10 +19,10 @@ extern crate alloc;
 use alloc::{boxed::Box, vec, vec::Vec, rc::Rc};
 use bootloader::{BootInfo, entry_point};
 use core::panic::PanicInfo;
-use embedded_graphics::{image::Image, mock_display::MockDisplay, pixelcolor::BinaryColor, prelude::*, primitives::{Line, PrimitiveStyle, Rectangle}};
-//use embedded_graphics_framebuf::FrameBuf;
+use embedded_graphics::{image::{Image, ImageRaw}, pixelcolor::BinaryColor, prelude::*};
+use embedded_time::{duration::*, rate::*};
 use libertyos_kernel::{print, println, task::{Task, kbd, simpexec::SimpleExec, exec::Exec}, time::sleep};
-use tinybmp::DynamicBmp;
+use tinybmp::Bmp;
 use vga::{ colors::{ Color16, TextModeColor }, writers::{ Graphics640x480x16, GraphicsWriter, ScreenCharacter, TextWriter, Text80x25} };
 
 entry_point!(kernel_main);
@@ -36,9 +36,25 @@ fn kernel_main(bootinfo: &'static BootInfo) -> !
 
 
 	libertyos_kernel::init::start(bootinfo);
-	println!("LIBERTYOS v0.16.1");
+	println!("LIBERTYOS v0.17.2");
 	print!("\x1b[?25h");
 	println!();
+
+
+	let text_mode = Text80x25::new();
+	let tmcolor = TextModeColor::new(Color16::Yellow, Color16::Black);
+
+	let graphics_mode = Graphics640x480x16::new();
+
+	graphics_mode.set_mode();
+	graphics_mode.clear_screen(Color16::Black);
+	graphics_mode.draw_line((80, 60), (80, 420), Color16::White);
+	graphics_mode.draw_line((80, 60), (540, 60), Color16::White);
+	graphics_mode.draw_line((80, 420), (540, 420), Color16::White);
+	graphics_mode.draw_line((540, 420), (540, 60), Color16::White);
+	graphics_mode.draw_line((80, 90), (540, 90), Color16::White);
+
+// While duration < 5 sec, display welcome screen. 
 
 	loop
 	{
@@ -48,31 +64,20 @@ fn kernel_main(bootinfo: &'static BootInfo) -> !
 			println!("{}{}", prompt, cmd);
 			libertyos_kernel::user::shell::exec(cmd);
 
-//			fn test_display() {};
-
 //			libertyos_kernel::sys::acpi::shutdown;
 		}
 	}
 }
 
 
-/*
-fn test_display()
-{
-	let mut data = [BinaryColor::Off; 12 * 11];
-	let mut fbuf = FrameBuf::new(&mut data, 12, 11);
-
-	let mut display: MockDisplay<BinaryColor> = MockDisplay::new();
-
-	Line::new(Point::new(2, 2), Point::new(10, 2))
-		.into_styled(PrimitiveStyle::with_stroke(BinaryColor::On, 2))
-		.draw(&mut fbuf)
-		.unwrap();
-
-	let area = Rectangle::new(Point::new(0, 0), fbuf.size());
-	display.fill_contiguous(&area, data).unwrap();
-}
-*/
+#[rustfmt::skip]
+const DATA: &[u8] = &[
+	0b11101111, 0b0101_0000,
+	0b10001000, 0b0101_0000,
+	0b11101011, 0b0101_0000,
+	0b10001001, 0b0101_0000,
+	0b11101111, 0b0101_0000,
+];
 
 /*
 fn display_logo<C>(data: &[u8], settings: &OutputSettings)

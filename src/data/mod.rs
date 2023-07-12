@@ -6,5 +6,9 @@
 // JSON
 pub mod json;
 
+
+// Parsers
+pub mod parse;
+
 // UCS-2
 pub mod ucs2;

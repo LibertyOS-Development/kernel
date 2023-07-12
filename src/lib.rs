@@ -1,6 +1,7 @@
 #![no_std]
 #![cfg_attr(test, no_main)]
 #![allow(dead_code)]
+#![allow(missing_fragment_specifier)]
 #![allow(named_asm_labels)]
 #![allow(unused_imports)]
 #![allow(unused_variables)]
