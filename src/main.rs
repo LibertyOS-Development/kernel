@@ -1,6 +1,5 @@
 #![no_std]
 #![no_main]
-#![feature(abi_efiapi)]
 #![feature(custom_test_frameworks)]
 #![feature(type_ascription)]
 #![test_runner(libertyos_kernel::testexec)]
@@ -36,7 +35,7 @@ fn kernel_main(bootinfo: &'static BootInfo) -> !
 
 
 	libertyos_kernel::init::start(bootinfo);
-	println!("LIBERTYOS v0.17.2");
+	println!("LIBERTYOS v0.17.3");
 	print!("\x1b[?25h");
 	println!();
 
