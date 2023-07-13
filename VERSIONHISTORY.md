@@ -2,6 +2,12 @@ Version History
 
 # Version History
 
+## 0.17.4
+ - Added a constant to keep track of the kernel's version number (src/main.rs).
+ - Commented out the TUI for now (src/main.rs).
+ - Modified the welcome message to display the kernel version, along with the new name of the kernel (src/main.rs).
+ - Updated the version number (Cargo.toml).
+
 ## 0.17.3
  - Added "better-error-messages" (ideas/better-error-messages.md).
  - Added a section to the README to explain how people can contribute to the kernel's development (README.md).
