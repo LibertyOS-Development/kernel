@@ -2,6 +2,9 @@ Version History
 
 # Version History
 
+## 0.17.5
+ - Added "new-std.md" (ideas/new-std.md).
+
 ## 0.17.4
  - Added a constant to keep track of the kernel's version number (src/main.rs).
  - Commented out the TUI for now (src/main.rs).
