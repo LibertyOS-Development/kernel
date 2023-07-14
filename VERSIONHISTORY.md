@@ -2,9 +2,33 @@ Version History
 
 # Version History
 
+## 0.17.5
+ - Added "new-std.md" (ideas/new-std.md).
+
+## 0.17.4
+ - Added a constant to keep track of the kernel's version number (src/main.rs).
+ - Commented out the TUI for now (src/main.rs).
+ - Modified the welcome message to display the kernel version, along with the new name of the kernel (src/main.rs).
+ - Updated the version number (Cargo.toml).
+
 ## 0.17.3
  - Added "better-error-messages" (ideas/better-error-messages.md).
  - Added a section to the README to explain how people can contribute to the kernel's development (README.md).
+ - Added the data::utf8 module (src/data/utf8).
+ - Created mod.rs (src/data/utf8/mod.rs).
+ - Added the data::utf8::types module (src/data/utf8/types.rs).
+ - Added data::utf8::types module to mod.rs (src/data/utf8/mod.rs).
+ - Added data::utf8 module to mod.rs (src/data/mod.rs).
+ - Added data::parse::utf8 module (src/data/parse/utf8.rs).
+ - Added data::parse::utf8 module to mod.rs (src/data/parse/mod.rs).
+ - Merged pull-request 5c65ff3.
+ 	- Updated Rust nightly version to 1.68.0(2023-01-21).
+ 	- Updated bootloader crate to v0.9.23 (Cargo.toml).
+ - Removed the "abi_efiapi" feature (src/main.rs).
+ - Removed the "asm_sym" feature (src/lib.rs).
+ - Removed the "const_fn_fn_ptr_basics" feature (src/lib.rs).
+ - Updated kernel version number (src/main.rs).
+ - Updated version number (Cargo.toml).
 
 ## 0.17.2
  - Created the data::parser module (src/data/parse).

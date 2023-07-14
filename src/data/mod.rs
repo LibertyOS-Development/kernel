@@ -12,3 +12,6 @@ pub mod parse;
 
 // UCS-2
 pub mod ucs2;
+
+// UTF-8
+pub mod utf8;

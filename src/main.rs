@@ -28,6 +28,8 @@ entry_point!(kernel_main);
 
 // KSIZE is set to about 2MB.
 pub const KSIZE: usize = 2 << 20;
+const KURIOS_VERSION: &str = env!("CARGO_PKG_VERSION");
+
 
 fn kernel_main(bootinfo: &'static BootInfo) -> !
 {
@@ -35,11 +37,11 @@ fn kernel_main(bootinfo: &'static BootInfo) -> !
 
 
 	libertyos_kernel::init::start(bootinfo);
-	println!("LIBERTYOS v0.17.2");
+	println!("KURIOS v{}", KURIOS_VERSION);
 	print!("\x1b[?25h");
 	println!();
 
-
+	/*
 	let text_mode = Text80x25::new();
 	let tmcolor = TextModeColor::new(Color16::Yellow, Color16::Black);
 
@@ -52,6 +54,7 @@ fn kernel_main(bootinfo: &'static BootInfo) -> !
 	graphics_mode.draw_line((80, 420), (540, 420), Color16::White);
 	graphics_mode.draw_line((540, 420), (540, 60), Color16::White);
 	graphics_mode.draw_line((80, 90), (540, 90), Color16::White);
+	*/
 
 // While duration < 5 sec, display welcome screen. 
 
