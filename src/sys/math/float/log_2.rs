@@ -3,7 +3,7 @@
 // Provides the kernel with the ability to calculate the logarithm of a single-precision float (base-2).
 
 use core::f32::consts::LOG2_E;
-use crate::math::float::fl::FL32;
+use crate::sys::math::float::fl::FL32;
 
 impl FL32
 {

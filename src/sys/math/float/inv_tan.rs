@@ -3,7 +3,7 @@
 // This module adds the ability to calculate the inverse tangent (arctangent) of floats.
 
 use core::f32::consts::FRAC_PI_2;
-use crate::math::float::fl::FL32;
+use crate::sys::math::float::fl::FL32;
 
 impl FL32
 {

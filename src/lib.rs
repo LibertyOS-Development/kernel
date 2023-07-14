@@ -30,9 +30,7 @@ pub mod external;
 pub mod fs;
 pub mod graphics;
 pub mod io;
-pub mod math;
 pub mod sys;
-pub mod task;
 pub mod user;
 
 

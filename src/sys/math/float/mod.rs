@@ -1,7 +1,7 @@
 // src/math/float/mod.rs
 //
 // This is the mod.rs file for the math::float module.
-
+// TODO: Add basic documentation for each module.
 
 pub mod absval;
 pub mod arcsine;

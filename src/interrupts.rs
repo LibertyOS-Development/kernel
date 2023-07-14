@@ -7,7 +7,7 @@
 use x86_64::structures::idt::{InterruptDescriptorTable, InterruptStackFrame};
 use lazy_static::lazy_static;
 use crate::{sys::gdt, print, println};
-use crate::{dev::drivers::pic8259::ChainPIC, task::kbd};
+use crate::{dev::drivers::pic8259::ChainPIC, sys::task::kbd};
 use spin;
 
 pub const PIC_1_OFFSET: u8 = 32;
@@ -84,7 +84,7 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stackframe: InterruptStack
 		port.read()
 	};
 
-	crate::task::kbd::add_scancode(scancode);
+	crate::sys::task::kbd::add_scancode(scancode);
 
 	unsafe
 	{

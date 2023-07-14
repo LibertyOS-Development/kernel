@@ -2,8 +2,20 @@ Version History
 
 # Version History
 
-## 0.17.5
+## 0.17.5 - Consolidating the kernel's modules
  - Added "new-std.md" (ideas/new-std.md).
+ - Moved the math module into the sys module (src/math).
+ - Removed the math module from lib.rs (src/lib.rs).
+ - Added the math module to mod.rs (src/sys/mod.rs).
+ - Updated import paths to reflect the changed location of the math module (src/math/float/*).
+ - Updated import path to reflect the changed location of the math module (src/math/measurement/mod.rs).
+ - Added a TODO message (src/math/float/mod.rs).
+ - Moved the task module into the sys module (src/task).
+ - Removed the task module from lib.rs (src/lib.rs).
+ - Updated import paths to reflect the changed location of the task module (src/interrupts.rs).
+ - Added the task module to mod.rs (src/sys/mod.rs).
+ - Updated import path to reflect the changed location of the task module (src/main.rs).
+ - Updated version number (Cargo.toml).
 
 ## 0.17.4
  - Added a constant to keep track of the kernel's version number (src/main.rs).
