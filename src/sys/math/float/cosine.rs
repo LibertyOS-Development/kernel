@@ -3,7 +3,7 @@
 // Core functionality of the "consine" mathematical function.
 
 use core::f32::consts::FRAC_1_PI;
-use crate::math::float::fl::FL32;
+use crate::sys::math::float::fl::FL32;
 
 impl FL32
 {

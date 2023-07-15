@@ -24,6 +24,9 @@ pub mod idt;
 // Logger
 pub mod log;
 
+// Math
+pub mod math;
+
 // PCI
 pub mod pci;
 
@@ -42,5 +45,6 @@ pub mod rsdp;
 // Syscalls
 pub mod sc;
 
-
+// Tasking
+pub mod task;
 

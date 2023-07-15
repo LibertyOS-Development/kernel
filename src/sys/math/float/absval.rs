@@ -2,7 +2,7 @@
 //
 // This module adds the ability to calculate the absolute value of a specific single-precision float.
 
-use crate::math::float::fl::{FL32, SIGN_M};
+use crate::sys::math::float::fl::{FL32, SIGN_M};
 
 impl FL32
 {

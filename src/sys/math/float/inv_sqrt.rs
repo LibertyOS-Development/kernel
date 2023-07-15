@@ -3,7 +3,7 @@
 // Calculate the inverted form of the square-root of a floating-point value.
 
 
-use crate::math::float::fl::FL32;
+use crate::sys::math::float::fl::FL32;
 
 
 impl FL32

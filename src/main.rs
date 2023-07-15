@@ -20,7 +20,7 @@ use bootloader::{BootInfo, entry_point};
 use core::panic::PanicInfo;
 use embedded_graphics::{image::{Image, ImageRaw}, pixelcolor::BinaryColor, prelude::*};
 use embedded_time::{duration::*, rate::*};
-use libertyos_kernel::{print, println, task::{Task, kbd, simpexec::SimpleExec, exec::Exec}, time::sleep};
+use libertyos_kernel::{print, println, sys::task::{Task, kbd, simpexec::SimpleExec, exec::Exec}, time::sleep};
 use tinybmp::Bmp;
 use vga::{ colors::{ Color16, TextModeColor }, writers::{ Graphics640x480x16, GraphicsWriter, ScreenCharacter, TextWriter, Text80x25, PrimitiveDrawing} };
 

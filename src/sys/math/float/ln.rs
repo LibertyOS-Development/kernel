@@ -2,7 +2,7 @@
 //
 // This module adds the ability to approximate the natural log of single-precision floats.
 
-use crate::math::float::fl::{EXP_M, FL32};
+use crate::sys::math::float::fl::{EXP_M, FL32};
 use core::f32::consts::LN_2;
 
 impl FL32

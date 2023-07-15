@@ -2,7 +2,7 @@
 //
 // This module adds the ability to calculate the hypotenuse of a given triangle.
 
-use crate::math::float::fl::FL32;
+use crate::sys::math::float::fl::FL32;
 
 impl FL32
 {
